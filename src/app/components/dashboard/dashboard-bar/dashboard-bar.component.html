@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 detail_pro_file align-center">
+      <div>
+        <img
+          src="assets/images/Group 111.png"
+          alt=""
+          href="javascript:void(0);"
+          class="account"
+          *ngIf="!isLoggedIn(); else userPic"
+        />
+        <ng-template #userPic>
+          <img
+            class="dp_72"
+            src="{{ userInfo.ProfilePicture || 'assets/images/Group 112.png' }}"
+            alt=""
+          />
+        </ng-template>
+      </div>
+      <div class="user-container">
+        <h1 class="user-name">
+          {{ userInfo.FirstName }} {{ userInfo.LastName }}
+        </h1>
+        <p *ngIf="userInfo.UserId" class="nam_46_user">
+          {{ userInfo.UserId }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid block32_to32_list">
+  <div class="lis_32_list flex justify-between">
+    <ul>
+      <li>
+        <a
+          href="javascript:void(0);"
+          [routerLink]="['/dashboard/activity']"
+          routerLinkActive="highlight_on_active"
+          >Activity</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:void(0);"
+          [routerLink]="['/dashboard/friends']"
+          routerLinkActive="highlight_on_active"
+          >Friends</a
+        >
+      </li>
+      <!-- <li>
+        <a
+          href="javascript:void(0);"
+          [routerLink]="['/dashboard/notes']"
+          routerLinkActive="highlight_on_active"
+          >Notes</a
+        >
+      </li>
+      <li><a href="javascript:void(0);">Highlights</a></li> -->
+    </ul>
+    <ul class="settings">
+      <li>
+        <a
+          href="javascript:void(0);"
+          [routerLink]="['/dashboard/settings']"
+          routerLinkActive="highlight_on_active"
+          >Settings</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<app-nav-bar></app-nav-bar>
+<div class="invite">
+  <div class="invite-header">
+    <div class="invite-header-con">
+      <img
+        src="assets/images/outline_arrow_back_black_24dp.png"
+        alt="arrow back"
+      />
+      <h2>When do you want to start this plan?</h2>
+    </div>
+  </div>
+  <div class="invite_body">
+    <div class="invite_body-con">
+      <img
+        src="{{ courseDetail?.CourseImage }}"
+        alt="{{ courseDetail?.CourseImageName }}"
+        class="courseImage"
+      />
+      <p>
+        Starting on a future date will give your Friends time to accept your
+        invitation.
+      </p>
+      <div class="calendar">
+        <ejs-calendar
+          [value]="selectedDate"
+          (change)="onDateSelect($event)"
+        ></ejs-calendar>
+      </div>
+    </div>
+  </div>
+  <div class="invite-footer">
+    <div class="invite-footer-con">
+      <div class="date">{{ dateString }}</div>
+      <button
+        (click)="saveCourse('invited', selectedDate)"
+        class="invite_ovthers"
+      >
+        Invite Friends
+      </button>
+    </div>
+  </div>
+</div>

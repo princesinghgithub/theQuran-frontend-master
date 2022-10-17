@@ -1,0 +1,49 @@
+{
+  "texts": {
+    "abrogatingSura": "Abrogating Surah",
+    "comments": "Comments",
+    "references": "References",
+    "contributor": "Contributor",
+    "change": "Change",
+    "differences": "Differences",
+    "differentReadings": "Different Readings",
+    "repetitions": "Repetitions",
+    "thisVerseIsRepeatedIn": "This verse is repeated in",
+    "relatedSuras": "Related Surahs",
+    "introduction": "Introduction",
+    "verse": "verses",
+    "allVerses": "all verses",
+    "allSurahs": "All Surahs",
+    "topics": "Topics",
+    "surahs": "surahs",
+    "all": "All",
+    "reletedVerses": "related verses",
+    "selectVersion": "select version",
+    "abrogation": "Abrogation",
+    "abrogations": "Abrogations",
+    "about": "About",
+    "abrogated": "Abrogated",
+    "verseHistory": "Verse History",
+    "abrogating": "Abrogating",
+    "articles": "Articles",
+    "selectLanguage": "Choose Language"
+  },
+  "errors": {
+    "email": {
+      "required": "required",
+      "invalidEmail": "invalidEmail",
+      "maxlength": "maxlength"
+    },
+    "password": {
+      "required": "required",
+      "maxlength": "maxlength"
+    }
+  },
+  "placeholders": {
+    "email": "email",
+    "password": "Password"
+  },
+  "notifications": {
+    "success": "success"
+  }
+}

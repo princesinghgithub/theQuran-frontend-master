@@ -1,0 +1,26 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+
+<div class="settings_page container flex">
+  <div class="side_tabs-container">
+    <app-side-settings></app-side-settings>
+  </div>
+
+  <div class="right_side-container">
+    <div class="right_side">
+      <div class="right_side-title">Delete Account</div>
+    </div>
+    <div class="edit_profile flex column">
+      <p class="edit_profile-info">
+        If you delete your account, you won't be able use all the features of
+        TheQuran.com. If you're certain you'd like to move forward, proceed
+        below.
+      </p>
+      <div class="btn_container">
+        <button (click)="deleteAccount()" class="start_pan_red45">
+          Delete My Account
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

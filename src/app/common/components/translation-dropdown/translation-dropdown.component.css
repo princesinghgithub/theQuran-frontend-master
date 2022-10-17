@@ -1,0 +1,14 @@
+@media screen and (max-width: 600px) {
+  .translation-click {
+    top: 100%;
+    opacity: 1;
+    visibility: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+
+  .arrow-down-click {
+    transform: rotate(180deg);
+  }
+}

@@ -1,0 +1,88 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="pageName"></app-course-header>
+<div
+  class="course_status"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll()"
+></div>
+<!-- <div class="sura-dropdown">
+  <button class="select">Select Language</button>
+  <ng-template #showSelectedSoora>
+    <button class="select">English</button>
+    <button class="select">Arabic</button>
+  </ng-template>
+  <div class="verse-content">
+    <ng-container>
+      <a href="javascript:void(0);" (click)="changeTranslation('English')">
+        English</a
+      >
+      <a href="javascript:void(0);" (click)="changeTranslation('Arabic')">
+        Arabic</a
+      >
+    </ng-container>
+  </div>
+</div> -->
+<div class="lang-dropdown">
+  <app-language-dropdown
+    (passTranslationParent)="changeTranslation($event)"
+  ></app-language-dropdown>
+</div>
+
+<div class="course-categories-container">
+  <div
+    class="course-categories"
+    *ngFor="let category of courseCategories | keyvalue; let i = index"
+  >
+    <h4 class="course-categories-title">{{ category.key }}</h4>
+    <div class="relative">
+      <div
+        (click)="scrollLeft(i)"
+        class="flex align-center left justify-center hover"
+      >
+        <i class="arrow arrow-left"></i>
+      </div>
+      <div
+        (click)="scrollRight(i)"
+        class="flex align-center right justify-center hover"
+      >
+        <i class="arrow arrow-right"></i>
+      </div>
+      <div id="category-{{ i }}" class="flex">
+        <div class="course" *ngFor="let course of category.value">
+          <img
+            [routerLink]="['/start-lesson', course.CourseId]"
+            class="course-categories-img hover"
+            [src]="course.CourseImage"
+            alt="{{ course.CourseImageName }}"
+          />
+          <a
+            [routerLink]="['/start-lesson', course.CourseId]"
+            class="course-title"
+          >
+            {{ course.CourseTitle }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-container *ngIf="courses.length > 0">
+  <ng-container *ngFor="let course of courses; let i = index">
+    <div
+      class="container course_contain_body"
+      [routerLink]="['/start-lesson', course.CourseId]"
+    >
+      <div class="course_contain_image">
+        <img src="{{ course.CourseImage }}" alt="" class="course_image_pic" />
+      </div>
+      <div class="course_contain_text">
+        <h3 class="course_contain_heading">
+          {{ course.CourseTitle }}
+        </h3>
+      </div>
+    </div>
+  </ng-container></ng-container -->
+<!-- > -->

@@ -1,0 +1,79 @@
+<app-nav-bar></app-nav-bar>
+<div class="nav_content-container">
+  <div class="nav_content">
+    <div class="nav_content-image">
+      <img height="40px" src="{{ courseImage }}" alt="{{ courseImageName }}" />
+    </div>
+
+    <div class="nav_chapter">
+      <div
+        [routerLink]="['/start-lesson', currentLesson.CourseId, 'sample']"
+        class="chapter-title hover"
+      >
+        {{ courseTitle }}
+      </div>
+      <div class="day-info">Day {{ routeParams.currentDay }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="page_for_readplan">
+  <a
+    href="javascript:void(0)"
+    (click)="getPreviousLesson()"
+    id="previous-arrow"
+    class="img-placeholder icon-56 chapter-arrow-previous"
+    title="Previous chapter"
+  ></a>
+
+  <div *ngIf="routeParams.referenceId" class="body_of_read_lesson">
+    <div [ngClass]="{ 'language-arabic': language?.RTL }" class="sura_wrapper">
+      <div class="sura12" *ngFor="let narration of quranNarration">
+        <span class="sura-number32">{{ narration.Verse }}</span>
+        <p class="sura-both312">{{ narration.Narration }}</p>
+      </div>
+    </div>
+    <!-- <div (click)="readFullChapter()" class="full_chapter button-main">
+      {{ fullChapter }}
+    </div> -->
+  </div>
+
+  <!-- <div *ngIf="!routeParams.reference" class="body_of_read_lesson message">
+    <div class="message">
+      <div class="message_header">
+        <h3 class="message_title">Message</h3>
+        <audio
+          *ngIf="currentLesson.CourseLessonAudio"
+          controls
+          src="{{ currentLesson.CourseLessonAudio }}"
+        ></audio>
+      </div>
+
+      <video
+        *ngIf="currentLesson.CourseLessonVideo"
+        class="message_video"
+        controls
+        src="{{ currentLesson.CourseLessonVideo }}"
+      ></video>
+    </div>
+    <article
+      class="message_article"
+      [innerHTML]="safeHTML(currentLesson.CourseLessonDescription)"
+    ></article>
+  </div> -->
+
+  <a
+    href="javascript:void(0)"
+    (click)="getNextLesson()"
+    id="next-arrow"
+    class="img-placeholder icon-56 chapter-arrow-next"
+    title="Next chapter"
+  ></a>
+  <!-- <a
+    href="javascript:void(0)"
+    (click)="getNextLesson()"
+    id="next-arrow"
+    class="img-placeholder icon-56 chapter-arrow-next"
+    title="Next chapter"
+  ></a> -->
+</div>

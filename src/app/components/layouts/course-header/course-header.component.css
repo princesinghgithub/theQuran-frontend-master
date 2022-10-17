@@ -1,0 +1,12 @@
+.btn_course {
+  padding: 7.5px 25px;
+}
+.current {
+  border-bottom: 2px #606060 solid;
+  color: #030303;
+  transition: 0.4s all;
+}
+
+.btn_course:hover {
+  color: #030303;
+}

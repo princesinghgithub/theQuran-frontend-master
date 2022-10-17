@@ -1,0 +1,17 @@
+.plan-opt {
+  margin-bottom: 20px;
+}
+.opt-btn {
+  padding: 7px 20px;
+  border-radius: 3px;
+}
+
+.opt-modal {
+  width: 100vw;
+  height: 90vh;
+  position: absolute;
+  background-color: white;
+  z-index: 4;
+  bottom: 0;
+  border-top-left-radius: 15px;
+}

@@ -1,0 +1,545 @@
+<app-nav-bar></app-nav-bar>
+<!----------download--------links-------------------->
+<!-- <div class="down_load_link45">
+  <div class="text_information">
+    <span class="text_info_topic">
+      Get a free mobile app for your phone,tablet and computer</span
+    >
+  </div>
+
+  <div class="link_45_btn">
+    <a href="javascript:void(0)" class="ios_link65">
+      <img src="assets/images/Group 6403.png" alt="icon" class="play_store65" />
+    </a>
+    <a href="javascript:void(0)" class="ios_link65">
+      <img src="assets/images/Group 6402.png" alt="icon" class="play_store65" />
+    </a>
+  </div>
+</div> -->
+<app-translation-dropdown style="display: none" (passTranslationParent)="changeTranslation($event)">
+</app-translation-dropdown>
+<!----body---part------------------------------------------------------->
+<div class="body_head_img54">
+  <div class="center_content65">
+    <div class="icon_center56">
+      <img src="assets/images/logo - white.png" alt="logo" class="lo65_bory65" />
+    </div>
+    <h5 class="welocme_note">Welcome to TheQuran.com</h5>
+    <p class="info_quran65">
+      Accurate information,Honest Sources,<br />
+      Different Opinions
+    </p>
+    <div class="btn_on_body flex justify-center">
+      <a href="javascript:void(0)" class="re_ad_btn65" routerLink="/read">
+        <img src="assets/images/book.png" alt="book" class="img76_ic98_btn" />
+        <span class="te56_xt76"> Read</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-------code-----for------content------part------->
+<div class="main_body_content65">
+  <div class="content_info_on_page65" *ngIf="!isLoggedIn()">
+    <div class="left_side_image657">
+      <img src="assets/images/Group 6394.png" alt="image" class="image_on54_body65" />
+    </div>
+    <div class="rig56_ht65_side">
+      <div class="first54_block67">
+        <h4 class="he_ad32_in65"></h4>
+        <ul class="flex column bulet-points">
+          <li class="con_tent67_detail">
+            Examine a variety of historical Arabic variant readings of the
+            Quran.
+          </li>
+          <br />
+          <li class="con_tent67_detail">
+            See abrogated verses alongside explanations within the text.
+          </li>
+          <br />
+          <li class="con_tent67_detail">
+            In-depth study and analysis about the history of the Quran.
+          </li>
+          <br />
+          <li class="con_tent67_detail">
+            Research many of the grammatical, historical, linguistic, and
+            scientific differences in the Quran.
+          </li>
+          <br />
+          <li class="con_tent67_detail">
+            Examine a variety of internal contradictions within the Quran.
+          </li>
+          <br />
+          <li class="con_tent67_detail">
+            A collection of topics according to the Quran, such as status of
+            women; treatment of people of other faith; Jihad; obeying Muhammad,
+            and much more.
+          </li>
+          <br />
+          <li class="con_tent67_detail">Free Lessons</li>
+        </ul>
+        <!-- <p class="con_tent67_detail">
+          • Examine a variety of historical Arabic variant readings of the
+          Quran.
+        </p>
+        <br />
+        <p class="con_tent67_detail">
+          • See abrogated verses alongside explanations within the text.
+        </p>
+        <br />
+        <p class="con_tent67_detail">
+          • In-depth study and analysis about the history of the Quran.
+        </p>
+        <br />
+        <p class="con_tent67_detail">
+          • Research many of the grammatical, historical, linguistic, and
+          scientific differences in the Quran.
+        </p>
+        <br />
+        <p class="con_tent67_detail">
+          • Examine a variety of internal contradictions within the Quran.
+        </p>
+        <br />
+        <p class="con_tent67_detail">
+          • A collection of topics according to the Quran, such as status of
+          women; treatment of people of other faith; Jihad; obeying Muhammad,
+          and much more.
+        </p>
+        <br />
+        <p class="con_tent67_detail">• Free Lessons</p> -->
+      </div>
+    </div>
+  </div>
+  <!----code----for----informatiom----part--------->
+  <div class="info_tyu76_hj65">
+    <div class="info76_on_page45">
+      <h3 class="hea98_di89_ng98">Information</h3>
+      <div class="deta67_op7_nju7">
+        <a href="javascript:void(0)" class="click_on_info87 abrogation" routerLink="/information/abrogations-list">
+          <div class="left65_img67">
+            <img src="assets/images/Group 6399.png" alt="logo" class="logo_verse_indicate" />
+          </div>
+          <div class="rig67_text43">
+            <h5 class="bold65_text98">Abrogations</h5>
+            <small class="light_text67">
+              {{ homePageData?.abbrogationCount }} verses</small>
+          </div>
+        </a>
+        <a href="javascript:void(0)" class="click_on_info87 different"
+          routerLink="/information/different-readings-list">
+          <div class="left65_img67">
+            <img src="assets/images/Group 6400.png" alt="logo" class="logo_verse_indicate" />
+          </div>
+          <div class="rig67_text43">
+            <h5 class="bold65_text98">Different Readings</h5>
+            <small class="light_text67">
+              {{ homePageData?.differentReadingsCount }} verses</small>
+          </div>
+        </a>
+      </div>
+      <div class="deta67_op7_nju7">
+        <a href="javascript:void(0)" class="click_on_info87 repetitions" routerLink="/information/repetitions-list">
+          <div class="left65_img67">
+            <img src="assets/images/Group 6398.png" alt="logo" class="logo_verse_indicate" />
+          </div>
+          <div class="rig67_text43">
+            <h5 class="bold65_text98">Repetitions</h5>
+            <small class="light_text67">
+              {{ homePageData?.repetitionCount }} verses</small>
+          </div>
+        </a>
+        <a href="javascript:void(0)" class="click_on_info87 differences" routerLink="/information/differences-list">
+          <div class="left65_img67">
+            <img src="assets/images/Group 6401.png" alt="logo" class="logo_verse_indicate" />
+          </div>
+          <div class="rig67_text43">
+            <h5 class="bold65_text98">Differences</h5>
+            <small class="light_text67">
+              {{ homePageData?.differencesCount }} verses</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!------course--------section-------------------------------->
+  <!-- <ng-container *ngIf="homePageData?.topics.length > 0"> -->
+    <!-- <h4 class="top65_ic665">Lessons</h4> -->
+    <!-- <div class="course65_sec65_ion">
+    <img src="assets/images/quran-book.jpg" alt="pic" class="cou_rse565_sect76">
+    <img src="assets/images/quran-book.jpg" alt="pic" class="cou_rse565_sect76">
+    <img src="assets/images/quran-book.jpg" alt="pic" class="cou_rse565_sect76">
+</div> -->
+    <!-- <carousel [itemsPerSlide]="courseCarousel.itemsPerSlide" [singleSlideOffset]="courseCarousel.singleSlideOffset"
+      [noWrap]="!courseCarousel.noWrap" [showIndicators]="false" [interval]="0">
+      <slide *ngFor="let course of homePageData?.courses">
+        <img class="hover" [routerLink]="['/start-lesson', course.CourseId]" [src]="course?.CourseImage"
+          alt="image slide" style="display: block; width: 100%" />
+        <div [routerLink]="['/start-lesson', course.CourseId]" class="hover carousel-caption">
+          <h4>{{ course?.CourseTitle }}</h4>
+        </div>
+      </slide>
+    </carousel>
+    <div class="btn_show_all">
+      <a href="" class="show_all_verse76" routerLink="/lessons">See all</a>
+    </div>
+  </ng-container> -->
+  <!---topics---------------------------------------------------------->
+
+  <!-- <ng-container *ngIf="homePageData?.courses.length > 0">
+    <h4 class="top65_ic665">Topics</h4>
+    <carousel [itemsPerSlide]="topicCarousel.itemsPerSlide" [singleSlideOffset]="topicCarousel.singleSlideOffset"
+      [noWrap]="!topicCarousel.noWrap" [showIndicators]="false" [interval]="0">
+      <slide class="hover" [routerLink]="['/information/topic-detail', topic.TopicId, '2']"
+        *ngFor="let topic of homePageData?.topics">
+        <img [src]="topicImageUrl + topic?.Topic.TopicImageName" alt="image slide"
+          style="display: block; width: 100%" />
+        <div class="carousel-caption">
+          <h4>{{ topic?.Topic.TopicNames[0].Name }}</h4>
+          <p>{{ topic?.TopicVereseCount }} verses</p>
+        </div>
+      </slide>
+    </carousel>
+    <div class="btn_show_all">
+      <a href="" class="show_all_verse76" routerLink="/information/topics-list">See all</a>
+    </div>
+  </ng-container> -->
+
+
+  <h4 _ngcontent-pgs-c63="" class="top65_ic665 ng-star-inserted">Topics</h4>
+  <!-- <carousel _ngcontent-pgs-c63="" class="ng-star-inserted">
+    <div tabindex="0" class="carousel slide">
+   
+      <div class="carousel-inner" style="display: flex;">
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted active" _nghost-pgs-c51=""
+          tabindex="0" aria-hidden="false" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item active"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/fatiha1-4ecf0992.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Al-Fatihah</h4>
+              <p _ngcontent-pgs-c63="">3 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item active ng-star-inserted" _nghost-pgs-c51=""
+          tabindex="0" aria-hidden="false" style="width: 33.3333%; order: 1;">
+          <div _ngcontent-pgs-c51="" class="item active"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/Hell-1-6c66e72e.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Hell</h4>
+              <p _ngcontent-pgs-c63="">226 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item active ng-star-inserted" _nghost-pgs-c51=""
+          tabindex="0" aria-hidden="false" style="width: 33.3333%; order: 2;">
+          <div _ngcontent-pgs-c51="" class="item active"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/paradise-1-e2206653.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Paradise</h4>
+              <p _ngcontent-pgs-c63="">27 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 2;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/abrogtion-1-bc7c8fc6.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Abrogation</h4>
+              <p _ngcontent-pgs-c63="">4 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/Question1-28d80d15.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Muhammad’s Forgetfulness</h4>
+              <p _ngcontent-pgs-c63="">4 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/Apostacy1-93c10768.png">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">apostasy</h4>
+              <p _ngcontent-pgs-c63="">5 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/TheHajj-1-b24a496d.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">the Hajj and the ‘Umra</h4>
+              <p _ngcontent-pgs-c63="">7 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/TORAH-3ba3c64e.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Torah</h4>
+              <p _ngcontent-pgs-c63="">28 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/Bible-1-034eaa8d.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">Gospel</h4>
+              <p _ngcontent-pgs-c63="">12 verses</p>
+            </div>
+          </div>
+        </slide>
+        <slide _ngcontent-pgs-c63="" class="hover item carousel-item ng-star-inserted" _nghost-pgs-c51="" tabindex="0"
+          aria-hidden="true" style="width: 33.3333%; order: 0;">
+          <div _ngcontent-pgs-c51="" class="item"><img _ngcontent-pgs-c63="" alt="image slide"
+              style="display: block; width: 100%;"
+              src="https://api.thequran.com/public/images/topic-uploads/TheFurqan-1-ed6e4db5.jpeg">
+            <div _ngcontent-pgs-c63="" class="carousel-caption">
+              <h4 _ngcontent-pgs-c63="">The Furqān</h4>
+              <p _ngcontent-pgs-c63="">7 verses</p>
+            </div>
+          </div>
+        </slide>
+           </div><a tabindex="0" role="button" class="left carousel-control carousel-control-prev ng-star-inserted"><span
+          aria-hidden="true" class="icon-prev carousel-control-prev-icon"></span>
+    
+      </a>
+    <a tabindex="0" role="button" class="right carousel-control carousel-control-next ng-star-inserted"><span
+          aria-hidden="true" class="icon-next carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+
+    </div>
+  </carousel> -->
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/fatiha1-4ecf0992.jpeg" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Al-Fatihah</h3>
+              <p>3 Verse</p>
+            </div>
+
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Hell-1-6c66e72e.jpeg" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Hell</h3>
+              <p>226 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/paradise-1-e2206653.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Paradise</h3>
+              <p>27 Verse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/fatiha1-4ecf0992.jpeg" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Hell</h3>
+              <p>226 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/paradise-1-e2206653.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Paradise</h3>
+              <p>27 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/abrogtion-1-bc7c8fc6.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Abrogation</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/paradise-1-e2206653.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Paradise</h3>
+              <p>27 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/abrogtion-1-bc7c8fc6.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Abrogation</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Question1-28d80d15.jpeg" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Mohammad's Forgetfullness</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/abrogtion-1-bc7c8fc6.jpeg"
+              class="card-img-top" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Abrogation</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Question1-28d80d15.jpeg" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Mohammad's Forgetfullness</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Apostacy1-93c10768.png" class="card-img-top"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h3> Appostasy</h3>
+              <p>4 Verse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Question1-28d80d15.jpeg" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> Mohammad's Forgetfullness</h3>
+                <p>4 Verse</p>
+              </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Apostacy1-93c10768.png" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> Appostasy</h3>
+                <p>5 Verse</p>
+              </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/TheHajj-1-b24a496d.jpeg" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> The hanji And the Umra</h3>
+                <p>7 Verse</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="cards-wrapper">
+          <div class="card" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/Apostacy1-93c10768.png" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> Appostasy</h3>
+                <p>5 Verse</p>
+              </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/TheHajj-1-b24a496d.jpeg" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> The hanji And the Umra</h3>
+                <p>7 Verse</p>
+              </div>
+          </div>
+          <div class="card d-none d-md-block" style="width: 33.33%;">
+            <img src="https://api.thequran.com/public/images/topic-uploads/TORAH-3ba3c64e.jpeg" class="card-img-top"
+              alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h3> Torah</h3>
+                <p>28 Verse</p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div _ngcontent-oyc-c63="" class="btn_show_all ng-star-inserted"><a _ngcontent-oyc-c63=""
+      href="/information/topics-list" routerlink="/information/topics-list" class="show_all_verse76">See all</a></div>
+
+  <div class="container-fluid footer_part_home">
+    <div class="row footer_part_text flex align-center">
+      <div class="col-sm-12 col-md-4 col-lg-4 footer_btm_text">
+        <!-- <p class="text_fotter">Lorem ipsum</p>
+        <p class="text_fotter">Lorem ipsum</p>
+        <p class="text_fotter">Lorem ipsum</p> -->
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 footer_btm_text">
+        <p class="text_fotter">@{{ year }}. thequran.com</p>
+        <!-- <p class="text_fotter">
+          Address:Lorem ipsum dolor sit amet consectetur
+        </p>
+        <p class="text_fotter">Contacts:1876 754-6526 Email:loremipsum.com</p>
+        <div class="socil_media_iconfotter">
+          <img src="assets/images/Group 6410.png" alt="" class="icon_fotter" />
+          <img src="assets/images/Group 6411.png" alt="" class="icon_fotter" />
+          <img src="assets/images/Group 6412.png" alt="" class="icon_fotter" />
+        </div> -->
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 footer_btm_text">
+        <a [routerLink]="['/terms-conditions']" class="text_fotter">
+          Terms & Conditions
+        </a>
+        <a [routerLink]="['/contact-us']" class="text_fotter"> Contact Us </a>
+        <!-- <p class="text_fotter">Privacy Policy</p> -->
+        <a class="text_fotter">All Rights Reserved</a>
+      </div>
+    </div>
+  </div>
+</div>

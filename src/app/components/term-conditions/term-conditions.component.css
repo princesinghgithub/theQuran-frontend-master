@@ -1,0 +1,39 @@
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-left: 40px;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+ul {
+  font-size: 18px;
+}
+
+article {
+  margin: 10px 0;
+}
+
+a {
+  color: blue;
+}
+
+@media screen and (max-width: 600px) {
+  ul {
+    margin-left: 20px;
+  }
+  .terms-condition23 {
+    max-width: 100%;
+    padding: 10px;
+  }
+  .terms-condation-content {
+    margin: 10px;
+  }
+}

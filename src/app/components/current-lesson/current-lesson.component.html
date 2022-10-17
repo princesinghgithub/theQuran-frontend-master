@@ -1,0 +1,135 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="'mycourses'"></app-course-header>
+<div class="container page_for_readplan">
+  <div class="body_of_my_lesson">
+    <div class="side_plan_share">
+      <div
+        [routerLink]="['/dashboard/my-lessons']"
+        [queryParams]="invited == 'true' && { invited: 'true' }"
+        class="reading_left hover"
+      >
+        <img src="assets/images/outline_arrow_back_black_24dp.png" alt="" />
+        <a href="javascript:void(0);" class="leftside_plan">Plans</a>
+      </div>
+      <div class="right_side_share">
+        <!-- <a href="javascript:void(0);" class="share_on_top">Share</a> -->
+        <div class="right_side-more relative">
+          <img
+            (click)="more()"
+            class="hover"
+            src="assets/images/outline_more_horiz_black_24dp.png"
+            alt="more"
+          />
+          <div
+            [ngClass]="{ transparent: !isMore }"
+            class="more_dropdown transparent"
+          >
+            <div (click)="cancelPlan()" class="dropdown_text hover">Cancel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="course">
+      <div class="course_image-container">
+        <img
+          src="{{ course.CourseImage }}"
+          alt="{{ course.CourseImageName }}"
+        />
+      </div>
+      <div class="course_title-container">
+        <h3>{{ course.CourseTitle }}</h3>
+      </div>
+      <div class="d-flex course_duration-container">
+        <div class="day" *ngFor="let period of timePeriod; index as i">
+          <div (click)="changeDay(i)" class="day-container hover">
+            <div class="day-number">{{ period.day }}</div>
+            <div class="day-date">
+              {{ period.currentMonth + " " + period.currentDay }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="invited-friends"></div> -->
+
+      <div class="course_plan-container">
+        <div class="main-container">
+          <div class="main-container-day">
+            Day {{ currentDay }} of {{ timePeriod.length }}
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="main-container-lessons">
+            <div
+              [ngClass]="currentDayMessageStatus"
+              class="main-container-lesson"
+            >
+              <div (click)="saveMessageStatus()" class="outer">
+                <div class="inner"></div>
+              </div>
+              <div class="lesson-name">
+                <a
+                  [routerLink]="['lesson/', currentDay, 'message']"
+                  [queryParams]="invited == 'true' && { invited: 'true' }"
+                  >Message</a
+                >
+              </div>
+            </div>
+            <ng-container
+              *ngFor="let lesson of currentLessons; let i = index"
+              class="lesson_refference-list"
+            >
+              <div
+                [ngClass]="lesson.status"
+                *ngIf="lesson.Soora"
+                class="main-container-lesson"
+              >
+                <div
+                  (click)="
+                    saveCourseReferenceStatus(
+                      lesson.CourseLessonReferenceId,
+                      lesson
+                    )
+                  "
+                  class="outer"
+                >
+                  <div class="inner"></div>
+                </div>
+                <div class="lesson-name">
+                  <a
+                    [routerLink]="['lesson/', currentDay, 'reference', i + 1]"
+                    [queryParams]="invited == 'true' && { invited: 'true' }"
+                    >{{
+                      textRtl
+                        ? lesson.Soora.SooraName
+                        : lesson.Soora.ArabicEnglishName
+                    }}
+                    ({{ lesson.VerseStart }}-{{ lesson.VerseEnd }})</a
+                  >
+                </div>
+              </div>
+            </ng-container>
+            <div class="main-container-lesson">
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+              <div class="lesson-name">
+                <a
+                  [routerLink]="['lesson/', currentDay, 'discussion']"
+                  [queryParams]="invited == 'true' && { invited: 'true' }"
+                  >Discussion</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-container">
+          <a
+            [routerLink]="['lesson/', currentDay, 'message']"
+            [queryParams]="invited == 'true' && { invited: 'true' }"
+            ><button class="start_pan_red45">Start Reading</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

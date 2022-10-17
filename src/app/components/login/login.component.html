@@ -1,0 +1,180 @@
+<app-nav-bar></app-nav-bar>
+<div class="container-fluid no-padding">
+  <div class="row signin_main65_page">
+    <div class="col-sm-12 col-md-6 col-lg-6 left56_side_sign">
+      <img
+        src="assets/images/Group 6406.png"
+        alt=""
+        class="signin_image_left"
+      />
+      <div class="center_small_img">
+        <img src="assets/images/logo - white.png" alt="" />
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 right56_side_sign">
+      <div class="right_side_signcon">
+        <h5 class="top_signin_indicator">
+          Don't have an account?
+          <a href="javascript:void(0)" routerLink="/signup" class="link_on_page"
+            >SIGN UP</a
+          >
+        </h5>
+      </div>
+      <div class="form_text_contain32">
+        <h5 class="he43_about_sign">Sign in to TheQuran.com</h5>
+        <div class="social_media_login">
+          <!-- <div class="common_design google_color">
+            <a
+              href="javascript:void(0)"
+              class="google_btn"
+              (click)="signInWithGoogle()"
+            >
+              <img
+                src="assets/images/Group 6410.png"
+                alt=""
+                class="google_icon"
+              />
+              Continue With Google
+            </a>
+          </div> -->
+
+          <!-- TODO SOCIAL MEDIA -->
+          <!--  <div class="common_design border_side">
+            <a href="javascript:void(0)" class="twitter_btn">
+              <img src="assets/images/Group 6411.png" alt="" class="google_icon"> Continue with Twitter
+            </a>
+          </div> -->
+
+          <!-- <div class="common_design border_side">
+            <a
+              href="javascript:void(0)"
+              class="facebok_btn"
+              (click)="signInWithFB()"
+            >
+              <img
+                src="assets/images/Group 6412.png"
+                alt=""
+                class="google_icon"
+              />
+              Continue with Facebook
+            </a>
+          </div>
+          <h6 class="option_another">OR</h6> -->
+
+          <div>
+            <form
+              class="sign-in12-form"
+              [formGroup]="loginForm"
+              (ngSubmit)="onSubmit()"
+            >
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  class="add_field"
+                  formControlName="Email"
+                  [ngClass]="{
+                    'is-invalid':
+                      loginForm.controls.Email.invalid &&
+                      (loginForm.controls.Email.touched ||
+                        loginForm.controls.Email.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    loginForm.controls.Email.invalid &&
+                    (loginForm.controls.Email.touched ||
+                      loginForm.controls.Email.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="loginForm.controls.Email.errors?.required"
+                    class="input-error"
+                  >
+                    Email is required
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="add_field"
+                  formControlName="Password"
+                  placeholder="Enter password"
+                  [ngClass]="{
+                    'is-invalid':
+                      loginForm.controls.Password.invalid &&
+                      (loginForm.controls.Password.touched ||
+                        loginForm.controls.Password.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    loginForm.controls.Password.invalid &&
+                    (loginForm.controls.Password.touched ||
+                      loginForm.controls.Password.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="loginForm.controls.Password.errors?.required"
+                    class="input-error"
+                  >
+                    Password is required
+                  </p>
+                </ng-container>
+              </div>
+              <div class="btn_bottom_sign">
+                <button type="submit" class="button_btm">Sign in</button>
+              </div>
+            </form>
+            <div class="flex extra-btn-container">
+              <a
+                (click)="openModal(template)"
+                href="javascript:void(0)"
+                class="link98_ano_ther"
+                >Forgot-Password?</a
+              >
+              <a
+                *ngIf="resendEmail"
+                (click)="resendVerificationEmail()"
+                href="javascript:void(0)"
+                class="link98_ano_ther"
+                >Resend Email?</a
+              >
+            </div>
+          </div>
+          <ng-template #template>
+            <div class="card input-card relative">
+              <img
+                class="modal-close hover"
+                (click)="modalRef?.hide()"
+                src="assets/images/close.svg"
+                alt="close"
+              />
+              <div class="card-top flex justify-between align-center">
+                <div class="card-input full-width">
+                  <input
+                    value="{{ resetEmail }}"
+                    (change)="saveEmailInput($event)"
+                    class="full-width"
+                    type="text"
+                    placeholder="Write your email here..."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="card-extend">
+              <div class="text-end">
+                <a
+                  (click)="resetPassword(); modalRef?.hide()"
+                  href="javascript:void(0);"
+                  >Reset</a
+                >
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.side_tabs {
+  &-title {
+    font-size: 21px;
+  }
+  ul {
+    margin-left: 0;
+    display: block;
+    li {
+      margin-bottom: 10px;
+      a {
+        &:hover {
+          color: rgb(65, 65, 65) !important;
+        }
+      }
+    }
+  }
+}

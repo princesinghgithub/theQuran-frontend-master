@@ -1,0 +1,18 @@
+<div class="find_cou_rse43">
+  <button
+    type="button"
+    class="btn_course"
+    [ngClass]="type == 'findcourses' ? '' : 'current'"
+    [routerLink]="['/dashboard/my-lessons']"
+  >
+    My Lessons
+  </button>
+  <button
+    class="btn_course"
+    type="button"
+    [ngClass]="type == 'mycourses' ? '' : 'current'"
+    [routerLink]="['/lessons']"
+  >
+    Find Lessons
+  </button>
+</div>

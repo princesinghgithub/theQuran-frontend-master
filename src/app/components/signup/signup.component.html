@@ -1,0 +1,288 @@
+<app-nav-bar></app-nav-bar>
+<!--  -->
+<div class="container-fluid no-padding">
+  <div class="row signin_main65_page">
+    <div class="col-sm-12 col-md-6 col-lg-6 left56_side_sign">
+      <img
+        src="assets/images/Group 6406.png"
+        alt=""
+        class="signin_image_left"
+      />
+      <div class="center_small_img">
+        <img src="assets/images/logo - white.png" alt="" />
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 right56_side_sign">
+      <div class="right_side_signcon">
+        <h5 class="top_signup_indicator">
+          Already have an account?
+          <a href="javascript:void(0)" routerLink="/login" class="link_on_page"
+            >SIGN IN</a
+          >
+        </h5>
+      </div>
+      <div class="form_text_contain32">
+        <h5 class="he43_about_sign">Sign up to TheQuran.com</h5>
+        <div class="social_media_login">
+          <!-- <div class="common_design google_color">
+            <a
+              href="javascript:void(0)"
+              class="google_btn"
+              (click)="signInWithGoogle()"
+            >
+              <img
+                src="assets/images/Group 6410.png"
+                alt=""
+                class="google_icon"
+              />
+              Continue With Google
+            </a>
+          </div> -->
+
+          <!-- <div class="common_design border_side">
+            <a href="javascript:void(0)" class="twitter_btn">
+              <img src="assets/images/Group 6411.png" alt="" class="google_icon"> Continue with Twitter
+            </a>
+          </div> -->
+
+          <!-- <div class="common_design border_side">
+            <a
+              href="javascript:void(0)"
+              class="facebok_btn"
+              (click)="signInWithFB()"
+            >
+              <img
+                src="assets/images/Group 6412.png"
+                alt=""
+                class="google_icon"
+              />
+              Continue with Facebook
+            </a>
+          </div>
+          <h6 class="option_another">OR</h6> -->
+          <div>
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  class="add_field"
+                  formControlName="FirstName"
+                  [ngClass]="{
+                    'is-invalid':
+                      signupForm.controls.FirstName.invalid &&
+                      (signupForm.controls.FirstName.touched ||
+                        signupForm.controls.FirstName.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    signupForm.controls.FirstName.invalid &&
+                    (signupForm.controls.FirstName.touched ||
+                      signupForm.controls.FirstName.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="signupForm.controls.FirstName.errors?.required"
+                    class="input-error"
+                  >
+                    First Name is required
+                  </p>
+                  <p
+                    *ngIf="
+                      signupForm.controls.FirstName.hasError('invalidName')
+                    "
+                    class="input-error"
+                  >
+                    Invalid First Name
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  class="add_field"
+                  formControlName="LastName"
+                  [ngClass]="{
+                    'is-invalid':
+                      signupForm.controls.LastName.invalid &&
+                      (signupForm.controls.LastName.touched ||
+                        signupForm.controls.LastName.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    signupForm.controls.LastName.invalid &&
+                    (signupForm.controls.LastName.touched ||
+                      signupForm.controls.LastName.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="signupForm.controls.LastName.errors?.required"
+                    class="input-error"
+                  >
+                    Last Name is required
+                  </p>
+                  <p
+                    *ngIf="signupForm.controls.LastName.hasError('invalidName')"
+                    class="input-error"
+                  >
+                    Invalid Last Name
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  class="add_field"
+                  formControlName="Email"
+                  [ngClass]="{
+                    'is-invalid':
+                      signupForm.controls.Email.invalid &&
+                      (signupForm.controls.Email.touched ||
+                        signupForm.controls.Email.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    signupForm.controls.Email.invalid &&
+                    (signupForm.controls.Email.touched ||
+                      signupForm.controls.Email.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="signupForm.controls.Email.errors?.required"
+                    class="input-error"
+                  >
+                    Email is required
+                  </p>
+                  <p
+                    *ngIf="signupForm.controls.Email.hasError('invalidEmail')"
+                    class="input-error"
+                  >
+                    Invalid email
+                  </p>
+                  <p
+                    *ngIf="
+                      signupForm.controls.Email.hasError('maxlength') &&
+                      !signupForm.controls.Email.hasError('invalidEmail')
+                    "
+                    class="input-error"
+                  >
+                    Email maxlength is 40.
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  class="add_field"
+                  placeholder="Enter password"
+                  formControlName="Password"
+                  [ngClass]="{
+                    'is-invalid':
+                      signupForm.controls.Password.invalid &&
+                      (signupForm.controls.Password.touched ||
+                        signupForm.controls.Password.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    signupForm.controls.Password.invalid &&
+                    (signupForm.controls.Password.touched ||
+                      signupForm.controls.Password.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="signupForm.controls.Password.errors?.required"
+                    class="input-error"
+                  >
+                    Password is required
+                  </p>
+                  <p
+                    *ngIf="
+                      signupForm.controls.Password.hasError('invalidPassword')
+                    "
+                    class="input-error"
+                  >
+                    Invalid Password(Password must be 8-20 alphanumeric
+                    characters, must contain uppercase ,lowercase, special
+                    character.)
+                  </p>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="add_field"
+                  placeholder="Confirm Password"
+                  formControlName="ConfirmPassword"
+                  [ngClass]="{
+                    'is-invalid':
+                      signupForm.controls.ConfirmPassword.invalid &&
+                      (signupForm.controls.ConfirmPassword.touched ||
+                        signupForm.controls.ConfirmPassword.dirty)
+                  }"
+                />
+                <ng-container
+                  *ngIf="
+                    signupForm.controls.ConfirmPassword.invalid &&
+                    (signupForm.controls.ConfirmPassword.touched ||
+                      signupForm.controls.ConfirmPassword.dirty)
+                  "
+                >
+                  <p
+                    *ngIf="signupForm.controls.ConfirmPassword.errors?.required"
+                    class="input-error"
+                  >
+                    Confirm Password is required
+                  </p>
+                  <p
+                    *ngIf="
+                      signupForm.controls.ConfirmPassword.hasError(
+                        'confirmedValidator'
+                      )
+                    "
+                    class="input-error"
+                  >
+                    Passwords do not match.
+                  </p>
+                </ng-container>
+              </div>
+              <input
+                value="false"
+                formControlName="Agree"
+                [ngClass]="{
+                  'is-invalid':
+                    signupForm.controls.Agree.invalid &&
+                    (signupForm.controls.Agree.touched ||
+                      signupForm.controls.Agree.dirty)
+                }"
+                type="checkbox"
+                id="ask_question"
+              />
+              <label for="ask_question" class="for_checkbox"
+                ><span class="btm_text76"
+                  >Creating an account means you're okay with</span
+                ><br />
+                our
+                <a href="javascript:void(0)" routerLink="/terms-conditions">
+                  Terms and Conditions</a
+                >
+              </label>
+              <p *ngIf="signupForm.controls.Agree.errors" class="input-error">
+                Please agree to our Terms and Conditions.
+              </p>
+              <div class="btn_bottom_sign">
+                <button type="submit" class="button_btm">Sign up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

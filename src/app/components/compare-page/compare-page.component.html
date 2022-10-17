@@ -1,0 +1,742 @@
+<app-nav-bar></app-nav-bar>
+
+<section class="page-container">
+  <div class="banner-image">
+    <div class="container banner-content-container">
+      <div class="banner-content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="dropdown q-filter">
+              <p (click)="showDropdown('lang')" href="#" class="filter-title">
+                <span style="font-weight: bold">Read / Compare</span>
+                <img
+                  src="assets/images/arrow_down.png"
+                  class="icon-20 arrow-down"
+                  [ngClass]="dropdownLang ? 'rotate' : ''"
+                />
+              </p>
+              <div
+                [ngClass]="dropdownLang ? 'show-dropdown' : 'hide-dropdown'"
+                class="dropdown-content select-translation"
+              >
+                <!-- <div class="dropdown-block">
+                                    <h4>recently used</h4>
+                                    <ul class="recently-used-version">
+                                        <li>
+                                            <div class="cb">
+                                                <label for="v1">Version name</label>
+                                                <input type="checkbox" name="translation" id="v1">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="cb">
+                                                <label for="v2">Version name</label>
+                                                <input type="checkbox" name="translation" id="v2">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="cb">
+                                                <label for="v3">Version name</label>
+                                                <input type="checkbox" name="translation" id="v3">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="cb">
+                                                <label for="v4">Version name</label>
+                                                <input type="checkbox" name="translation" id="v4">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="cb">
+                                                <label for="v5">Version name</label>
+                                                <input type="checkbox" name="translation" id="v5">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                <div class="chapters">
+                  <div
+                    class="chapter"
+                    *ngFor="let sooraVerseData of sooraVerseDataArray"
+                  >
+                    <a
+                      class="chapter-title"
+                      (click)="changeChapter(sooraVerseData)"
+                      ><span
+                        >{{ sooraVerseData.Soora.SooraId }}.{{
+                          sooraVerseData.Soora.SooraName
+                        }}, {{ sooraVerseData.Soora.ArabicEnglishName }}</span
+                      >
+                    </a>
+                  </div>
+                </div>
+
+                <div class="dropdown-block">
+                  <h4 class="dropdown_title-select">select version</h4>
+
+                  <ul class="select-version">
+                    <accordion
+                      class="select-version-accordion"
+                      [isAnimated]="true"
+                      [closeOthers]="true"
+                    >
+                      <accordion-group
+                        class="language_container"
+                        #group
+                        *ngFor="
+                          let translationData of translationDataArray;
+                          let li = index
+                        "
+                      >
+                        <div accordion-heading class="collapsed">
+                          <li class="language">
+                            <a class="language-title"
+                              ><span>{{ translationData.Language }}</span>
+                              <button
+                                class="img-placeholder icon-16 {{
+                                  group.isOpen ? 'disable' : null
+                                }}"
+                              >
+                                <img src="assets/images/acc_expand.png" />
+                              </button>
+                              <button
+                                class="img-placeholder icon-16 accordionIconMinus {{
+                                  !group.isOpen ? 'disable' : null
+                                }}"
+                              >
+                                <img src="assets/images/acc_collapse.png" />
+                              </button>
+                            </a>
+                          </li>
+                        </div>
+                        <!-- <p [innerHtml]="faqData.content"></p> -->
+                        <ul class="language-q-version">
+                          <ng-container
+                            *ngFor="
+                              let translationVersion of translationData.Translations
+                            "
+                          >
+                            <li>
+                              <div class="cb">
+                                <!-- <h5>{{ translationVersion.Translation }}</h5> -->
+                                <label
+                                  for="v-{{ translationVersion.TranslationId }}"
+                                  >{{
+                                    translationVersion.Translation | slice: 3
+                                  }}</label
+                                >
+                                <input
+                                  type="checkbox"
+                                  name="translation"
+                                  (change)="
+                                    addTranslationVersion(
+                                      $event,
+                                      translationVersion
+                                    )
+                                  "
+                                  id="v-{{ translationVersion.TranslationId }}"
+                                />
+                              </div>
+
+                              <!-- <input type="radio" value="translationVersion.TranslationId" (click)="getQuranTranslatedDetails(translationVersion)" name="q-version-name"> -->
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </accordion-group>
+                    </accordion>
+                  </ul>
+
+                  <div class="verse-range">
+                    <h4>Enter verse range For:</h4>
+                    <p>{{ currentQuran ? chapterTitle : " " }}</p>
+                    <form
+                      [formGroup]="compareSuraForm"
+                      (ngSubmit)="
+                        getCurrentChapter(tempSooraId, verseStart, verseEnd);
+                        onSubmitcompareVerses(tempSooraId, verseStart, verseEnd)
+                      "
+                    >
+                      <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4col-lg-4">
+                          <div>
+                            <label>From:</label>
+                            <input
+                              (change)="changeVerseLimit('from', $event)"
+                              type="text"
+                              [ngModel]="verseStart"
+                              formControlName="verseStart"
+                              placeholder="{{ verseStart }}"
+                              id="verseStart"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                          <div>
+                            <label style="margin-right: 4px">to:</label>
+                            <input
+                              (change)="changeVerseLimit('to', $event)"
+                              type="text"
+                              [ngModel]="verseEnd"
+                              formControlName="verseEnd"
+                              id="verseEnd"
+                              placeholder="{{ verseEnd }}"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="col-xs-4 col-sm-4 col-md-4 col-lg-4 submit-container"
+                        >
+                          <div>
+                            <input
+                              type="submit"
+                              value="{{
+                                translationCompareVersionArr.length > 0
+                                  ? 'Submit'
+                                  : 'Read'
+                              }}"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <span style="color: white">Step 2</span>
+            <div class="dropdown q-filter">
+              <p (click)="showDropdown('soora')" href="#" class="filter-title">
+                <span style="font-weight: bold"> Select Sura and Verse</span>
+                <img
+                  src="assets/images/arrow_down.png"
+                  class="icon-20 arrow-down"
+                  [ngClass]="dropdownSura ? 'rotate' : ''"
+                />
+              </p>
+              <div
+                [ngClass]="dropdownSura ? 'show-dropdown' : 'hide-dropdown'"
+                class="dropdown-content"
+              >
+                <ul class="chapter-list">
+                  <li class="chapter">
+                    <accordion [isAnimated]="true" [closeOthers]="true">
+                      <accordion-group
+                        #group
+                        [isOpen]="false"
+                        *ngFor="let sooraVerseData of sooraVerseDataArray"
+                      >
+                        <div accordion-heading class="collapsed">
+                          <a class="chapter-title"
+                            ><span
+                              >{{ sooraVerseData.Soora.SooraId }}.{{
+                                sooraVerseData.Soora.ArabicEnglishName
+                              }}</span
+                            >
+
+                            <button
+                              class="img-placeholder icon-16 {{
+                                group.isOpen ? 'disable' : null
+                              }}"
+                            >
+                              <img src="assets/images/acc_expand.png" />
+                            </button>
+                            <button
+                              class="img-placeholder icon-16 accordionIconMinus {{
+                                !group.isOpen ? 'disable' : null
+                              }}"
+                            >
+                              <img src="assets/images/acc_collapse.png" />
+                            </button>
+                          </a>
+                        </div>
+
+                        <ul class="chapter-verse">
+                          <ng-container
+                            *ngFor="
+                              let verseData of [].constructor(
+                                sooraVerseData.Soora.VerseCount
+                              );
+                              let i = index
+                            "
+                          >
+                            <li>
+                              <button
+                                id="verseId-{{ i + 1 }}"
+
+                              >
+                                {{ i + 1 }}
+                              </button>
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </accordion-group>
+                    </accordion>
+                  </li>
+                </ul>
+
+                <div class="verse-range">
+                  <h4>Enter verse range For:</h4>
+                  <p>{{ currentQuran ? chapterTitle : " " }}</p>
+                  <form
+                    [formGroup]="compareSuraForm"
+                    (ngSubmit)="
+                      isOpenChange(true, this.currentQuran2, false);
+                      onSubmitcompareVerses(currentQuran.SooraId, verseStart, verseEnd)
+                    "
+                  >
+                    <div class="row">
+                      <div class="col-xs-4 col-sm-4 col-md-4col-lg-4">
+                        <div>
+                          <label>From:</label>
+                          <input
+                          (change)="changeVerseLimit('from',$event)"
+                            type="text"
+                            formControlName="verseStart"
+                            placeholder="{{ verseStart }}"
+                            id="verseStart"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4col-lg-4">
+                        <div>
+                          <label>to:</label>
+                          <input
+                          (change)="changeVerseLimit('to',$event)"
+                            type="text"
+                            formControlName="verseEnd"
+                            id="verseEnd"
+                            placeholder="{{ verseEnd }}"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4col-lg-4">
+                        <div>
+                          <input type="submit" value="Submit" />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="web-sec">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3"
+        id="shift-to-left"
+      >
+        <div class="read" dir="{{ textDir }}">
+          <a
+            href="javascript:void(0)"
+            (click)="getQuranPreviousChapter(currentQuran)"
+            id="previous-arrow"
+            class="img-placeholder icon-56 chapter-arrow-previous"
+            title="Previous chapter"
+          ></a>
+          <a
+            href="javascript:void(0)"
+            (click)="getQuranNextChapter(currentQuran)"
+            id="next-arrow"
+            class="img-placeholder icon-56 chapter-arrow-next"
+            title="Next chapter"
+          ></a>
+          <!-- {{arabicSooraTitle}} -->
+          <ng-container *ngIf="currentQuran">
+            <div class="read-chapter-title">
+              <h1 id="read-chapter-title">
+                {{
+                  currentQuran.Translation.LanguageId != 1
+                    ? currentQuran.Soora.SooraId.toString()
+                        .concat(".")
+                        .toString()
+                        .concat(currentQuran.Soora.ArabicEnglishName)
+                    : ""
+                }}
+              </h1>
+              <h1 id="read-chapter-title">
+                {{
+                  currentQuran.Translation.LanguageId == 1
+                    ? currentQuran.Soora.SooraId.toString()
+                        .concat(".")
+                        .toString()
+                        .concat(currentQuran.Soora.SooraName)
+                    : ""
+                }}
+              </h1>
+            </div>
+          </ng-container>
+
+          <ng-container
+            *ngIf="
+              translationCompareVersionArr.length > 0 && submitted == true;
+              then compareVerses;
+              else readVerses
+            "
+          >
+          </ng-container>
+          <ng-template #compareVerses>
+            <div class="comparing-with">
+              <p
+                *ngIf="
+                  translationCompareVersionArr.length > 0 && submitted == true
+                "
+              >
+                Comparing:
+                <span
+                  *ngFor="
+                    let translationCompareVersion of translationCompareVersionArr;
+                    let i = index
+                  "
+                  >{{ translationCompareVersion.translationName
+                  }}<img
+                    src="assets/images/close.svg"
+                    (click)="
+                      removeCompareTranslation(
+                        translationCompareVersion.translationId
+                      )
+                    "
+                /></span>
+                <!-- <span>Arabic<img src="images/close.svg" /></span>
+                <span>Pickthal<img src="images/close.svg" /></span> -->
+              </p>
+            </div>
+
+            <div class="sura-wrapper" *ngIf="compareNarrationData.length > 0">
+              <ng-container
+                *ngFor="let sooraNarrationData of compareNarrationData"
+              >
+                <h4>{{ sooraNarrationData.Translation.Translation }}</h4>
+                <div class="search-results">
+                  <ng-container
+                    *ngIf="
+                      sooraNarrationData.Translation.Translation.includes(
+                        'AR-'
+                      );
+                      else englishTranslation
+                    "
+                  >
+                    <div dir="rtl" class="sura sura-arabic">
+                      <span
+                        class="sura-number"
+                        id="verse-{{ sooraNarrationData.Verse }}"
+                        >{{ sooraNarrationData.Verse }}</span
+                      >
+                      <ng-container
+                        *ngIf="
+                          sooraNarrationData.VerseBackground ||
+                          sooraNarrationData.AbrogatedVerses.length > 0 ||
+                          sooraNarrationData.RepetitionsSooraverses.length >
+                            0 ||
+                          sooraNarrationData.Errors.length > 0 ||
+                          sooraNarrationData.Readings.length > 0
+                        "
+                      >
+                        <ul (click)="openSideIssuesNav(sooraNarrationData)" class="sura-add-on">
+                          <li>
+                            <figure
+                              class="issues-indicator"
+                              [ngClass]="
+                                (sooraNarrationData.AbrogatedVerses.length >
+                                  0 &&
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0 &&
+                                  sooraNarrationData.Errors.length > 0) ||
+                                (sooraNarrationData.RepetitionsSooraverses
+                                  .length > 0 &&
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0 &&
+                                  sooraNarrationData.Readings.length > 0) ||
+                                (sooraNarrationData.AbrogatedVerses.length >
+                                  0 &&
+                                  sooraNarrationData.Errors.length > 0 &&
+                                  sooraNarrationData.Readings.length > 0)
+                                  ? 'three-issues'
+                                  : ''
+                              "
+                            >
+                              <span
+                                *ngIf="
+                                  sooraNarrationData.AbrogatedVerses.length > 0
+                                "
+                                class="issue-dot-abr"
+                              ></span>
+                              <span
+                                *ngIf="
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0
+                                "
+                                class="issue-dot-repetition"
+                              ></span>
+                              <span
+                                *ngIf="sooraNarrationData.Errors.length > 0"
+                                class="issue-dot-differences"
+                              ></span>
+                              <span
+                                *ngIf="sooraNarrationData.Readings.length > 0"
+                                class="issue-dot-different-readings"
+                              ></span>
+                            </figure>
+                          </li>
+                          <li>
+                            <img
+                              *ngIf="sooraNarrationData.VerseBackground"
+                              src="assets/images/sura_history_22.svg"
+                              class="sura-info"
+                            />
+                          </li>
+                        </ul>
+                      </ng-container>
+
+                      <p
+
+                        [ngClass]="{
+                          'sura-both': sooraNarrationData.VerseBackground,
+                          'sura-one':
+                            !sooraNarrationData.VerseBackground &&
+                            (sooraNarrationData.AbrogatedVerses.length > 0 ||
+                              sooraNarrationData.RepetitionsSooraverses.length >
+                                0 ||
+                              sooraNarrationData.Errors.length > 0 ||
+                              sooraNarrationData.Readings.length > 0)
+                        }"
+                      >
+                        {{ sooraNarrationData.Narration }}
+                      </p>
+                    </div>
+                  </ng-container>
+                  <ng-template #englishTranslation>
+                    <div dir="ltr" class="sura">
+                      <span
+                        class="sura-number"
+                        id="verse-{{ sooraNarrationData.Verse }}"
+                        >{{ sooraNarrationData.Verse }}</span
+                      >
+                      <ng-container
+                        *ngIf="
+                          sooraNarrationData.VerseBackground ||
+                          sooraNarrationData.AbrogatedVerses.length > 0 ||
+                          sooraNarrationData.RepetitionsSooraverses.length >
+                            0 ||
+                          sooraNarrationData.Errors.length > 0 ||
+                          sooraNarrationData.Readings.length > 0
+                        "
+                      >
+                        <ul (click)="openSideIssuesNav(sooraNarrationData)" class="sura-add-on">
+                          <li>
+                            <figure
+                              class="issues-indicator"
+                              [ngClass]="
+                                (sooraNarrationData.AbrogatedVerses.length >
+                                  0 &&
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0 &&
+                                  sooraNarrationData.Errors.length > 0) ||
+                                (sooraNarrationData.RepetitionsSooraverses
+                                  .length > 0 &&
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0 &&
+                                  sooraNarrationData.Readings.length > 0) ||
+                                (sooraNarrationData.AbrogatedVerses.length >
+                                  0 &&
+                                  sooraNarrationData.Errors.length > 0 &&
+                                  sooraNarrationData.Readings.length > 0)
+                                  ? 'three-issues'
+                                  : ''
+                              "
+                            >
+                              <span
+                                *ngIf="
+                                  sooraNarrationData.AbrogatedVerses.length > 0
+                                "
+                                class="issue-dot-abr"
+                              ></span>
+                              <span
+                                *ngIf="
+                                  sooraNarrationData.RepetitionsSooraverses
+                                    .length > 0
+                                "
+                                class="issue-dot-repetition"
+                              ></span>
+                              <span
+                                *ngIf="sooraNarrationData.Errors.length > 0"
+                                class="issue-dot-differences"
+                              ></span>
+                              <span
+                                *ngIf="sooraNarrationData.Readings.length > 0"
+                                class="issue-dot-different-readings"
+                              ></span>
+                            </figure>
+                          </li>
+                          <li>
+                            <img
+                              *ngIf="sooraNarrationData.VerseBackground"
+                              src="assets/images/sura_history_22.svg"
+                              class="sura-info"
+                            />
+                          </li>
+                        </ul>
+                      </ng-container>
+
+                      <p
+                        [ngClass]="{
+                          'sura-both': sooraNarrationData.VerseBackground,
+                          'sura-one':
+                            !sooraNarrationData.VerseBackground &&
+                            (sooraNarrationData.AbrogatedVerses.length > 0 ||
+                              sooraNarrationData.RepetitionsSooraverses.length >
+                                0 ||
+                              sooraNarrationData.Errors.length > 0 ||
+                              sooraNarrationData.Readings.length > 0)
+                        }"
+                      >
+                        {{ sooraNarrationData.Narration }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+              </ng-container>
+
+              <!-- <div class="sura">
+                                <span class="sura-number">289</span>
+                                <img src="assets/images/verse_issues_1.png" class="sura-issues">
+                                <img src="assets/images/sura_info.svg" class="sura-info">
+                                <p class="sura-both">And when it is said to them, ‘Believe as other men believe,’ they say,
+                                ‘Shall we believe as fools believe?’ Are not they themselves the fools?
+                                and yet they do not know.</p>
+                            </div> -->
+            </div>
+          </ng-template>
+          <ng-template #readVerses>
+            <div class="sura-wrapper">
+              <ng-container
+                *ngFor="let sooraNarrationData of sooraNarrationDataArray"
+              >
+                <div class="search-results">
+                  <div
+                    (click)="openSideIssuesNav(sooraNarrationData)"
+                    class="sura12 flex"
+                    [ngClass]="
+                      sooraNarrationData.Translation.Translation.includes('AR-')
+                        ? 'language-arabic'
+                        : ''
+                    "
+                  >
+                    <span
+                      class="sura-number32 hover"
+                      id="verse-{{ sooraNarrationData.Verse }}"
+                      >{{ sooraNarrationData.Verse }}</span
+                    >
+                    <ng-container
+                      *ngIf="
+                        sooraNarrationData.VerseBackground ||
+                        sooraNarrationData.AbrogatedVerses.length > 0 ||
+                        sooraNarrationData.RepetitionsSooraverses.length > 0 ||
+                        sooraNarrationData.Errors.length > 0 ||
+                        sooraNarrationData.Readings.length > 0
+                      "
+                    >
+                      <ul class="sura-add-on45">
+                        <li>
+                          <figure
+                            class="issues-indicator"
+                            [ngClass]="
+                              (sooraNarrationData.AbrogatedVerses.length > 0 &&
+                                sooraNarrationData.RepetitionsSooraverses
+                                  .length > 0 &&
+                                sooraNarrationData.Errors.length > 0) ||
+                              (sooraNarrationData.RepetitionsSooraverses
+                                .length > 0 &&
+                                sooraNarrationData.RepetitionsSooraverses
+                                  .length > 0 &&
+                                sooraNarrationData.Readings.length > 0) ||
+                              (sooraNarrationData.AbrogatedVerses.length > 0 &&
+                                sooraNarrationData.Errors.length > 0 &&
+                                sooraNarrationData.Readings.length > 0)
+                                ? 'three-issues'
+                                : ''
+                            "
+                          >
+                            <span
+                              *ngIf="
+                                sooraNarrationData.AbrogatedVerses.length > 0
+                              "
+                              class="issue-dot-abr"
+                            ></span>
+                            <span
+                              *ngIf="
+                                sooraNarrationData.RepetitionsSooraverses
+                                  .length > 0
+                              "
+                              class="issue-dot-repetition"
+                            ></span>
+                            <span
+                              *ngIf="sooraNarrationData.Errors.length > 0"
+                              class="issue-dot-differences"
+                            ></span>
+                            <span
+                              *ngIf="sooraNarrationData.Readings.length > 0"
+                              class="issue-dot-different-readings"
+                            ></span>
+                          </figure>
+                        </li>
+                        <li>
+                          <img
+                            *ngIf="sooraNarrationData.VerseBackground"
+                            src="assets/images/sura_history_22.svg"
+                            class="sura-info"
+                          />
+                        </li>
+                      </ul>
+                    </ng-container>
+
+                    <p
+                      class="hover sura-both312"
+                      [ngClass]="{
+                        'sura-both': sooraNarrationData.VerseBackground,
+                        'sura-one':
+                          !sooraNarrationData.VerseBackground &&
+                          (sooraNarrationData.AbrogatedVerses.length > 0 ||
+                            sooraNarrationData.RepetitionsSooraverses.length >
+                              0 ||
+                            sooraNarrationData.Errors.length > 0 ||
+                            sooraNarrationData.Readings.length > 0)
+                      }"
+                    >
+                      {{ sooraNarrationData.Narration }}
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- <div class="sura">
+                              <span class="sura-number">289</span>
+                              <img src="assets/images/verse_issues_1.png" class="sura-issues">
+                              <img src="assets/images/sura_info.svg" class="sura-info">
+                              <p class="sura-both">And when it is said to them, ‘Believe as other men believe,’ they say,
+                              ‘Shall we believe as fools believe?’ Are not they themselves the fools?
+                              and yet they do not know.</p>
+                          </div> -->
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-verse-abbrogated-side-nav
+    (closeSideNavEvent)="closeSideIssuesNav($event)"
+    *ngIf="showSideIssuesNav"
+    [verseNarrationData]="verseAbbrogatedData"
+  ></app-verse-abbrogated-side-nav>
+</section>

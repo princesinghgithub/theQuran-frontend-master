@@ -1,0 +1,270 @@
+<app-nav-bar></app-nav-bar>
+<div class="nav_content-container">
+  <div class="nav_content-con flex relative justify-between">
+    <div class="nav_content">
+      <div class="nav_content-image">
+        <img
+          height="40px"
+          src="{{ course.CourseImage }}"
+          alt="{{ course.CourseImageName }}"
+        />
+      </div>
+
+      <div class="nav_chapter">
+        <div
+          [routerLink]="[
+            '/dashboard/my-lessons/read/user/',
+            courseUserId,
+            'course',
+            course.CourseId
+          ]"
+          class="chapter-title hover"
+        >
+          {{ course.CourseTitle }}
+        </div>
+        <div class="day-info">Day {{ routeParams.lesson }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page_for_readplan">
+  <a
+    (click)="prevLesson()"
+    href="javascript:void(0)"
+    id="previous-arrow"
+    class="img-placeholder icon-56 chapter-arrow-previous"
+    title="Previous chapter"
+  ></a>
+
+  <div class="body_of_read_lesson">
+    <div class="discussions">
+      <ng-container *ngFor="let comment of lessonComments">
+        <div [dir]="comment.Direction || 'ltr'" class="card-container">
+          <div class="card">
+            <div class="card-top flex justify-between align-center">
+              <div class="card-top-profile flex align-center">
+                <div class="profile-border">
+                  <img
+                    (click)="getLessonComments()"
+                    *ngIf="!comment.User.ProfilePicture"
+                    src="assets/images/profile.svg"
+                    alt="profile-avtar"
+                  />
+                  <img
+                    class="profile_small"
+                    *ngIf="comment.User.ProfilePicture"
+                    [src]="comment.User.ProfilePicture"
+                    alt="{{ comment.User.FirstName }}"
+                  />
+                </div>
+
+                <div class="card-profile-name">
+                  {{ comment.User.FirstName }} {{ comment.User.LastName }}
+                </div>
+              </div>
+              <div class="card-top-time">{{ comment.createdAt | dateAgo }}</div>
+            </div>
+            <div class="card-text">{{ comment.CommentDescription }}</div>
+            <div class="card-bottom flex justify-between align-center">
+              <div class="hearticon-container">
+                <svg
+                  (click)="likeComment(comment.LessonCommentId)"
+                  class="hearticon hover"
+                  viewBox="0 0 24 20"
+                  width="20"
+                  height="20"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <g
+                      class="heart-default"
+                      transform="translate(-530.000000, -131.000000)"
+                      fill="none"
+                    >
+                      <g transform="translate(530.000000, 131.000000)">
+                        <path
+                          [ngClass]="
+                            isLiked(comment.CommentLikes)
+                              ? 'heart-liked'
+                              : 'heart-default'
+                          "
+                          d="M13.6872441,1.69434689 L11.9999153,3.38920428 L10.3132642,1.69434689 C8.06349247,-0.564782297 4.41642282,-0.564782297 2.16732877,1.69434689 C-0.0824429232,3.95347608 -0.0824429232,7.61681844 2.16732877,9.87662829 L11.9999153,19.7530864 L21.8331795,9.87662829 C24.0822735,7.6174991 24.0822735,3.95347608 21.8331795,1.69434689 C19.5834078,-0.564782297 15.9370158,-0.564782297 13.6872441,1.69434689 Z"
+                        ></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <div
+                *ngIf="comment.UserId === userData.Id"
+                class="comment-menu relative"
+              >
+                <div class="comment-action">
+                  <a (click)="openModal(template)" href="javascript:void(0)"
+                    >Edit</a
+                  >
+                  <a
+                    (click)="deleteComment(comment.LessonCommentId)"
+                    href="javascript:void(0)"
+                    >Delete</a
+                  >
+                </div>
+                <svg
+                  class="comment-menu-icon hover"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    stroke="none"
+                    fill="#444444"
+                    d="M 6,14 C 4.9,14 4,13.1 4,12 4,10.9 4.9,10 6,10 7.1,10 8,10.9 8,12 8,13.1 7.1,14 6,14 Z M 12,14 C 10.9,14 10,13.1 10,12 10,10.9 10.9,10 12,10 13.1,10 14,10.9 14,12 14,13.1 13.1,14 12,14 Z M 18,14 C 16.9,14 16,13.1 16,12 16,10.9 16.9,10 18,10 19.1,10 20,10.9 20,12 20,13.1 19.1,14 18,14 Z M 18,14"
+                  ></path>
+                </svg>
+              </div>
+
+              <ng-template #template>
+                <div [dir]="direction" class="card input-card relative">
+                  <img
+                    class="modal-close hover"
+                    (click)="modalRef?.hide()"
+                    src="assets/images/close.svg"
+                    alt="close"
+                  />
+                  <div class="card-top flex justify-between align-center">
+                    <div class="card-top-profile flex align-center full-width">
+                      <div class="profile-border">
+                        <img src="assets/images/profile.svg" alt="" />
+                      </div>
+
+                      <div class="card-input full-width">
+                        <input
+                          value="{{
+                            !editComment
+                              ? comment.CommentDescription
+                              : editComment
+                          }}"
+                          (change)="saveEditComment($event)"
+                          class="full-width"
+                          type="text"
+                          placeholder="Write something here..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-extend">
+                  <div class="text-end">
+                    <a
+                      (click)="
+                        updateLessonComment(
+                          comment.LessonCommentId,
+                          editComment
+                        );
+                        modalRef?.hide()
+                      "
+                      href="javascript:void(0);"
+                      >Post</a
+                    >
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div
+            *ngIf="comment.CommentLikes.length > 0"
+            class="card-extend flex align-center justify-between"
+          >
+            <ng-container>
+              <div class="comment_icon">
+                <div class="comment_small_pic flex">
+                  <div
+                    class="test"
+                    *ngFor="
+                      let like of comment.CommentLikes | slice: 0:4;
+                      let i = index
+                    "
+                  >
+                    <img
+                      [src]="
+                        like.User.ProfilePicture ||
+                        'assets/images/Group 110.png'
+                      "
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <p
+                  class="counting_sura"
+                  *ngIf="checkMoreAvailable(comment.CommentLikes.length)"
+                >
+                  +{{ comment.CommentLikes.length - 4 }} more
+                </p>
+              </div>
+            </ng-container>
+            <div class="like-count">
+              <a href="javascript:void(0);"
+                >{{ comment.CommentLikes.length }} likes</a
+              >
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div [dir]="direction" class="card input-card">
+      <div class="card-top flex justify-between align-center">
+        <div class="card-top-profile flex align-center full-width">
+          <div class="profile-border">
+            <img src="assets/images/profile.svg" alt="" />
+          </div>
+
+          <div class="card-input full-width">
+            <input
+              value="{{ comment }}"
+              (change)="saveComment($event)"
+              class="full-width"
+              type="text"
+              placeholder="Write something here..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [dir]="direction" class="card-extend">
+      <div class="flex justify-between align-center">
+        <div class="flex align-center">
+          <div class="switch-title">switch direction</div>
+          <div class="switch-dir">
+            <div class="toggle-con">
+              <input
+                (change)="changeDirection($event)"
+                type="checkbox"
+                id="switch"
+              /><label for="switch"></label>
+            </div>
+          </div>
+        </div>
+        <a (click)="postComment()" href="javascript:void(0);">Post</a>
+      </div>
+    </div>
+  </div>
+
+  <a
+    (click)="nextLesson()"
+    href="javascript:void(0)"
+    id="next-arrow"
+    class="img-placeholder icon-56 chapter-arrow-next"
+    title="Next chapter"
+  ></a>
+</div>

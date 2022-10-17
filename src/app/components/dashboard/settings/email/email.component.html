@@ -1,0 +1,38 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+
+<div class="settings_page container flex">
+  <div class="side_tabs-container">
+    <app-side-settings></app-side-settings>
+  </div>
+
+  <div class="right_side-container">
+    <div class="right_side">
+      <div class="right_side-title">Change Email Address</div>
+    </div>
+    <div class="edit_profile flex column">
+      <p class="edit_profile-info">
+        Enter a new email address and click Update Email. We'll send you a link
+        to confirm your new email address.
+      </p>
+      <form [formGroup]="editEmailForm" (ngSubmit)="submitEmailChange()">
+        <input
+          formControlName="Email"
+          class="input_container"
+          value="{{ allUserData.Email }}"
+          type="email"
+          placeholder="email"
+        />
+        <div class="btn_container">
+          <button
+            [disabled]="!editEmailForm.valid"
+            type="submit"
+            class="start_pan_red45"
+          >
+            Update Profile
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

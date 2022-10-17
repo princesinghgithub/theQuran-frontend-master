@@ -1,0 +1,106 @@
+.search-results {
+  .search-title {
+    font-size: 23px;
+    font-weight: 600;
+    margin: 20px 0;
+    padding: 0 1rem;
+  }
+  .search_pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .results-container {
+    margin-top: 4rem;
+    gap: 15px;
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+    }
+    .result-tabs {
+      flex: 1;
+      padding: 0 1rem;
+      .fixed-tabs {
+        position: sticky;
+        top: 31px;
+        @media screen and (max-width: 600px) {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(100px, 3fr));
+        }
+        .tab {
+          border-bottom: 1px solid #edefef;
+          padding: 0 0 5px;
+          font-size: 14px;
+          font-weight: normal;
+          margin: 0 0 10px 0;
+          &-link {
+            padding-left: 4px;
+            font-size: 16px;
+          }
+          &-selected {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .current-results {
+      flex: 4;
+      padding: 0 1rem;
+      .language-select {
+        margin-bottom: 2rem;
+      }
+      .narration-container,
+      .topics-container,
+      .article-container,
+      .courses-container {
+        padding: 20px;
+        margin: 0 0 10px;
+        border: solid 1px #edefef;
+        border-radius: 5px;
+        .narration,
+        .topic-comment,
+        .article-comment,
+        .courses-comment {
+          font-size: 16px;
+        }
+        .narration-info,
+        .topics-info,
+        .article-info,
+        .course-info {
+          .narration-link,
+          .topics-link,
+          .article-link,
+          .course-link {
+            color: #ff8065;
+          }
+        }
+      }
+
+      .topics-container,
+      .article-container,
+      .course-container {
+        .topic-body,
+        .article-body,
+        .course-body {
+          height: 100%;
+          gap: 15px;
+          flex-wrap: wrap;
+
+          .course-img-container {
+            img {
+              height: 110px;
+              width: 200px;
+              max-width: none;
+              object-fit: cover;
+              @media screen and (max-width: 600px) {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            @media screen and (max-width: 600px) {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

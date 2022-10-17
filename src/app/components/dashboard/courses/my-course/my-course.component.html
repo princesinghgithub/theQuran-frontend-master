@@ -1,0 +1,139 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="pageName"></app-course-header>
+<div
+  class="course_status"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll()"
+>
+  <!-- <a href="javascript:void(0);" class="save_course"> Saved Lessons</a>
+  <a href="javascript:void(0);" class="complete_course"> Completed Lessons</a> -->
+</div>
+<ng-container *ngIf="myCourses.length > 0">
+  <ng-container *ngFor="let myCourse of myCourses; let i = index">
+    <div class="container course_contain_body">
+      <div class="course_contain_image">
+        <img
+          src="{{ myCourse?.Course?.CourseImage }}"
+          alt=""
+          class="course_image_pic"
+        />
+      </div>
+      <div class="course_contain_text">
+        <a
+          [ngClass]="
+            myCourse.inviteFrom && !myCourse.isAccepted ? 'pending' : ''
+          "
+          [routerLink]="[
+            'read/user/',
+            myCourse?.UserId,
+            'course',
+            myCourse?.CourseId
+          ]"
+          [queryParams]="myCourse.inviteFrom && { invited: 'true' }"
+        >
+          <h3 class="course_contain_heading">
+            {{ myCourse?.Course?.CourseTitle }}
+          </h3>
+        </a>
+
+        <ng-container *ngIf="myCourse?.UserInvitedCourses?.length > 0">
+          <div class="user_icon_add23">
+            <div class="user_small_pic">
+              <img
+                [src]="
+                  myCourse.User.ProfilePicture || 'assets/images/Group 110.png'
+                "
+                alt=""
+                class="add_indicator_pic1"
+                [ngClass]="{ profile_small: myCourse.User.ProfilePicture }"
+              />
+              <ng-container
+                *ngFor="
+                  let user of myCourse?.UserInvitedCourses | slice: 0:6;
+                  let i = index
+                "
+              >
+                <img
+                  [ngStyle]="{
+                    transform: 'translateX(' + (i + 1) * -20 + 'px)'
+                  }"
+                  [src]="
+                    user.Users[0].ProfilePicture ||
+                    'assets/images/Group 110.png'
+                  "
+                  alt=""
+                  class="add_indicator_pic1"
+                  [ngClass]="{ profile_small: user.Users[0].ProfilePicture }"
+                />
+              </ng-container>
+            </div>
+            <p
+              class="counting_sura"
+              *ngIf="checkMoreAvailable(myCourse?.UserInvitedCourses?.length)"
+            >
+              +{{ myCourse?.UserInvitedCourses?.length - 6 }} more
+            </p>
+          </div>
+        </ng-container>
+        <p class="star_3day" *ngIf="checkDate(myCourse?.SelectedStartDate)">
+          Starts in {{ myCourse?.SelectedStartDate | dateLeft }}({{
+            myCourse?.SelectedStartDate | date
+          }})
+        </p>
+        <progressbar
+          *ngIf="!checkDate(myCourse?.SelectedStartDate)"
+          [value]="
+            getProgressBarValue(
+              myCourse?.Course?.CourseLessons?.length,
+              myCourse?.UserCourseLessonCompletions?.length
+            )
+          "
+          type="success"
+          [max]="100"
+        ></progressbar>
+
+        <div
+          class="flex gap10"
+          *ngIf="myCourse.inviteFrom && !myCourse.isAccepted"
+        >
+          <div
+            (click)="acceptCourseInvite(myCourse.userInvitedCourseId)"
+            class="hover"
+          >
+            Accept Invitation
+          </div>
+          <div
+            (click)="declineInvitation(myCourse.userInvitedCourseId)"
+            class="hover"
+          >
+            Decline
+          </div>
+        </div>
+
+        <!-- <button
+          class="invite_ovthers"
+          type="button"
+          *ngIf="myCourse?.UserInvitedCourses?.length === 0"
+        >
+          Invite Others
+        </button> -->
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<!-- <h2>Please add a lesson.</h2> -->
+
+<!-- TODO WHEN THERE ARE NO LESSON THE PLAN-OPT SECTION APPEARS ON TOP. SO I NEED TO MOVE THIS SECTION TO BOTTOM -->
+<div class="container">
+  <div class="flex plan-opt justify-between">
+    <div routerLink="saved" class="start_pan_red45 hover opt-btn">
+      Saved Lessons
+    </div>
+    <div routerLink="completed" class="start_pan_red45 hover opt-btn">
+      Completed Lessons
+    </div>
+  </div>
+</div>

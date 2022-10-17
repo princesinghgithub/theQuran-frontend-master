@@ -1,0 +1,50 @@
+<app-nav-bar></app-nav-bar>
+<section
+  class="container standalone"
+  [ngClass]="{ 'arabic-language': arabicClass }"
+>
+  <div
+    class="container content"
+    *ngIf="checkObjectEmpty(verseBackgroundDetail)"
+  >
+    <div class="difference-head-top">
+      <div class="difference-head">
+        <h1>
+          {{ verseBackgroundDetail.SooraId }}.{{
+            arabicClass
+              ? verseBackgroundDetail.Soora.SooraName
+              : verseBackgroundDetail.Soora.ArabicEnglishName
+          }}
+        </h1>
+      </div>
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+    <div>
+      <p class="upper-section-para">
+        <span class="count-difference"> {{ verseBackgroundDetail.Verse }}</span>
+        {{ verseBackgroundDetail.Narration.Narration }}
+      </p>
+    </div>
+    <div class="content-standalone">
+      <div class="sub-block verse-history">
+        <div class="verse-history-title">
+          <h4 class="">
+            <img src="assets/images/sura_history_20.svg" />{{
+              "verseHistory" | translate
+            }}
+          </h4>
+        </div>
+        <div class="verse-body" *ngIf="this.authorList.length > 0">
+          <p [innerHtml]="safeHTML(this.authorList[0].Comment.Comment)"></p>
+        </div>
+      </div>
+      <!-- <app-contributor-section
+        [arabicClass]="arabicClass"
+        [authorList]="authorList"
+      ></app-contributor-section> -->
+    </div>
+  </div>
+</section>

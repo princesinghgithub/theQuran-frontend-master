@@ -1,0 +1,120 @@
+<!-- <section>
+<nav class="navbar navbar-expand-sm navbar-light border-bottom">
+        <div class=" navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link " href="#"><img
+                            src="https://img.icons8.com/external-bearicons-glyph-bearicons/64/000000/external-User-essential-collection-bearicons-glyph-bearicons.png"
+                            width="30px" /></a>
+                </li>
+                <form class="form-inline my-2 my-lg-0">
+                  <span class="form-img"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"/></span><input class="form-control mr-sm-2" type="search" placeholder="Search Bible.com" aria-label="Search"
+                      style="width: 461px;padding: 10px; padding: 23px; background-color: #edefef;   " >
+              </form>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="modal" data-target="#exampleModalCenter" href="#"><img
+                            src="https://img.icons8.com/pastel-glyph/64/000000/globe.png" width="30px" /></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">اپلی کیشن حاصل</a>
+                </li>
+            
+              
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#">ویڈیو</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">منصوبہ</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">بائبل <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+        </div>
+        <a class="navbar-brand" href="#"><img src="https://img.icons8.com/ios/50/000000/user--v1.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+</nav>
+
+</section> -->
+
+
+
+<section>
+    <nav class="navbar navbar-expand-sm navbar-light border-bottom">
+
+        <div class=" navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link navbar-brand" href=""><i class="fa fa-user" style="font-size:30px; color: white;padding-left: 8px;"></i></a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link  " (click)="openDialog()"><i class="fa fa-globe" style="font-size:30px; padding-left: 8px;"></i></a>
+          </li>
+              <form class="form-inline my-2 my-lg-0">
+                <i class="fa fa-search "></i>
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" >
+               
+                </form>
+          </ul>
+         
+          <ul class=" ml-auto navbar-nav nav-justified w-100 text-center">
+            <li class="nav-item">
+              <a href="#" class="nav-link d-flex flex-column">
+                <i class="fa fa-exclamation" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">کے بارے میں</span>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="#" class="nav-link d-flex flex-column">
+              <i class="fa fa-desktop" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+              <span class="d-none d-sm-inline">شراکت</span>
+          </a>
+        </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link d-flex flex-column">
+                <i class="fa fa-user" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">سبق</span>
+            </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link d-flex flex-column">
+                <i class="fa fa-hashtag" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">موضوع</span>
+            </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link d-flex flex-column">
+                <i class="fa fa-exclamation" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">معلومات</span>
+            </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link d-flex flex-column" data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="fa fa-book" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">پڑھیں</span>
+            </a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link d-flex flex-column active" (click)="openDialog()">
+                <i class="fa fa-home" style="font-size:22px; color:black;padding-left: 8px;margin-bottom: 5px;"></i>
+                <span class="d-none d-sm-inline">گھر</span>
+            </a>
+            </li>
+           
+         
+          </ul>
+       
+        </div>
+        <a class="" href="#"><img src="assets\images\Group 5.png" alt="" srcset="" width="40px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+   
+      <router-outlet></router-outlet>
+</section>

@@ -1,0 +1,78 @@
+.modal {
+  .start_lesson_modal {
+    width: 350px;
+    .modal-content {
+      width: 100%;
+      position: absolute;
+      top: 72px;
+      left: 72%;
+      .click_start_plan54 {
+        h3 {
+          text-align: center;
+          border-bottom: 1px solid #d4d4d4;
+          padding: 0px 30px 15px 30px;
+        }
+        .lesson_approach {
+          &:hover {
+            background-color: #f4f4f4;
+          }
+          border-bottom: 1px solid #f4f4f4;
+          padding: 20px 20px 20px 20px;
+          cursor: pointer;
+          h4 {
+            font-weight: 700;
+          }
+        }
+        .close {
+          justify-content: center;
+          display: flex;
+          width: 100%;
+          padding: 10px;
+          color: #f75a57;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .second {
+    background: rgba(0, 0, 0, 0.3);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    .modal-content {
+      width: 300px;
+      .modal-header {
+        padding: 20px;
+        h4 {
+          text-align: center;
+        }
+        .close {
+          position: absolute;
+          top: 4px;
+          right: 1-px;
+        }
+      }
+      .modal-body {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        border-top: 1px solid #f4f4f4;
+        border-bottom: 1px solid #f4f4f4;
+        padding: 15px 0;
+        cursor: pointer;
+        color: #f75a57;
+      }
+    }
+  }
+}
+
+.course-options {
+  padding: 15px 0 10px 0;
+}
+.author_name {
+  font-size: 1.5em;
+  font-weight: 500;
+}

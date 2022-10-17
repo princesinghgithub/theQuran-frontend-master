@@ -1,0 +1,70 @@
+.nav_content-container {
+  height: 70px;
+  border-bottom: 1px solid #d4d4d4;
+  .nav_content {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+    .nav_chapter {
+      .chapter-title {
+        font-size: 18px;
+      }
+      .day-info {
+        color: #767676;
+      }
+    }
+  }
+}
+
+.page_for_readplan {
+  display: flex;
+  justify-content: space-evenly;
+  a {
+    position: relative;
+    right: auto;
+    left: auto;
+  }
+  .body_of_read_lesson {
+    width: 50%;
+    padding: 15px;
+    .sura-number32 {
+      margin: 0 5px;
+    }
+    .full_chapter {
+      border: 1px solid #d4d4d4;
+      background-color: #fff;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      color: #767676;
+      width: fit-content;
+      border-radius: 2px;
+      padding-left: 20px;
+      padding-right: 20px;
+      transition: 0.5s all;
+      cursor: pointer;
+      &:hover {
+        background-color: #f75a57;
+        border: white;
+        color: white;
+      }
+    }
+
+    .message {
+      &_title {
+        margin: 0;
+      }
+      &_video {
+        width: 100%;
+      }
+      &_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+      }
+    }
+  }
+}

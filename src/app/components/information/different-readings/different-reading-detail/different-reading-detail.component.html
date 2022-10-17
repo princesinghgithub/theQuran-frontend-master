@@ -1,0 +1,74 @@
+<app-nav-bar></app-nav-bar>
+<section
+  class="container standalone"
+  [ngClass]="{ 'arabic-language': arabicClass }"
+>
+  <div
+    class="container content"
+    *ngIf="checkObjectEmpty(differentReadingDetail)"
+  >
+    <div class="difference-head-top">
+      <div class="difference-head">
+        <h1>
+          {{ differentReadingDetail.SooraId }}.{{
+            arabicClass
+              ? differentReadingDetail.Soora.SooraName
+              : differentReadingDetail.Soora.ArabicEnglishName
+          }}
+        </h1>
+      </div>
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+    <div class="heading-title upper-section">
+      <p class="upper-section-para">
+        <span class="count">{{ differentReadingDetail.Verse }}</span>
+        {{ differentReadingDetail.mainNarration.Narration }}
+      </p>
+    </div>
+    <div class="sub-block different-reading-verse">
+      <div class="block-title">
+        <h3 class="">
+          <img src="assets/images/different_readings.svg" />{{
+            "DifferentReadings" | translate
+          }}
+        </h3>
+      </div>
+      <ng-container *ngIf="differentReadingDetail.DifferentReadings.length > 0">
+        <ng-container
+          *ngFor="
+            let differentReading of differentReadingDetail.DifferentReadings
+          "
+        >
+          <div class="item">
+            <div class="title-row">
+              <div class="col">
+                {{ differentReading.ReadingCompare.Translation.Description }}
+              </div>
+              <div class="col">
+                {{
+                  arabicClass
+                    ? differentReading.ReadingCompare.Soora.SooraName
+                    : differentReading.ReadingCompare.Soora.ArabicEnglishName
+                }}
+                {{ differentReading.ReadingCompare.Verse }}
+              </div>
+            </div>
+            <div class="desc">
+              {{ differentReading.ReadingCompare.Narration.Narration }}
+            </div>
+            <div class="round-box">
+              {{ differentReading.ReadingCompare.Reading }}
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <app-contributor-section
+      [arabicClass]="arabicClass"
+      [authorList]="authorList"
+    ></app-contributor-section>
+  </div>
+</section>

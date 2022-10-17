@@ -1,0 +1,19 @@
+.sura-wrapper {
+  width: 68%;
+  margin: auto;
+  gap: 20px;
+}
+
+.sura-container {
+  flex: 1;
+}
+
+.standalone {
+  position: relative;
+  flex: 4;
+}
+
+.content {
+  position: sticky;
+  top: 0;
+}

@@ -1,0 +1,77 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="'findcourses'"></app-course-header>
+<div class="container page_for_readplan">
+  <div class="body_of_my_lesson">
+    <div class="side_plan_share">
+      <div [routerLink]="['/dashboard/my-lessons']" class="reading_left hover">
+        <img src="assets/images/outline_arrow_back_black_24dp.png" alt="" />
+        <a href="javascript:void(0);" class="leftside_plan">Plans</a>
+      </div>
+      <div class="right_side_share">
+        <!-- <a href="javascript:void(0);" class="share_on_top">Share</a> -->
+      </div>
+    </div>
+    <div class="course">
+      <div class="course_image-container">
+        <img src="{{ courseImage }}" alt="{{ courseImageName }}" />
+      </div>
+      <div class="course_title-container">
+        <h3>{{ courseTitle }}</h3>
+      </div>
+      <div class="d-flex course_duration-container">
+        <div class="day" *ngFor="let day of timePeriod; index as i">
+          <div (click)="changeDay(i)" class="day-container hover">
+            <div class="day-number">{{ i + 1 }}</div>
+            <div class="day-date">Day {{ i + 1 }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="invited-friends"></div> -->
+
+      <div class="course_plan-container">
+        <div class="main-container">
+          <div class="main-container-day">
+            Day {{ currentDay }} of {{ courseLessons.length }}
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="main-container-lessons">
+            <div class="main-container-lesson">
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+              <div class="lesson-name">
+                <a [routerLink]="[currentDay, 'message']">Message</a>
+              </div>
+            </div>
+            <ng-container
+              *ngFor="let lesson of currentLesson; let i = index"
+              class="lesson_refference-list"
+            >
+              <div *ngIf="lesson.Soora" class="main-container-lesson">
+                <div class="outer">
+                  <div class="inner"></div>
+                </div>
+                <div class="lesson-name">
+                  <a [routerLink]="[currentDay, 'reference', i + 1]"
+                    >{{
+                      textRtl
+                        ? lesson.Soora.SooraName
+                        : lesson.Soora.ArabicEnglishName
+                    }}
+                    ({{ lesson.VerseStart }}-{{ lesson.VerseEnd }})</a
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="btn-container">
+          <a [routerLink]="[currentDay, 'message']"
+            ><button class="start_pan_red45">Start Reading</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

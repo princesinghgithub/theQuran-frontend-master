@@ -1,0 +1,299 @@
+<div class="container-fluid main_page_donate">
+  <div class="header_part_title relative">
+    <div class="logo_top">
+      <img src="assets/images/members-only (1).png" alt="" class="group_logo" />
+    </div>
+    <p class="title_on_top">Become a Contributing Member</p>
+    <div [routerLink]="['/home']" class="go_to-home hover">
+      <img src="assets/images/outline_arrow_back_black_24dp.png" alt="" />
+      <span> Home</span>
+    </div>
+  </div>
+  <div class="types_of_donate">
+    <div class="find_cou_rse43">
+      <ng-container *ngFor="let planButton of planButtonsArr">
+        <button
+          class="btn_course"
+          type="button"
+          (click)="setPlan(planButton)"
+          [ngClass]="planButton.active ? 'current' : ''"
+        >
+          {{ planButton.label }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <!----all--content-------------->
+  <div class="donation_body">
+    <div class="all_contain_part67">
+      <form novalidate (ngSubmit)="onSubmit()" [formGroup]="donationForm">
+        <div class="contri_bution_amt">
+          <p class="title_color">Contribution Amount</p>
+          <div class="showamount_contri">
+            <ng-container
+              *ngFor="let contrubutionAmount of contrubutionAmountArr"
+            >
+              <ng-container *ngIf="contrubutionAmount.type == 'prefilled'">
+                <a
+                  href="javascript:void(0)"
+                  (click)="selectAmount(contrubutionAmount)"
+                  class="link_amount87"
+                  [ngClass]="contrubutionAmount.active ? 'active_amount' : ''"
+                >
+                  <button class="amount_contri76" type="button">
+                    ${{ contrubutionAmount.amount }}
+                  </button>
+                </a>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <!----form--part----------->
+        <div class="form_section78">
+          <div class="other_amount65">
+            <div class="button_amount67">
+              <ng-container
+                *ngFor="let contrubutionAmount of contrubutionAmountArr"
+              >
+                <ng-container *ngIf="contrubutionAmount.type == 'other'">
+                  <button
+                    type="button"
+                    (click)="selectAmount(contrubutionAmount)"
+                    class="other_amount_btn"
+                    [ngClass]="contrubutionAmount.active ? 'active_amount' : ''"
+                  >
+                    Other Amount
+                  </button>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="form-group amount654">
+              <label for="otheramount65" class="label_ontop"
+                >Other Amount($)</label
+              >
+              <input
+                type="text"
+                id="donationOtherAoount"
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="email" class="label_ontop">Email Address *</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            />
+            <div *ngIf="submitted && f.email.errors" class="input-error">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="primary" class="label_ontop"
+              >Phone Number(primary) *</label
+            >
+            <input
+              type="text"
+              id="primary"
+              class="form-control"
+              formControlName="phone_number"
+              [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }"
+            />
+            <div *ngIf="submitted && f.phone_number.errors" class="input-error">
+              <div *ngIf="f.phone_number.errors.required">
+                Field is required
+              </div>
+              <div *ngIf="f.phone_number.errors.minlength">
+                Phone Number should have atleast 7 digits
+              </div>
+              <div *ngIf="f.phone_number.errors.maxlength">
+                Phone Number should have atmost 16 digits
+              </div>
+              <div *ngIf="f.phone_number.errors.pattern">
+                Only numbers allowed
+              </div>
+            </div>
+          </div>
+        </div>
+        <!---credit----card------->
+        <div class="credit-card56">
+          <p class="title-credit">Credit Card</p>
+          <hr class="change_color" />
+          <div id="card-element" class="field"></div>
+          <!-- <div class="card_type">
+                    <button class="visa_card"><img src="assets/images/Image 141.png" alt="" class="card_img"></button>
+                    <button class="master_card"><img src="assets/images/Mask Group 109.png" alt=""
+                            class="card_img"></button>
+                </div>
+                <div class="form-group from_inline34">
+                    <label for="cardnumber" class="label_ontop">Card Number *</label>
+                    <input type="text" id="cardnumber" class="form-control">
+                </div>
+                <div class="form-group from_inline34 security65">
+                    <label for="security" class="label_ontop">Security Code *</label>
+                    <input type="text" id="security" class="form-control">
+                </div>
+                <div class="side_img65">
+                    <button class="zip_btn">
+                        <img src="assets/images/Group 6419.png" alt="" class="zip65_img">
+                    </button>
+                </div>
+                <div class="form-group from_inline34">
+                    <label for="dateof" class="label_ontop">Expiration Date *</label>
+                    <input type="date" id="dateof" class="form-control">
+                </div>
+                <div class="form-group from_inline34 zipcode65">
+                    <label for="Billing" class="label_ontop">Billing Zip Code *</label>
+                    <input type="text" id="Billing" class="form-control">
+                </div> -->
+        </div>
+        <br />
+        <!-----name----and---addresss-------->
+        <div class="name_address">
+          <p class="title-credit">Name and Address</p>
+          <hr class="change_color" />
+          <div class="form-group from_inline34">
+            <label for="name" class="label_ontop">First Name *</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="first_name"
+              [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
+            />
+            <div *ngIf="submitted && f.first_name.errors" class="input-error">
+              <div *ngIf="f.first_name.errors.required">field is required</div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="last" class="label_ontop">Last Name *</label>
+            <input
+              type="text"
+              id="last"
+              class="form-control"
+              formControlName="last_name"
+              [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
+            />
+            <div *ngIf="submitted && f.last_name.errors" class="input-error">
+              <div *ngIf="f.last_name.errors.required">field is required</div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="street" class="label_ontop"
+              >Street Number and Street Name *</label
+            >
+            <input
+              type="text"
+              id="street"
+              class="form-control"
+              formControlName="address_one"
+              [ngClass]="{ 'is-invalid': submitted && f.address_one.errors }"
+            />
+            <div *ngIf="submitted && f.address_one.errors" class="input-error">
+              <div *ngIf="f.address_one.errors.required">Field is required</div>
+              <div *ngIf="f.address_one.errors.maxlength">
+                maximum 200 characters allowed
+              </div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="suit" class="label_ontop">Suit/APT # *</label>
+            <input
+              type="text"
+              id="suit"
+              class="form-control"
+              formControlName="address_two"
+              [ngClass]="{ 'is-invalid': submitted && f.address_two.errors }"
+            />
+            <div *ngIf="submitted && f.address_two.errors" class="input-error">
+              <div *ngIf="f.address_two.errors.required">Field is required</div>
+              <div *ngIf="f.address_two.errors.maxlength">
+                maximum 200 characters allowed
+              </div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="city" class="label_ontop">City *</label>
+            <input
+              type="text"
+              id="city"
+              class="form-control"
+              formControlName="city"
+              [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+            />
+            <div *ngIf="submitted && f.city.errors" class="input-error">
+              <div *ngIf="f.city.errors.required">Field is required</div>
+              <div *ngIf="f.city.errors.maxlength">
+                maximum 25 characters allowed
+              </div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="state" class="label_ontop">state *</label>
+            <input
+              type="text"
+              id="state"
+              class="form-control"
+              formControlName="state"
+              [ngClass]="{ 'is-invalid': submitted && f.state.errors }"
+            />
+            <div *ngIf="submitted && f.state.errors" class="input-error">
+              <div *ngIf="f.state.errors.required">Field is required</div>
+              <div *ngIf="f.state.errors.maxlength">
+                maximum 25 characters allowed
+              </div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="postal" class="label_ontop">Postal Code *</label>
+            <input
+              type="text"
+              id="postal"
+              class="form-control"
+              formControlName="zip"
+              [ngClass]="{ 'is-invalid': submitted && f.zip.errors }"
+            />
+            <div *ngIf="submitted && f.zip.errors" class="input-error">
+              <div *ngIf="f.zip.errors.required">Field is required</div>
+            </div>
+          </div>
+          <div class="form-group from_inline34">
+            <label for="country" class="label_ontop">Country *</label>
+            <input
+              type="text"
+              id="country"
+              class="form-control"
+              formControlName="country"
+              [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+            />
+            <div *ngIf="submitted && f.country.errors" class="input-error">
+              <div *ngIf="f.country.errors.required">Field is required</div>
+              <div *ngIf="f.country.errors.maxlength">
+                maximum 25 characters allowed
+              </div>
+            </div>
+          </div>
+          <!-- <re-captcha (resolved)="resolveCapcha($event)"></re-captcha> -->
+          <div class="review_contri">
+            <button class="review_btn" type="submit" [disabled]="loading">
+              Donate
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-------thanks for----your---support------->
+    <div class="footer_parts_thank">
+      <div class="footer_top67">
+        <img src="assets/images/Group 6420.png" alt="" class="logo_on_bott78" />
+        <span class="title_bottom65">Thank you for your support</span>
+      </div>
+      <p class="bottom_part_text56">All donations are tax deductible</p>
+    </div>
+  </div>
+</div>

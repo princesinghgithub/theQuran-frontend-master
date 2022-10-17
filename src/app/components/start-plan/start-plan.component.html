@@ -1,0 +1,155 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="'findcourses'"></app-course-header>
+<div class="container page_for_readplan">
+  <div class="body_of_my_lesson">
+    <div class="side_plan_share">
+      <div [routerLink]="['/lessons']" class="reading_left hover">
+        <img src="assets/images/outline_arrow_back_black_24dp.png" alt="" />
+        <a href="javascript:void(0);" class="leftside_plan">Plans</a>
+      </div>
+      <div class="right_side_share">
+        <!-- <a href="javascript:void(0);" class="share_on_top">Share</a> -->
+      </div>
+    </div>
+    <div class="read_plan_images65">
+      <img
+        src="{{ courseDetail?.CourseImage }}"
+        alt=""
+        class="shoe4_image_top"
+      />
+    </div>
+    <div [dir]="dir" class="top54_he4_di6 flex justify-between">
+      <div class="title_details">
+        <h4 class="heading_plan_top29">{{ courseDetail?.CourseTitle }}</h4>
+        <small class="show_times_plan">
+          {{ courseDetail?.CourseLessons?.length }} lessons</small
+        >
+      </div>
+
+      <div *ngIf="courseDetail?.CourseAudio" class="course-audio">
+        <audio controls src="{{ courseDetail?.CourseAudio }}"></audio>
+      </div>
+    </div>
+    <div [dir]="dir" class="reading_content63">
+      <div class="redaing_cont_left">
+        <div class="con_tent_para">
+          <p
+            class="read_sura_de56"
+            [innerHTML]="safeHTML(courseDetail?.CourseDescription)"
+          ></p>
+        </div>
+        <div *ngIf="courseDetail?.CourseComment" class="pub_lish_er">
+          <p class="pub_li_sher">PUBLISHER</p>
+          <p class="author_name">
+            {{ courseDetail?.CourseComment.User.FirstName }}
+          </p>
+          <div
+            [innerHTML]="safeHTML(courseDetail?.CourseComment.Comment)"
+            class="publi_sher_detail"
+          ></div>
+          <div class="pub_lish45">
+            <a
+              [routerLink]="['/author']"
+              [queryParams]="{ id: courseDetail?.CourseComment.AuthorId }"
+              href="javascript:void(0);"
+              class="lin_to_other"
+            >
+              About The Publisher</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="readright_cont">
+        <div class="rih7_yu7_hj7">
+          <div class="start65_plan_btn45">
+            <ng-template #template>
+              <div class="click_start_plan54">
+                <h3>How do you want to read this Lesson?</h3>
+                <div
+                  (click)="openModal2(templateNested)"
+                  class="lesson_approach"
+                >
+                  <h4>By Myself</h4>
+                  <p>
+                    Keep your Lesson activity private, or allow your Friends to
+                    see your Lesson activity.
+                  </p>
+                </div>
+                <div
+                  [routerLink]="['/dashboard/invite-friends/course', courseId]"
+                  class="lesson_approach"
+                >
+                  <h4>With Friends</h4>
+                  <p>
+                    Invite Friends to join in this lesson.You'll Complete days
+                    together at the same pace and you'll all be able to discuss
+                    what God is teaching you along the way.
+                  </p>
+                </div>
+                <button
+                  class="can54_bo76 close pull-right"
+                  type="button"
+                  (click)="modalRef.hide()"
+                >
+                  <span aria-hidden="true">Cancel</span>
+                </button>
+              </div>
+            </ng-template>
+
+            <ng-template #templateNested>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                  Do you want your friends to see your plan activity?
+                </h4>
+                <button
+                  type="button"
+                  class="close pull-right"
+                  aria-label="Close"
+                  (click)="modalRef2.hide()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div (click)="saveCourse('visible')" class="modal-body">
+                Visible to Friends
+              </div>
+              <div (click)="saveCourse('private')" class="modal-body">
+                Private
+              </div>
+            </ng-template>
+            <button
+              class="start_pan_red45"
+              type="button"
+              *ngIf="!isLoggedIn(); else showButton"
+              [routerLink]="['/login']"
+            >
+              Start this Lesson
+            </button>
+            <ng-template #showButton>
+              <button
+                class="start_pan_red45"
+                type="button"
+                (click)="openModal(template)"
+              >
+                Start this Lesson
+              </button>
+            </ng-template>
+          </div>
+          <div class="course-options">
+            <span (click)="addToSavedCourse()" class="primary-text hover"
+              >Save for Later</span
+            >
+            <span> • </span>
+            <span [routerLink]="['sample']" class="primary-text hover"
+              >Sample</span
+            >
+          </div>
+          <!-- <p class="current_subscribes">Currently Subscribed</p>
+          <div class="my34_pla4">
+            <a href="javascript:void(0);" class="my_plan43_ruy"> My Lesson</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

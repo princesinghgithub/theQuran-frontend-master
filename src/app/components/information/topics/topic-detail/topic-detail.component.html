@@ -1,0 +1,161 @@
+<app-nav-bar></app-nav-bar>
+<div
+  class="container-fluid topic-page-content-section"
+  [ngClass]="{ 'language-arabic': arabicLanguage }"
+>
+  <div class="" *ngIf="checkObjectEmpty(topicDetail)">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-section-2">
+      <div class="home-page-topics">
+        <img
+          src="{{ topicImageUrl + topicDetail.TopicImageName }}"
+          alt=""
+          class="img-icon1-12"
+        />
+      </div>
+      <h3 class="topics-heading">{{ topicDetail.TopicNames[0].Name }}</h3>
+    </div>
+  </div>
+  <div class="difference-head-topics">
+    <div class="introduction-topics" *ngIf="checkObjectEmpty(topicDetail)">
+      <h1>
+        {{ "Introduction" | translate }}
+      </h1>
+      <span
+        class="inner-comment"
+        [innerHtml]="safeHTML(topicDetail.TopicComments[0].Comment)"
+      ></span>
+    </div>
+    <div class="flex justify-between">
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+  </div>
+  <div class="topics-all-sura sura-in-arabic">
+    <div class="block-title">
+      <h6 class="related-heading">
+        {{ "ReletedVerses" | translate }}
+        <span class="count-topics" *ngIf="checkObjectEmpty(topicDetail)">{{
+          topicDetail.VerseTopics.length
+        }}</span>
+      </h6>
+    </div>
+    <div class="block-body" *ngIf="checkObjectEmpty(topicDetail)">
+      <div
+        class="abrogate-sura"
+        *ngFor="
+          let verse of topicDetail.VerseTopics
+            | slice: 0:(showAllVerses ? topicDetail.VerseTopics.length : 5);
+          let i = index
+        "
+      >
+        <h4 class="verse-topics">
+          {{ verse.SooraId }}.{{
+            arabicLanguage
+              ? verse.Soora.SooraName
+              : verse.Soora.ArabicEnglishName
+          }}
+        </h4>
+        <div class="sura12">
+          <span class="sura-number32"> {{ verse.VerseId }} </span>
+          <ng-container
+            *ngIf="
+              verse.Narrations[0].VerseBackground ||
+              verse.Narrations[0].AbrogatedVerses.length > 0 ||
+              verse.Narrations[0].RepetitionsSooraverses.length > 0 ||
+              verse.Narrations[0].Errors.length > 0 ||
+              verse.Narrations[0].Readings.length > 0
+            "
+          >
+            <ul class="sura-add-on45">
+              <li>
+                <figure
+                  class="issues-indicator"
+                  [ngClass]="
+                    (verse.Narrations[0].AbrogatedVerses.length > 0 &&
+                      verse.Narrations[0].RepetitionsSooraverses.length > 0 &&
+                      verse.Narrations[0].Errors.length > 0) ||
+                    (verse.Narrations[0].RepetitionsSooraverses.length > 0 &&
+                      verse.Narrations[0].RepetitionsSooraverses.length > 0 &&
+                      verse.Narrations[0].Readings.length > 0) ||
+                    (verse.Narrations[0].AbrogatedVerses.length > 0 &&
+                      verse.Narrations[0].Errors.length > 0 &&
+                      verse.Narrations[0].Readings.length > 0)
+                      ? 'three-issues'
+                      : ''
+                  "
+                >
+                  <span
+                    *ngIf="verse.Narrations[0].AbrogatedVerses.length > 0"
+                    class="issue-dot-abr"
+                    [routerLink]="[
+                      '/information/abrogation-detail',
+                      verse.Narrations[0].AbrogatedVerses[0].AbrogatedSooraId,
+                      verse.Narrations[0].AbrogatedVerses[0].AbrogatedVerse,
+                      verse.Narrations[0].TranslationId
+                    ]"
+                  ></span>
+                  <span
+                    *ngIf="
+                      verse.Narrations[0].RepetitionsSooraverses.length > 0
+                    "
+                    class="issue-dot-repetition"
+                    [routerLink]="[
+                      '/information/repetition-detail',
+                      verse.Narrations[0].RepetitionsSooraverses[0].SooraId,
+                      verse.Narrations[0].RepetitionsSooraverses[0].Verse,
+                      verse.Narrations[0].TranslationId
+                    ]"
+                  ></span>
+                  <span
+                    *ngIf="verse.Narrations[0].Errors.length > 0"
+                    class="issue-dot-differences"
+                    [routerLink]="[
+                      '/information/difference-detail',
+                      verse.Narrations[0].Errors[0].SooraId,
+                      verse.Narrations[0].Errors[0].Verse,
+                      verse.Narrations[0].TranslationId
+                    ]"
+                  ></span>
+                  <span
+                    *ngIf="verse.Narrations[0].Readings.length > 0"
+                    class="issue-dot-different-readings"
+                    [routerLink]="[
+                      '/information/different-reading-detail',
+                      verse.Narrations[0].Readings[0].SooraId,
+                      verse.Narrations[0].Readings[0].Verse,
+                      verse.Narrations[0].TranslationId,
+                      verse.Narrations[0].Readings[0].NarrationId,
+                      verse.Narrations[0].Readings[0].Reading
+                    ]"
+                  ></span>
+                </figure>
+              </li>
+              <li>
+                <img
+                  *ngIf="verse.Narrations[0].VerseBackground"
+                  src="assets/images/sura_history_22.svg"
+                  class="sura-info"
+                  [routerLink]="[
+                    '/information/verse-background-detail',
+                    verse.Narrations[0].VerseBackground.VersesBackgroundId,
+                    verse.Narrations[0].TranslationId
+                  ]"
+                />
+              </li>
+            </ul>
+          </ng-container>
+          <p class="sura-both312">
+            {{ verse.Narrations[0].Narration }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-button" *ngIf="!showAllVerses">
+      <button (click)="displayAllVerses()" class="bottom-buttom-all-sura">
+        {{ "AllVerses" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

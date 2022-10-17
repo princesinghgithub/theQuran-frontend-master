@@ -1,0 +1,64 @@
+.settings_page {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  .side_tabs-container {
+    flex: 2;
+    .side_tabs {
+      &-title {
+        font-size: 21px;
+      }
+    }
+  }
+  .right_side-container {
+    flex: 5;
+    .profile-picture {
+      margin-top: 15px;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .right_side {
+      &-title {
+        font-size: 25px;
+      }
+    }
+
+    .edit_profile {
+      margin-top: 10px;
+      .input_container {
+        display: flex;
+        flex-direction: column;
+        margin: 5px 0 20px 0;
+        .file {
+          font-size: 18px;
+          border: none !important;
+          margin-top: 10px;
+        }
+      }
+      &-info {
+        margin-bottom: 10px;
+        max-width: 60ch;
+      }
+      input,
+      select {
+        width: 350px;
+        border: none !important;
+        border-bottom: 1px solid #d0d2d2 !important;
+        margin: 0;
+      }
+      textarea {
+        width: 350px;
+        padding: 5px;
+        border: 1px solid #d0d2d2 !important;
+      }
+      button {
+        padding: 7px 20px;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+.input-error {
+  color: red;
+}

@@ -1,0 +1,116 @@
+<app-nav-bar></app-nav-bar>
+<section
+  class="container standalone"
+  [ngClass]="{ 'arabic-language': arabicClass }"
+>
+  <div class="container content" *ngIf="checkObjectEmpty(repetitionsDetail)">
+    <div class="difference-head-top">
+      <div class="difference-head">
+        <h1>
+          {{ repetitionsDetail.mainVerse.SooraId }}.{{
+            arabicClass
+              ? repetitionsDetail.mainVerse.Soora.SooraName
+              : repetitionsDetail.mainVerse.Soora.ArabicEnglishName
+          }}
+        </h1>
+      </div>
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+    <div class="heading-title-para">
+      <p class="upper-section-para">
+        <span class="count-difference">
+          {{ repetitionsDetail.mainVerse.Verse }}
+        </span>
+        {{ repetitionsDetail.mainVerse.Narration }}
+      </p>
+    </div>
+    <div class="content-standalone">
+      <div class="sub-block repeating-verse">
+        <div class="block-title">
+          <h3 class="">
+            <img src="assets/images/issue_repetitions.svg" />{{
+              "Repetitions" | translate
+            }}
+          </h3>
+        </div>
+        <div class="block-para-heading">
+          <p class="upper-section-para">
+            {{ "thisVerseIsRepeatedIn" | translate }}:
+          </p>
+        </div>
+        <ng-container *ngIf="repetitionsDetail.repetitionData.length > 0">
+          <ng-container
+            *ngFor="let repetition of repetitionsDetail.repetitionData"
+          >
+            <div class="block-body">
+              <div class="ct">
+                <ng-container
+                  *ngIf="
+                    repetition.RepetitionsRepetitionType.RepetitionCategories
+                      .length > 0
+                  "
+                >
+                  <ng-container
+                    *ngFor="
+                      let category of repetition.RepetitionsRepetitionType
+                        .RepetitionCategories
+                    "
+                  >
+                    <p>
+                      <span>Category: </span>{{ category.RepetitionCategory }}
+                    </p>
+                  </ng-container></ng-container
+                >
+                <ng-container
+                  *ngIf="
+                    repetition.RepetitionsRepetitionType.RepetitionTypes
+                      .length > 0
+                  "
+                >
+                  <ng-container
+                    *ngFor="
+                      let type of repetition.RepetitionsRepetitionType
+                        .RepetitionTypes
+                    "
+                  >
+                    <p><span>Type: </span>{{ type.RepetitionType }}</p>
+                  </ng-container></ng-container
+                >
+              </div>
+              <ng-container
+                *ngIf="repetition.RepetitionsSooraverses.length > 0"
+              >
+                <ng-container
+                  *ngFor="let verse of repetition.RepetitionsSooraverses"
+                >
+                  <div class="issue-sura">
+                    <h4>
+                      {{ verse.SooraId }}.{{
+                        arabicClass
+                          ? verse.Soora.SooraName
+                          : verse.Soora.ArabicEnglishName
+                      }}
+                    </h4>
+                    <div class="sura">
+                      <span class="sura-number">{{ verse.Verse }}</span>
+                      <p class="par13-repeated">
+                        {{ verse.Narration.Narration }}
+                      </p>
+                    </div>
+                  </div>
+                </ng-container></ng-container
+              >
+            </div>
+          </ng-container></ng-container
+        >
+      </div>
+    </div>
+    <!-- <app-contributor-section
+      [arabicClass]="arabicClass"
+      [authorList]="authorList"
+    ></app-contributor-section> -->
+  </div>
+</section>

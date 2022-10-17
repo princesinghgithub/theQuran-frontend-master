@@ -1,0 +1,40 @@
+.select-version {
+  flex-direction: column;
+}
+.submit-container {
+  margin-bottom: 12px;
+}
+/* .language_container:first-child {
+  display: none !important;
+} */
+.language-q-version {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: white;
+}
+.chapters {
+  height: 150px;
+  overflow: auto;
+  border: 1px solid #dcdcdc;
+  margin: 10px;
+}
+.panel-group {
+  margin-bottom: 0;
+}
+.dropdown_title-select {
+  padding-left: 12px;
+  margin-bottom: 0;
+  margin-top: 18px;
+}
+.dropdown-content {
+  height: fit-content;
+}
+
+@media screen and (max-width: 600px) {
+  .banner-content-container {
+    width: 100%;
+  }
+}

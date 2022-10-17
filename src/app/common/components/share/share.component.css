@@ -1,0 +1,19 @@
+.share-icon-content {
+  /* width: 45px; */
+  height: 54px;
+}
+
+.share-content-icon {
+  height: 100%;
+}
+
+.share_icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, max-content));
+  gap: 10px;
+  justify-content: center;
+}
+
+.share_icon {
+  border-radius: 5px;
+}

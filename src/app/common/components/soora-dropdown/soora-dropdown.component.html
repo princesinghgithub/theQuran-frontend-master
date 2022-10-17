@@ -1,0 +1,21 @@
+<div class="sura-dropdown">
+  <button
+    class="select"
+    *ngIf="checkObjectEmpty(selectedSoora); else showSelectedSoora"
+  >
+    {{
+      arabicLanguage ? selectedSoora.SooraName : selectedSoora.ArabicEnglishName
+    }}
+  </button>
+  <ng-template #showSelectedSoora>
+    <button class="select">{{ "All" | translate }}</button>
+  </ng-template>
+  <div class="verse-content">
+    <a href="javascript:void(0);" (click)="changeSoora('', true)">ALL</a>
+    <ng-container *ngFor="let soora of sooraList; let i = index">
+      <a href="javascript:void(0);" (click)="changeSoora(soora, false)">
+        {{ arabicLanguage ? soora.SooraName : soora.ArabicEnglishName }}</a
+      >
+    </ng-container>
+  </div>
+</div>

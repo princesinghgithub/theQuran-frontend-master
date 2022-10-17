@@ -1,0 +1,116 @@
+<app-nav-bar></app-nav-bar>
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll('search')"
+>
+  <div class="fri34_li657">
+    <p class="he32_pa32_gar2">
+      Search Result's for :{{ this.srchForm.value.keyword }}
+    </p>
+    <form [formGroup]="srchForm" (ngSubmit)="onSearchSubmit()">
+      <input
+        formControlName="keyword"
+        placeholder="Search by name"
+        type="search"
+      />
+      <ng-container
+        *ngIf="
+          srchForm.controls.keyword.invalid &&
+          (srchForm.controls.keyword.touched || srchForm.controls.keyword.dirty)
+        "
+      >
+        <span
+          *ngIf="srchForm.controls.keyword.errors?.required"
+          class="input-error"
+          >required</span
+        >
+      </ng-container>
+      <input
+        class="postfix solid-button green"
+        type="submit"
+        [disabled]="!srchForm.valid"
+        value="Find friends"
+      />
+    </form>
+    <small class="text2_ri32_al">TheQuran.com</small>
+  </div>
+  <ng-container *ngIf="searchList.length > 0">
+    <ng-container *ngFor="let search of searchList; let i = index">
+      <div class="frie46_li98_f34">
+        <div class="use36_im32_ico2">
+          <a href="javascript:void(0);"
+            ><img
+              class="profile_small"
+              src="{{
+                search.ProfilePicture
+                  ? search.ProfilePicture
+                  : 'assets/images/profile.png'
+              }}"
+              alt=""
+            />
+            <span class="user435_nma56">
+              {{ search.FirstName }} {{ search.LastName }}</span
+            ></a
+          >
+        </div>
+        <div class="add23_fr34_li2">
+          <button type="button" class="add32_bu23_tton2">
+            <a href="javascript:void(0);"
+              ><img
+                src="assets/images/outline_person_add_alt_white_24dp.png"
+                alt=""
+              />
+              <span
+                *ngIf="
+                  search.Receiver.length === 0 &&
+                  search.Sender.length === 0 &&
+                  search.UserOneData.length === 0 &&
+                  search.UserTwoData.length === 0
+                "
+                (click)="sendRequest(search.Id)"
+                >Add friend</span
+              >
+              <span
+                *ngIf="
+                  search.Receiver.length === 0 &&
+                  search.Sender.length > 0 &&
+                  search.UserOneData.length === 0 &&
+                  search.UserTwoData.length === 0
+                "
+                ><span class="ng-binding" (click)="acceptRequest(search.Id)"
+                  >Accept</span
+                ><br />
+                <span class="red ng-binding" (click)="cancelRequest(search.Id)"
+                  >Decline</span
+                ></span
+              >
+              <span
+                *ngIf="
+                  search.Receiver.length > 0 &&
+                  search.Sender.length === 0 &&
+                  search.UserOneData.length === 0 &&
+                  search.UserTwoData.length === 0
+                "
+                (click)="cancelRequest(search.Id)"
+                >Cancel Request</span
+              >
+              <span
+                *ngIf="
+                  search.Receiver.length === 0 &&
+                  search.Sender.length === 0 &&
+                  (search.UserOneData.length > 0 ||
+                    search.UserTwoData.length > 0)
+                "
+                (click)="removeFriend(search.Id, 'search')"
+                >Remove Friend</span
+              ></a
+            >
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

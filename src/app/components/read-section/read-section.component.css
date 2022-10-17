@@ -1,0 +1,8 @@
+.sura-number,
+.sura-add-on,
+.sura-one {
+  cursor: pointer;
+}
+.sura-one {
+  width: fit-content;
+}

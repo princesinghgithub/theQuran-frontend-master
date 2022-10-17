@@ -1,0 +1,70 @@
+<div class="dropdown q-filter q-filter-custom-class">
+  <p (click)="showLang()" href="#" class="filter-title">
+    <span id="languageTitle" style="font-weight: bold">
+      <ng-container *ngIf="selectedTranslation; else staticText">{{
+        selectedTranslation.Translation
+      }}</ng-container>
+      <ng-template #staticText>{{
+        "SelectVersion" | translate
+      }}</ng-template>
+    </span>
+    <img width="36px" src="assets/images/Arabic-English.png" />
+    <img
+      [ngClass]="{ 'arrow-down-click': isLangClicked }"
+      src="assets/images/arrow_down.png"
+      class="icon-20 arrow-down"
+    />
+  </p>
+  <div
+    [ngClass]="{ 'translation-click': isLangClicked }"
+    class="dropdown-content select-translation"
+  >
+    <div class="dropdown-block">
+      <ul class="select-version">
+        <accordion [isAnimated]="true" [closeOthers]="true">
+          <accordion-group
+            #group
+            *ngFor="let lang of languageList; let i = index"
+          >
+            <div accordion-heading class="collapsed">
+              <li class="language">
+                <a class="chapter-title"
+                  ><span>{{ lang.Language }}</span>
+                  <button
+                    class="img-placeholder icon-16 {{
+                      group.isOpen ? 'disable' : null
+                    }}"
+                  >
+                    <img src="assets/images/acc_expand.png" />
+                  </button>
+                  <button
+                    class="img-placeholder icon-16 accordionIconMinus {{
+                      !group.isOpen ? 'disable' : null
+                    }}"
+                  >
+                    <img src="assets/images/acc_collapse.png" />
+                  </button>
+                </a>
+              </li>
+            </div>
+            <ul class="language-q-version">
+              <ng-container *ngFor="let translation of lang.Translations">
+                <li class="q-version">
+                  <div>
+                    <h5>{{ translation.Translation }}</h5>
+                  </div>
+                  <input
+                    type="radio"
+                    value="translation.TranslationId"
+                    name="q-version-name"
+                    (click)="changeTranslation(translation)"
+                  />
+                </li>
+              </ng-container>
+            </ul>
+          </accordion-group>
+        </accordion>
+      </ul>
+    </div>
+  </div>
+</div>

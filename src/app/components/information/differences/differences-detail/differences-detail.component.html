@@ -1,0 +1,57 @@
+<app-nav-bar></app-nav-bar>
+<section
+  class="container standalone"
+  [ngClass]="{ 'arabic-language': arabicClass }"
+>
+  <div class="container content" *ngIf="checkObjectEmpty(differenceDetail)">
+    <div class="difference-head-top">
+      <div class="difference-head">
+        <h1>
+          {{ differenceDetail.SooraId }}.{{
+            arabicClass
+              ? differenceDetail.Soora.SooraName
+              : differenceDetail.Soora.ArabicEnglishName
+          }}
+        </h1>
+      </div>
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+    <div>
+      <p class="upper-section-para">
+        <span class="count-difference"> {{ differenceDetail.Verse }}</span>
+        {{ differenceDetail.Narration.Narration }}
+      </p>
+    </div>
+    <div class="content-standalone">
+      <div class="sub-block differences-verse">
+        <div class="block-title">
+          <h3 class="">
+            <img src="assets/images/errors.svg" />{{
+              "Differences" | translate
+            }}
+          </h3>
+        </div>
+        <div class="block-body">
+          <ng-container *ngIf="differenceDetail.ErrorsErrorTypes.length > 0">
+            <div class="q-tags">
+              <ng-container
+                *ngFor="let difference of differenceDetail.ErrorsErrorTypes"
+              >
+                <ng-container *ngFor="let error of difference.ErrorTypes">
+                  <span class="tag-abr">{{ error.ErrorType }}</span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <app-contributor-section
+        [arabicClass]="arabicClass"
+        [authorList]="authorList"
+      ></app-contributor-section>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,123 @@
+<app-nav-bar></app-nav-bar>
+<div class="invite">
+  <div class="invite-header">
+    <div class="invite-header-con">
+      <img
+        src="assets/images/outline_arrow_back_black_24dp.png"
+        alt="arrow back"
+      />
+      <h2>Invite Friends</h2>
+    </div>
+  </div>
+  <div class="invite_body">
+    <div class="invite_body-con">
+      <div class="lesson_image_section">
+        <img
+          src="{{ courseDetail?.Course?.CourseImage }}"
+          alt=""
+          class="images_lesson_head"
+        />
+      </div>
+      <div class="selected_numbres">
+        <span class="indicate_number"> {{ invited.length }}</span>
+        <span class="for_select"> Selected</span>
+      </div>
+
+      <div class="blank_section"></div>
+      <p class="inform_link">Anyone with a link can join</p>
+      <div class="copy_link_quran">
+        <div ngxClipboard [cbContent]="inviteUrl" class="copy_link">
+          {{ inviteUrl }}
+        </div>
+        <img
+          src="assets/images/outline_ios_share_black_24dp.png"
+          alt=""
+          ngxClipboard
+          [cbContent]="inviteUrl"
+          class="share_icon_bottom"
+        />
+      </div>
+      <div
+        class="login_user35"
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="300"
+        (scrolled)="onScroll('invited')"
+      >
+        <ng-container *ngIf="invited.length > 0">
+          <ng-container *ngFor="let invite of invited; let i = index">
+            <div>
+              <img
+                src="{{ invite.ProfilePicture }}"
+                alt=""
+                class="login78_user_img"
+              />
+              <span class="active_user_name">
+                {{ invite.FirstName }} {{ invite.LastName }}</span
+              >
+              <img
+                src="assets/images/outline_file_download_done_black_24dp.png"
+                alt=""
+                class="share_to_friend"
+              /></div></ng-container
+        ></ng-container>
+      </div>
+
+      <div class="search_friends">
+        <img
+          (click)="getFriendListCourseNotInvited(25, 1, searchValue, true)"
+          src="assets/images/search.png"
+          alt=""
+        />
+        <input
+          (change)="onSearchChange($event)"
+          [value]="searchValue"
+          type="text"
+          class="serach_listed_friend"
+          placeholder="Search..."
+        />
+      </div>
+      <div class="search_friends friend_list">
+        <ng-container *ngIf="notInvited.length > 0; else no_friends">
+          <ng-container
+            *ngFor="let user of notInvited | slice: 0:10; let i = index"
+          >
+            <div class="frie46_li98_f34">
+              <div class="use36_im32_ico2">
+                <a href="javascript:void(0);"
+                  ><img
+                    src="{{
+                      user.ProfilePicture
+                        ? user.ProfilePicture
+                        : 'assets/images/profile.png'
+                    }}"
+                    alt=""
+                  />
+                  <span class="user435_nma56">
+                    {{ user.FirstName }} {{ user.LastName }}</span
+                  ></a
+                >
+              </div>
+              <div class="add23_fr34_li2">
+                <button
+                  (click)="sendInvite(user.Id)"
+                  type="button"
+                  class="add32_bu23_tton2"
+                >
+                  <a href="javascript:void(0);">
+                    <span>Invite</span>
+                  </a>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #no_friends>
+          <div class="no_friends">your friend list is empty</div>
+        </ng-template>
+      </div>
+      <p class="hint_onbottom">You can only invite your friends</p>
+      <p class="hint_onbottom">Participant Limit: 200</p>
+    </div>
+  </div>
+</div>

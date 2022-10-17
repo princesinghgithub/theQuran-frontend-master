@@ -1,0 +1,50 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+<ng-container *ngIf="notes.length > 0">
+  <ng-container *ngFor="let note of notes; let i = index">
+    <div class="bloc_sec32 bloc_sec32_bottom">
+      <div class="blocl32_for32_topic">
+        <div class="block_div32_topic">
+          <div class="block32_cont32">
+            <p class="bol32_text32">
+              {{ userData.FirstName }} {{ userData.LastName }} added note on
+              <span
+                class="text32_bold32"
+                [routerLink]="[
+                  '/verse-detail',
+                  note.SooraId,
+                  note.Verse,
+                  note.Narration.TranslationId
+                ]"
+              >
+                Verse {{ note.SooraId }}:{{ note.Verse }}</span
+              >
+            </p>
+          </div>
+          <div class="tim32_t32">
+            <p class="tim2_sho32">{{ note.createdAt | dateAgo }}</p>
+          </div>
+        </div>
+        <p class="lig32_ht32_detail">
+          {{ note.Notes }}
+        </p>
+      </div>
+      <div class="bott32_om32">
+        <div class="blo32_kbott32">
+          <a href="javascript:void(0);"
+            ><img src="assets/images/heart-shape-outline.png" alt=""
+          /></a>
+          <a href="javascript:void(0);"
+            ><img src="assets/images/comment.png" alt=""
+          /></a>
+          <a href="javascript:void(0);"
+            ><img src="assets/images/share.png" alt=""
+          /></a>
+        </div>
+        <div class="mo32_re32">
+          <a href="javascript:void(0);">More</a>
+        </div>
+      </div>
+    </div>
+  </ng-container></ng-container
+>

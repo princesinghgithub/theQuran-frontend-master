@@ -1,0 +1,49 @@
+{
+  "texts": {
+    "abrogatingSura": "ناسخة",
+    "comments": "التعليقات",
+    "references": "المراجع",
+    "contributor": "المساهم",
+    "change": "يتغيرون",
+    "differences": "إختلافات",
+    "differentReadings": "قراءات مختلفة",
+    "repetitions": "تكرار",
+    "thisVerseIsRepeatedIn": "تتكرر هذه الآية في",
+    "relatedSuras": "الآيات ذات الصلة",
+    "introduction": "المقدمة",
+    "verse": "آيات",
+    "allVerses": "كل الآيات",
+    "allSurahs": "كل الآيات",
+    "topics": "المواضيع",
+    "surahs": "سور",
+    "all": "الكل",
+    "reletedVerses": "آيات ذات الصلة",
+    "selectVersion": "إختر القراءة",
+    "abrogation": "إلغاء",
+    "abrogations": "الناسخ والمنسوخ",
+    "about": "معلومات إضافية",
+    "abrogated": "منسوخة",
+    "verseHistory": "خلفية الآية",
+    "abrogating": "ناسخة",
+    "articles": "مقالات",
+    "selectLanguage": "اختار اللغة"
+  },
+  "errors": {
+    "email": {
+      "required": "required",
+      "invalidEmail": "invalidEmail",
+      "maxlength": "maxlength"
+    },
+    "password": {
+      "required": "required",
+      "maxlength": "maxlength"
+    }
+  },
+  "placeholders": {
+    "email": "email",
+    "password": "Password"
+  },
+  "notifications": {
+    "success": "success"
+  }
+}

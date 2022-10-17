@@ -1,0 +1,102 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+
+<div class="settings_page container flex">
+  <div class="side_tabs-container">
+    <app-side-settings></app-side-settings>
+  </div>
+
+  <div class="right_side-container">
+    <div class="right_side">
+      <div class="right_side-title">Edit Profile</div>
+    </div>
+    <form
+      [formGroup]="editProfileForm"
+      (ngSubmit)="submitProfileChange()"
+      class="edit_profile flex column"
+    >
+      <div class="input_container">
+        <label>First Name</label>
+        <input
+          formControlName="FirstName"
+          value="{{ allUserData.FirstName }}"
+          type="text"
+          placeholder="First Name"
+        />
+      </div>
+      <div class="input_container">
+        <label>Last Name</label>
+        <input
+          formControlName="LastName"
+          value="{{ allUserData.LastName }}"
+          type="text"
+          placeholder="Last Name"
+        />
+      </div>
+      <div class="input_container">
+        <label>Nick Name</label>
+        <input
+          formControlName="NickName"
+          value="{{ allUserData.NickName }}"
+          type="text"
+          placeholder="Nick Name"
+        />
+      </div>
+      <div class="input_container">
+        <label>Description</label>
+        <textarea
+          formControlName="Description"
+          value="{{ allUserData.Description }}"
+          maxlength="160"
+          placeholder="160 characters or less"
+        ></textarea>
+      </div>
+      <div class="input_container">
+        <label>Country</label>
+        <select
+          formControlName="Country"
+          class="hover"
+          id="user_country"
+          name="country"
+          [(ngModel)]="!allUserData.Country ? '' : allUserData.Country"
+        >
+          <option value="">Please Select</option>
+          <ng-container *ngFor="let country of countries">
+            <option value="{{ country.name }}">
+              {{ country.name }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+      <!-- <div class="input_container">
+        <label>Religion</label>
+        <select
+          formControlName="Religion"
+          class="hover"
+          id="user_religion"
+          name="religion"
+          [(ngModel)]="!allUserData.Religion ? '' : allUserData.Religion"
+        >
+          <option value="">Please Select</option>
+          <ng-container *ngFor="let religion of religions">
+            <option value="{{ religion.name }}">
+              {{ religion.name }}
+            </option>
+          </ng-container>
+        </select>
+      </div> -->
+      <div class="input_container">
+        <label>Notes</label>
+        <textarea
+          formControlName="Address"
+          value="{{ allUserData.Address }}"
+          maxlength="300"
+          placeholder="300 characters or less"
+        ></textarea>
+      </div>
+      <div class="btn_container">
+        <button type="submit" class="start_pan_red45">Update Profile</button>
+      </div>
+    </form>
+  </div>
+</div>

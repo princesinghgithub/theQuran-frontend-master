@@ -1,0 +1,32 @@
+<app-nav-bar></app-nav-bar>
+<app-course-header [type]="pageName"></app-course-header>
+
+<ng-container *ngIf="mySavedCourses.length > 0">
+  <ng-container *ngFor="let myCourse of mySavedCourses; let i = index">
+    <div class="container course_contain_body">
+      <div class="course_contain_image">
+        <img src="{{ myCourse.CourseImage }}" alt="" class="course_image_pic" />
+      </div>
+      <div class="course_contain_text">
+        <a [routerLink]="[
+            '/start-lesson/',
+            myCourse?.CourseId
+          ]">
+          <h3 class="course_contain_heading">
+            {{ myCourse?.CourseTitle }}
+          </h3>
+        </a>
+        <div>{{myCourse.CourseDuration}} days</div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<div class="container">
+  <div class="flex plan-opt justify-between">
+    <div routerLink="/dashboard/my-lessons/" class="start_pan_red45 hover opt-btn">Ongoing Plans</div>
+    <div routerLink="/dashboard/my-lessons/completed" class="start_pan_red45 hover opt-btn">
+      Completed
+    </div>
+  </div>
+</div>

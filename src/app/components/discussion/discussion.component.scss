@@ -1,0 +1,208 @@
+.nav_content-container {
+  height: 70px;
+  border-bottom: 1px solid #d4d4d4;
+  .nav_content-con {
+    width: 50%;
+    margin: auto;
+  }
+  .nav_content {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+    .nav_chapter {
+      .chapter-title {
+        font-size: 18px;
+      }
+      .day-info {
+        color: #767676;
+      }
+    }
+  }
+}
+
+.input-card {
+  margin-bottom: 0 !important;
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
+
+.page_for_readplan {
+  display: flex;
+  justify-content: space-evenly;
+  a {
+    position: relative;
+    right: auto;
+    left: auto;
+  }
+  .body_of_read_lesson {
+    width: 50%;
+    padding: 15px;
+    .discussions {
+      margin-bottom: 40px;
+      .card-container {
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+.card-extend {
+  width: 100%;
+  background: #fff;
+  padding: 10px 25px;
+  margin-top: -10px;
+  border-top: 1px solid #f4f4f4;
+  box-shadow: 0 8px 18px 0 rgb(0 0 0 / 11%);
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  a {
+    color: #ff8065;
+  }
+  .switch-title {
+    margin-right: 30px;
+  }
+  .switch-dir {
+    align-self: center;
+    padding: 15px;
+    transform: scale(0.2);
+    .toggle-con {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      input[type="checkbox"] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+      }
+
+      label {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 200px;
+        height: 100px;
+        background: grey;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+      }
+
+      label:after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 90px;
+        height: 90px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.3s;
+      }
+
+      input:checked + label {
+        background: #bada55;
+      }
+
+      input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+      }
+
+      label:active:after {
+        width: 130px;
+      }
+    }
+  }
+  .comment_icon {
+    .comment_small_pic {
+      gap: 5px;
+      img {
+        height: 30px;
+        width: auto;
+        position: relative;
+      }
+    }
+  }
+}
+
+.card {
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 8px 18px 0 rgb(0 0 0 / 11%);
+  padding: 25px;
+  color: #444;
+  position: relative;
+
+  .card-top {
+    margin-bottom: 10px;
+    .card-top-profile {
+      gap: 15px;
+      .profile-border {
+        border: 1px solid #979797;
+        border-radius: 50%;
+        padding: 1px;
+      }
+      .card-profile-name {
+        font-size: 18px;
+      }
+      .card-input {
+        input {
+          border: none !important;
+        }
+      }
+    }
+    .card-top-time {
+      color: #979797;
+      font-size: 11px;
+    }
+  }
+  .card-text {
+    font-size: 16px;
+    padding: 10px 53px;
+  }
+  .card-bottom {
+    margin-top: 15px;
+    .heart-liked {
+      fill: #da1000;
+    }
+    .heart-default {
+      fill: #979797;
+    }
+    .comment-action {
+      background-color: #fff;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 10%);
+      position: absolute;
+      bottom: 30%;
+      right: 45px;
+      width: 150px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s ease-in-out;
+      display: block;
+      z-index: 2;
+      a {
+        padding: 12px 16px;
+        display: block;
+        font-size: 16px;
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+    .comment-menu {
+      &:hover {
+        .comment-action {
+          opacity: 1 !important;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}

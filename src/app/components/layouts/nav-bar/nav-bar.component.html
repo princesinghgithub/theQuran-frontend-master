@@ -1,0 +1,668 @@
+<div class="container-fluid hea_dwe32_top top_menu_on_mobile" *ngIf="Language === 'en'">
+  <div class="row main_header_top">
+    <div class="main_menu_items col-sm-12 col-md-8 col-lg-8">
+      <div class="logo_icon32">
+        <img src="assets/images/Group 5.png" alt="" class="logo_icon32_logo" />
+      </div>
+      <div class="icon_all321">
+        <div  class="menu_item32 hover"*ngFor="let navBarMenu of navBarMenusArray">
+          <a [routerLink]="navBarMenu.route != '' ? navBarMenu.route : []">
+          <div class="icon_imb543">
+            <a 
+              [ngClass]="navBarMenu.isActive ? 'indicator_color' : ''">
+              <img src="assets/images/{{ navBarMenu.menu_img }}" alt="" class="icon_imb543_icon32" />
+          </a>
+          </div>
+          <div class="txet543  ">
+            <a 
+              *ngIf="navBarMenu.sub_menus.length > 0; else noMenu">
+              {{ navBarMenu.title }}
+              <div class="drop12-down">
+                <ng-container *ngFor="let sub_menu of navBarMenu.sub_menus">
+                  <a  [routerLink]="sub_menu.route"
+                    class="abr12-col">
+                    <img src="assets/images/{{ sub_menu.icon }}" alt="" class="img1-show" />
+                    {{ sub_menu.title }}</a>
+                </ng-container>
+              </div>
+            </a>
+            <ng-template #noMenu><a href="javascript:void(0);"
+                [routerLink]="navBarMenu.route != '' ? navBarMenu.route : []">{{ navBarMenu.title }}</a></ng-template>
+          </div>
+        </a>
+        </div>
+
+        <div data-toggle="modal" data-target="#exampleModal" class="menu_item32  mt-3 text-center"style="">
+          <img src="../../../../assets/images/globe.jpg" alt=""class="icon_imb543_icon32">
+          <p class="mt-3 text-center">Language</p>
+        </div>
+      </div>
+   
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 right_side32">
+      <div class="search_box_top">
+        <a (click)="search()" href="javascript:void(0);">
+          <img src="assets/images/search.png" alt="" class="searc_ico_32img" />
+        </a>
+        <input (change)="changeSearchInput($event)" type="search" class="search_input" placeholder="search...."
+          (keyup.enter)="search()" />
+      </div>
+      <div class="right-side-icon54">
+        <!-- TODO ADD IT LATER -->
+        <!-- <div class="ico_img32_rg notify-icon" *ngIf="isLoggedIn()">
+          <img src="assets/images/Group 107.png" alt="" />
+        </div> -->
+        <div [routerLink]="['/dashboard/settings']" class="ico_img32_rg settings-icon" *ngIf="isLoggedIn()">
+          <img src="assets/images/settings.png" alt="" />
+        </div>
+
+        <div class="ico_img32_rg">
+          <img src="assets/images/Group 111.png" alt="" class="user_icon11" href="javascript:void(0);"
+            [routerLink]="['/login']" class="account" *ngIf="!isLoggedIn(); else userTab" />
+          <ng-template #userTab>
+            <!-- <img src="{{ getUserInfo().ProfilePicture }}" /> -->
+            <div>
+              {{ getUserInfo().FirstName }}-{{ getUserInfo().LastName }}
+            </div>
+          </ng-template>
+          <div class="user_peronal_setting" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/dashboard/settings']"><img src="assets/images/profile.png" class="icon-24" />Profile</a>
+            <a [routerLink]="['/dashboard/settings/edit']" href="javascript:void(0);"><img
+                src="assets/images/settings.png" class="icon-24" />Settings</a>
+            <a href="javascript:void(0);" [routerLink]="['/dashboard/friends']"><img src="assets/images/profile.png"
+                class="icon-24" />Friends</a>
+            <a [routerLink]="['/donation']" href="javascript:void(0);"><img src="assets/images/support.png"
+                class="icon-24" />Support
+              this project</a>
+            <a [routerLink]="['/contact-us']" href="javascript:void(0);"><img src="assets/images/support.png"
+                class="icon-24" />Contact
+              Us</a>
+            <!-- <a href="javascript:void(0);"
+              ><img src="assets/images/invite.png" class="icon-24" />Invite</a
+            > -->
+            <a href="javascript:void(0);" (click)="logout()"><img src="assets/images/logout.png"
+                class="icon-24" />Logout</a>
+          </div>
+        </div>
+        <div class="ham">
+          <img (click)="showMenu()" src="assets/images/outline_menu_black.png" alt="" class="click_outline45" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showHamMenu == true" class="menu_lidt76">
+    <ul class="top_menu_unorder_list">
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/home']" class="list_under_anchor">
+          <img src="assets/images/home.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">home</span>
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/read']" class="list_under_anchor">
+          <img src="assets/images/book.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">read</span>
+        </a>
+      </li>
+      <!-- <li class="top_menu_list_mob67">
+        <a [routerLink]="['/compare']" class="list_under_anchor">
+          <img src="assets/images/edit.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">compare</span>
+        </a>
+      </li> -->
+      <li class="top_menu_list_mob67">
+        <a class="list_under_anchor">
+          <img src="assets/images/Icon ionic-ios-information-circle-outline.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span"> information</span>
+          <!-------css---drop---down----on----information- start--->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/abrogations-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6399.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">Abrogation</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/different-readings-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6400.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">Different-reading</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/repetitions-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6398.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">Repetitions</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/differences-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6401.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">Differences</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-------css---drop---down----on----information- end--->
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/information/topics-list']" class="list_under_anchor">
+          <img src="assets/images/hashtag.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">topics</span>
+        </a>
+      </li>
+      <!-- <li class="top_menu_list_mob67">
+        <a [routerLink]="['/lessons']" class="list_under_anchor">
+          <img src="assets/images/light-bulb.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">lessons</span>
+        </a>
+      </li> -->
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/articles-list']" class="list_under_anchor">
+          <img src="assets/images/pc.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">resource</span>
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a class="list_under_anchor">
+          <img src="assets/images/about-us.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">about</span>
+          <!-------css---drop---down----on----information- start--->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/contact-us']" class="anchor_on_drop">
+                  <img src="assets/images/contact-us.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">Contact Us</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-------css---drop---down----on----information- end--->
+        </a>
+      </li>
+
+      <li class="top_menu_list_mob67"data-toggle="modal" data-target="#exampleModal">
+        <a class="list_under_anchor">
+        <img src="assets/images/globe.jpg" alt="" class="menu_icon_list54">
+        <span  class="list_name_span" >Language</span>
+        <a  class="list_under_anchor" >
+          <!-- -----css---drop---down----on----information- start- -->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <!-- <a  class="anchor_on_drop" > -->
+                  <img
+                    src="assets/images/contact-us.png"
+                    alt=""
+                    class="verse_drop_icon"
+                  />
+                  <span class="link_anothet_drop">Contact Us</span>
+                <!-- </a> -->
+              </li>
+            </ul>
+          </div>
+          <!-- -----css---drop---down----on----information- end- -->
+        </a>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="container-fluid hea_dwe32_top top_menu_on_mobile" *ngIf="Language === 'ar'">
+  <div class="row main_header_top">
+    <div class="col-sm-12 col-md-4 col-lg-4 right_side32 justify-content-end">
+      <div class="right-side-icon54">
+        <!-- TODO ADD IT LATER -->
+        <!-- <div class="ico_img32_rg notify-icon" *ngIf="isLoggedIn()">
+          <img src="assets/images/Group 107.png" alt="" />
+        </div> -->
+        <div [routerLink]="['/dashboard/settings']" class="ico_img32_rg settings-icon" *ngIf="isLoggedIn()">
+          <img src="assets/images/settings.png" alt="" />
+        </div>
+
+        <div class="ico_img32_rg">
+          <img src="assets/images/Group 111.png" alt="" class="user_icon11" href="javascript:void(0);"
+            [routerLink]="['/login']" class="account" *ngIf="!isLoggedIn(); else userTab" />
+          <ng-template #userTab>
+            <!-- <img src="{{ getUserInfo().ProfilePicture }}" /> -->
+            <div>
+              {{ getUserInfo().FirstName }}-{{ getUserInfo().LastName }}
+            </div>
+          </ng-template>
+          <div class="user_peronal_setting" *ngIf="isLoggedIn()">
+            <a [routerLink]="['/dashboard/settings']"><img src="assets/images/profile.png" class="icon-24" />Profile</a>
+            <a [routerLink]="['/dashboard/settings/edit']" href="javascript:void(0);"><img
+                src="assets/images/settings.png" class="icon-24" />Settings</a>
+            <a href="javascript:void(0);" [routerLink]="['/dashboard/friends']"><img src="assets/images/profile.png"
+                class="icon-24" />Friends</a>
+            <a [routerLink]="['/donation']" href="javascript:void(0);"><img src="assets/images/support.png"
+                class="icon-24" />Support
+              this project</a>
+            <a [routerLink]="['/contact-us']" href="javascript:void(0);"><img src="assets/images/support.png"
+                class="icon-24" />Contact
+              Us</a>
+            <!-- <a href="javascript:void(0);"
+              ><img src="assets/images/invite.png" class="icon-24" />Invite</a
+            > -->
+            <a href="javascript:void(0);" (click)="logout()"><img src="assets/images/logout.png"
+                class="icon-24" />Logout</a>
+          </div>
+        </div>
+        <div class="ham">
+          <img (click)="showMenu()" src="assets/images/outline_menu_black.png" alt="" class="click_outline45" />
+        </div>
+      </div>
+      <div class="search_box_top ">
+        <a (click)="search()" href="javascript:void(0);">
+          <img src="assets/images/search.png" alt="" class="searc_ico_32img" />
+        </a>
+        <input (change)="changeSearchInput($event)" type="search" class="search_input" placeholder="search...."
+          (keyup.enter)="search()" />
+      </div>
+    
+    </div>
+    <div class="main_menu_items col-sm-12 col-md-8 col-lg-8 justify-content-end">
+     
+      <div class="icon_all321">
+        <div data-toggle="modal" data-target="#exampleModal" class="menu_item32  menu_item33    mt-3 text-center"style="">
+          <img src="../../../../assets/images/globe.jpg" alt=""class="icon_imb543_icon32">
+          <p class="mt-3 text-center">لغة</p>
+        </div>
+        <div  class="menu_item32 hover"
+          *ngFor="let navBarMenu of navBarMenusArraysecond">
+          <a [routerLink]="navBarMenu.route != '' ? navBarMenu.route : []">
+
+          <div class="icon_imb543">
+            <a 
+              [ngClass]="navBarMenu.isActive ? 'indicator_color' : ''">
+              <img src="assets/images/{{ navBarMenu.menu_img }}" alt="" class="icon_imb543_icon32" />
+          </a>
+          </div>
+          <div class="txet543">
+            <a 
+              *ngIf="navBarMenu.sub_menus.length > 0; else noMenu">
+              {{ navBarMenu.title }}
+              <div class="drop12-down" style="z-index: 10;">
+                <ng-container *ngFor="let sub_menu of navBarMenu.sub_menus">
+                  <a  [routerLink]="sub_menu.route"
+                    class="abr12-col">
+                    <img src="assets/images/{{ sub_menu.icon }}" alt="" class="img1-show" />
+                    {{ sub_menu.title }}</a>
+                </ng-container>
+              </div>
+            </a>
+            <ng-template #noMenu><a href="javascript:void(0);"
+                [routerLink]="navBarMenu.route != '' ? navBarMenu.route : []">{{ navBarMenu.title }}</a></ng-template>
+          </div>
+          </a>
+        </div>
+      </div>
+      <div class="logo_icon32  logo_icon33  ">
+        <img src="assets/images/Group 5.png" alt="" class="logo_icon32_logo logo_32" />
+      </div>
+    </div>
+  
+  </div>
+
+  <div *ngIf="showHamMenu == true" class="menu_lidt76">
+    <ul class="top_menu_unorder_list">
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/home']" class="list_under_anchor">
+          <img src="assets/images/home.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">الرئيسية</span>
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/read']" class="list_under_anchor">
+          <img src="assets/images/book.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">اقرأ</span>
+        </a>
+      </li>
+      <!-- <li class="top_menu_list_mob67">
+        <a [routerLink]="['/compare']" class="list_under_anchor">
+          <img src="assets/images/edit.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span">compare</span>
+        </a>
+      </li> -->
+      <li class="top_menu_list_mob67">
+        <a class="list_under_anchor">
+          <img src="assets/images/Icon ionic-ios-information-circle-outline.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one"> معلومات</span>
+          <!-------css---drop---down----on----information- start--->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/abrogations-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6399.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">الناسخ والمنسوخ</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/different-readings-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6400.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">قراءات مختلفة</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/repetitions-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6398.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">التكرار</span>
+                </a>
+              </li>
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/information/differences-list']" class="anchor_on_drop">
+                  <img src="assets/images/Group 6401.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">الاختلافات</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-------css---drop---down----on----information- end--->
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/information/topics-list']" class="list_under_anchor">
+          <img src="assets/images/hashtag.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">المواضيع</span>
+        </a>
+      </li>
+      <!-- <li class="top_menu_list_mob67">
+        <a [routerLink]="['/lessons']" class="list_under_anchor">
+          <img src="assets/images/light-bulb.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">الدروس</span>
+        </a>
+      </li> -->
+      <li class="top_menu_list_mob67">
+        <a [routerLink]="['/articles-list']" class="list_under_anchor">
+          <img src="assets/images/pc.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">تبرع</span>
+        </a>
+      </li>
+      <li class="top_menu_list_mob67">
+        <a class="list_under_anchor">
+          <img src="assets/images/about-us.png" alt="" class="menu_icon_list54" />
+          <span class="list_name_span list_name_span_one">المزيد</span>
+          <!-------css---drop---down----on----information- start--->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <a [routerLink]="['/contact-us']" class="anchor_on_drop">
+                  <img src="assets/images/contact-us.png" alt="" class="verse_drop_icon" />
+                  <span class="link_anothet_drop">اتصل بنا</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-------css---drop---down----on----information- end--->
+        </a>
+      </li>
+
+      <li class="top_menu_list_mob67"data-toggle="modal" data-target="#exampleModal">
+        <a class="list_under_anchor  " >
+        <img src="assets/images/globe.jpg" alt="" class="menu_icon_list54">
+        <span  class="list_name_span  list_name_span_one" >لغة</span>
+        <a  class="list_under_anchor" >
+          <!-- -----css---drop---down----on----information- start- -->
+          <div class="drop_down_information">
+            <ul class="drop_down_unorder">
+              <li class="drop_down_verse4">
+                <!-- <a  class="anchor_on_drop" > -->
+                  <img
+                    src="assets/images/contact-us.png"
+                    alt=""
+                    class="verse_drop_icon"
+                  />
+                  <span class="link_anothet_drop">Contact Us</span>
+                <!-- </a> -->
+              </li>
+            </ul>
+          </div>
+          <!-- -----css---drop---down----on----information- end- -->
+        </a>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- <header class="header-wrapper">
+  <div class="upper-header">
+    <div class="container">
+      <div class="row clearfix flexi-agn-cnt">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <a routerLink="/home" class="brand-logo img-placeholder">
+            <img src="assets/images/brand-logo.png" />
+          </a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 clearfix">
+          <ul class="upper-header-menu">
+            <li class="dropdown" style="vertical-align: text-bottom">
+              <a href="javascript:void(0);" class="img-placeholder icon-24">
+                <img src="assets/images/notification.png" />
+                <span class="noti-yes"></span>
+              </a>
+              <div class="notification-dropdown">
+                <div class="notifications">
+                  <div class="dropdown-block">
+                    <h4>TODAY</h4>
+                    <ul class="dropdown-sec">
+                      <li>
+                        <img src="assets/images/user1.svg" class="icon-40" />
+                        <p>
+                          Lorem ipsum dolor sit amet, consetetur sadipscing
+                          elitr, sed diam nonumy eirmod tempor invidunt ut
+                        </p>
+                      </li>
+                      <li>
+                        <img src="assets/images/user1.svg" class="icon-40" />
+                        <p>
+                          Lorem ipsum dolor sit amet, consetetur sadipscing
+                          elitr, sed diam nonumy eirmod tempor invidunt ut
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown-block">
+                    <h4>YESTERDAY</h4>
+                    <ul class="dropdown-sec">
+                      <li>
+                        <img src="assets/images/user1.svg" class="icon-40" />
+                        <p>
+                          Lorem ipsum dolor sit amet, consetetur sadipscing
+                          elitr, sed diam nonumy eirmod tempor invidunt ut
+                        </p>
+                      </li>
+                      <li>
+                        <img src="assets/images/user1.svg" class="icon-40" />
+                        <p>
+                          Lorem ipsum dolor sit amet, consetetur sadipscing
+                          elitr, sed diam nonumy eirmod tempor invidunt ut
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <a href="javascript:void(0);" class="all">See all</a>
+              </div>
+            </li>
+            <li class="dropdown-user-icon">
+              <a
+                href="javascript:void(0);"
+                [routerLink]="['/login']"
+                class="account"
+                *ngIf="!isLoggedIn(); else userTab"
+                ><img src="assets/images/dp_placeholder.svg" /><span>
+                  Login
+                </span></a
+              >
+              <ng-template #userTab>
+                <a href="javascript:void(0);" class="account"
+                  ><img src="{{ getUserInfo().ProfilePicture }}" /><span
+                    >{{ getUserInfo().FirstName }}-{{
+                      getUserInfo().LastName
+                    }}</span
+                  ></a
+                >
+              </ng-template>
+              <ul class="profile-dropdown" *ngIf="isLoggedIn()">
+                <li>
+                  <a href="javascript:void(0);"
+                    ><img
+                      src="assets/images/profile.svg"
+                      class="icon-24"
+                    />Profile</a
+                  >
+                </li>
+                <li>
+                  <a href="javascript:void(0);"
+                    ><img
+                      src="assets/images/settings.svg"
+                      class="icon-24"
+                    />Settings</a
+                  >
+                </li>
+                <li>
+                  <a href="javascript:void(0);" [routerLink]="['/friends']"
+                    ><img
+                      src="assets/images/profile.svg"
+                      class="icon-24"
+                    />Friends</a
+                  >
+                </li>
+                <li>
+                  <a href="javascript:void(0);"
+                    ><img
+                      src="assets/images/support.svg"
+                      class="icon-24"
+                    />Support this project</a
+                  >
+                </li>
+                <li>
+                  <a href="javascript:void(0);"
+                    ><img
+                      src="assets/images/invite.svg"
+                      class="icon-24"
+                    />Invite</a
+                  >
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="logout()"
+                    ><img
+                      src="assets/images/logout.svg"
+                      class="icon-24"
+                    />Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lower-header">
+    <div class="container-fluid">
+      <div class="row clearfix">
+        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+          <nav class="navbar navbar-expand-md main-menu">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseibleNavbar"
+            >
+              <span> <img src="assets/images/menu.svg" alt="" /></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapseibleNavbar">
+              <ul class="navbar-nav">
+                <li
+                  *ngFor="let navBarMenu of navBarMenusArray"
+                  class="nav-item"
+                  [ngClass]="{ common12: checkClass(navBarMenu) }"
+                >
+                  <a
+                    [routerLink]="
+                      navBarMenu.route != '' ? navBarMenu.route : []
+                    "
+                    class="nav-link"
+                    [ngClass]="navBarMenu.isActive ? 'menu-active' : ''"
+                    ><img src="assets/images/{{ navBarMenu.menu_img }}" /><span
+                      >{{ navBarMenu.title }}</span
+                    ></a
+                  >
+                  <ng-container *ngIf="navBarMenu.sub_menus.length > 0">
+                    <div class="drop12-down">
+                      <ul>
+                        <li
+                          class="me12"
+                          *ngFor="let sub_menu of navBarMenu.sub_menus"
+                        >
+                          <a
+                            href="javascript:void(0);"
+                            [routerLink]="
+                              sub_menu.route !== '' ? sub_menu.route : []
+                            "
+                            class=""
+                          >
+                            <img
+                              src="assets/images/{{ sub_menu.icon }}"
+                              alt=""
+                              class="img1-show"
+                            />
+                            {{ sub_menu.title }}</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </ng-container>
+                </li>
+              </ul>f
+            </div>
+          </nav>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+          <form class="header-search">
+            <input type="text" placeholder="Search..." />
+            <input type="submit" value="" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header> -->
+
+
+<!-- Modal -->
+<div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"#id >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">لغة</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table m-1">
+          <thead>
+            <tr>
+              <td class="selectLanguage active" scope="col" data-dismiss="modal"  (click)="selectedLanguage('en',2)"> English </td>
+              <td class="selectLanguage" scope="col" data-dismiss="modal"   (click)="selectedLanguage('ar',1)">عربى <br> Arabic</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

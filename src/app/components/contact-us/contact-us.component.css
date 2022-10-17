@@ -1,0 +1,14 @@
+.input-error {
+  color: red;
+}
+
+.contact_us {
+  height: 500px;
+  margin-top: 30px;
+}
+.contact_form-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  align-self: flex-start;
+}

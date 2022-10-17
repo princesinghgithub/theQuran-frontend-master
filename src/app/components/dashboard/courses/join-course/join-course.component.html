@@ -1,0 +1,29 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="join-course">
+    <div class="read_plan_images65">
+      <img
+        src="{{ courseDetail?.CourseImage }}"
+        alt=""
+        class="shoe4_image_top"
+      />
+    </div>
+    <div class="top54_he4_di6 flex justify-between">
+      <div class="title_details">
+        <h4 class="heading_plan_top29">{{ courseDetail?.CourseTitle }}</h4>
+        <small class="show_times_plan">
+          {{ courseDetail?.CourseLessons?.length }} lessons</small
+        >
+      </div>
+
+      <div *ngIf="courseDetail?.CourseAudio" class="course-audio">
+        <audio controls src="{{ courseDetail?.CourseAudio }}"></audio>
+      </div>
+    </div>
+    <div *ngIf="response" class="response-message">
+      <p class="response-message-text">
+        {{ response }}
+      </p>
+    </div>
+  </div>
+</div>

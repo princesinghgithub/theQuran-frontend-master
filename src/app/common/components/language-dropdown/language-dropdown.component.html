@@ -1,0 +1,15 @@
+<div class="sura-dropdown">
+  <button class="select" *ngIf="selectedTranslation; else showSelectedSoora">
+    {{ selectedTranslation.Language }}
+  </button>
+  <ng-template #showSelectedSoora>
+    <button class="select">{{ "Choose Language" | translate }}</button>
+  </ng-template>
+  <div class="verse-content">
+    <ng-container *ngFor="let lang of languageList; let i = index">
+      <a href="javascript:void(0);" (click)="changeTranslation(lang)">
+        {{ lang.Language }}</a
+      >
+    </ng-container>
+  </div>
+</div>

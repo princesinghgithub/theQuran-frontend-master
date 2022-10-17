@@ -1,0 +1,47 @@
+<app-nav-bar></app-nav-bar>
+<div class="container-fluid screamble-app-design">
+  <div class="heading-for-topics">
+    <h6>{{ "topics" | translate }}</h6>
+  </div>
+  <div class="difference-head-top">
+    <app-language-dropdown
+      (passTranslationParent)="changeTranslation($event)"
+    ></app-language-dropdown>
+  </div>
+  <div class="row screamble-app">
+    <ng-container *ngIf="topicsList.length > 1; else empty">
+      <div
+        class="col-sm-12 col-md-4 col-lg-4"
+        *ngFor="let topic of topicsList; let i = index"
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="3000"
+        (scrolled)="onScroll()"
+      >
+        <div
+          class="image-india"
+          [routerLink]="[
+            '/information/topic-detail',
+            topic.TopicId,
+            translationId
+          ]"
+        >
+          <img
+            src="{{ topicImageUrl + topic.Topic.TopicImageName }}"
+            alt=""
+            class="image-of-sura"
+          />
+          <div class="bottom-hell">
+            <h1>
+              <a class="topic-name-anchor" href="javascript:void(0);">{{
+                topic.Topic.TopicNames[0].Name
+              }}</a>
+            </h1>
+            <p>{{ topic.TopicVerese.length }} Verses</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #empty>...</ng-template>
+  </div>
+</div>

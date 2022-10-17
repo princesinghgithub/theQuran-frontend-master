@@ -1,0 +1,89 @@
+<app-nav-bar></app-nav-bar>
+<div class="container" [ngClass]="{ 'language-arabic': arabicLanguage }">
+  <div class="top-heading-abrogation">
+    <h4>{{ "Repetitions" | translate }}</h4>
+  </div>
+  <div class="dropdown-header">
+    <div class="left-side-align">
+      <app-soora-dropdown
+        [arabicLanguage]="arabicLanguage"
+        (passSooraParent)="getSelectedSooraFromChild($event)"
+      ></app-soora-dropdown>
+      <div class="language-select">
+        <app-translation-dropdown
+          (passTranslationParent)="changeTranslation($event)"
+        ></app-translation-dropdown>
+      </div>
+    </div>
+    <div class="right-side-align">
+      <app-share></app-share>
+      <span class=""
+        ><a href="javascript:void(0);" class="right-side-about">
+          {{ "About" | translate }}</a
+        ></span
+      >
+    </div>
+  </div>
+  <div class="main-dody-abrogation">
+    <div class="abrogation-heading">
+      <h4
+        class=""
+        *ngIf="checkObjectEmpty(selectedSoora); else showSelectedSooraPrent"
+      >
+        {{
+          arabicLanguage
+            ? selectedSoora.SooraName
+            : selectedSoora.ArabicEnglishName
+        }}
+      </h4>
+      <ng-template #showSelectedSooraPrent>
+        <h4 class="">{{ "All" | translate }}</h4>
+      </ng-template>
+    </div>
+    <div class="abrogation-content">
+      <ng-container *ngIf="repetitionsList.length > 1">
+        <ng-container *ngFor="let repetition of repetitionsList; let i = index">
+          <h3
+            class=""
+            *ngIf="
+              repetition.SooraId !== repetitionsList[i - 1]?.SooraId || i === 0
+            "
+          >
+            {{ repetition.SooraId }}.
+            {{
+              arabicLanguage
+                ? repetition.Soora.SooraName
+                : repetition.Soora.ArabicEnglishName
+            }}
+          </h3>
+          <div
+            class="abrogation-paramain"
+            infiniteScroll
+            [infiniteScrollDistance]="1"
+            [infiniteScrollThrottle]="3000"
+            (scrolled)="onScroll()"
+          >
+            <span class="abrogation-sura-number">
+              {{ repetition.Verse }}
+            </span>
+            <P
+              [ngClass]="arabicLanguage ? 'pr50' : 'pl50'"
+              class="abrogation-paragraph"
+            >
+              <a
+                href="javascript:void(0);"
+                [routerLink]="[
+                  '/information/repetition-detail',
+                  repetition.SooraId,
+                  repetition.Verse,
+                  translationId
+                ]"
+                >{{ repetition.Narration.Narration }}</a
+              >
+            </P>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

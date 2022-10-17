@@ -1,0 +1,16 @@
+.user-name {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.detail_pro_file {
+  padding: 20px;
+}
+
+.user-container {
+  margin-left: 25px;
+}
+
+.lis_32_list ul li {
+  margin-right: 20px;
+}

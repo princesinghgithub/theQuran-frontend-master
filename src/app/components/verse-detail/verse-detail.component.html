@@ -1,0 +1,142 @@
+<app-nav-bar></app-nav-bar>
+<section class="web-sec">
+  <div class="container">
+    <div class="row content-read">
+      <div
+        class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3 shift-to-left"
+        id="shift-to-left"
+      >
+        <div class="heading-top" *ngIf="checkObjectEmpty(verseDetail)">
+          <h1>
+            {{ verseDetail.Soora.SooraId }}.{{
+              textRTL
+                ? verseDetail.Soora.SooraName
+                : verseDetail.Soora.ArabicEnglishName
+            }}
+          </h1>
+          <app-share></app-share>
+        </div>
+        <div
+          class="read"
+          dir="{{ textDir }}"
+          *ngIf="checkObjectEmpty(verseDetail)"
+        >
+          <h3 class="read-chapter-title" id="read-chapter-title">
+            {{ verseDetail.Soora.SooraId }}.{{
+              textRTL
+                ? verseDetail.Soora.SooraName
+                : verseDetail.Soora.ArabicEnglishName
+            }}
+          </h3>
+          <div class="sura-wrapper">
+            <div class="sura" [ngClass]="textRTL ? 'sura-arabic' : ''">
+              <span class="sura-number">{{ verseDetail.Verse }}</span>
+              <ng-container
+                *ngIf="
+                  verseDetail.VerseBackground ||
+                  verseDetail.AbrogatedVerses.length > 0 ||
+                  verseDetail.RepetitionsSooraverses.length > 0 ||
+                  verseDetail.Errors.length > 0 ||
+                  verseDetail.Readings.length > 0
+                "
+              >
+                <ul class="sura-add-on">
+                  <li>
+                    <figure
+                      class="issues-indicator"
+                      [ngClass]="
+                        (verseDetail.AbrogatedVerses.length > 0 &&
+                          verseDetail.RepetitionsSooraverses.length > 0 &&
+                          verseDetail.Errors.length > 0) ||
+                        (verseDetail.RepetitionsSooraverses.length > 0 &&
+                          verseDetail.RepetitionsSooraverses.length > 0 &&
+                          verseDetail.Readings.length > 0) ||
+                        (verseDetail.AbrogatedVerses.length > 0 &&
+                          verseDetail.Errors.length > 0 &&
+                          verseDetail.Readings.length > 0)
+                          ? 'three-issues'
+                          : ''
+                      "
+                    >
+                      <span
+                        *ngIf="verseDetail.AbrogatedVerses.length > 0"
+                        class="issue-dot-abr"
+                        [routerLink]="[
+                          '/information/abrogation-detail',
+                          verseDetail.AbrogatedVerses[0].AbrogatedSooraId,
+                          verseDetail.AbrogatedVerses[0].AbrogatedVerse,
+                          verseDetail.TranslationId
+                        ]"
+                      ></span>
+                      <span
+                        *ngIf="verseDetail.RepetitionsSooraverses.length > 0"
+                        class="issue-dot-repetition"
+                        [routerLink]="[
+                          '/information/repetition-detail',
+                          verseDetail.RepetitionsSooraverses[0].SooraId,
+                          verseDetail.RepetitionsSooraverses[0].Verse,
+                          verseDetail.TranslationId
+                        ]"
+                      ></span>
+                      <span
+                        *ngIf="verseDetail.Errors.length > 0"
+                        class="issue-dot-differences"
+                        [routerLink]="[
+                          '/information/difference-detail',
+                          verseDetail.Errors[0].SooraId,
+                          verseDetail.Errors[0].Verse,
+                          verseDetail.TranslationId
+                        ]"
+                      ></span>
+                      <span
+                        *ngIf="verseDetail.Readings.length > 0"
+                        class="issue-dot-different-readings"
+                        [routerLink]="[
+                          '/information/different-reading-detail',
+                          verseDetail.Readings[0].SooraId,
+                          verseDetail.Readings[0].Verse,
+                          verseDetail.TranslationId,
+                          verseDetail.Readings[0].NarrationId,
+                          verseDetail.Readings[0].Reading
+                        ]"
+                      ></span>
+                    </figure>
+                  </li>
+                  <li>
+                    <img
+                      *ngIf="verseDetail.VerseBackground"
+                      src="assets/images/sura_history_22.svg"
+                      class="sura-info"
+                      [routerLink]="[
+                        '/information/verse-background-detail',
+                        verseDetail.VerseBackground.VersesBackgroundId,
+                        verseDetail.TranslationId
+                      ]"
+                    />
+                  </li>
+                </ul>
+              </ng-container>
+              <p
+                [ngClass]="{
+                  'sura-both': verseDetail.VerseBackground,
+                  'sura-one':
+                    !verseDetail.VerseBackground &&
+                    (verseDetail.AbrogatedVerses.length > 0 ||
+                      verseDetail.RepetitionsSooraverses.length > 0 ||
+                      verseDetail.Errors.length > 0 ||
+                      verseDetail.Readings.length > 0)
+                }"
+              >
+                {{ verseDetail.Narration }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <!-- <button class="share">Share</button> -->
+          <button class="share">See Full Surah</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

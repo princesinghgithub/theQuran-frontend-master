@@ -1,0 +1,31 @@
+<app-nav-bar></app-nav-bar>
+<div
+  class="container-fluid topic-page-content-section"
+  [ngClass]="{ 'language-arabic': arabicLanguage }"
+>
+  <div class="" *ngIf="checkObjectEmpty(articleDetail)">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-section-2">
+      <div class="home-page-topics">
+        <img
+          src="{{ articleImageUrl + articleDetail.ArticleImageName }}"
+          alt=""
+          class="img-icon1-12"
+        />
+      </div>
+      <h3 class="topics-heading">{{ articleDetail.ArticleNames[0].Name }}</h3>
+    </div>
+  </div>
+  <div class="difference-head-topics">
+    <app-contributor-section
+      class="introduction-topics"
+      [arabicClass]="arabicLanguage"
+      [authorList]="authorList"
+    ></app-contributor-section>
+    <div class="flex justify-between">
+      <app-language-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-language-dropdown>
+      <app-share></app-share>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+<div
+  class="friend_requ_st"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll('search')"
+>
+  <h2 class="add_friend">Friend Requests</h2>
+  <div *ngIf="friendsList.length > 0">You don't have any friend requests</div>
+  <ng-container *ngIf="searchList.length > 0">
+    <ng-container *ngFor="let search of searchList; let i = index">
+      <div class="friend_req_detail">
+        <div class="image_sender">
+          <img
+            src="{{
+              search.UserOneData.ProfilePicture
+                ? search.UserOneData.ProfilePicture
+                : 'assets/images/Group 112.png'
+            }}"
+            alt=""
+            class="image_of_request"
+          />
+        </div>
+        <div class="detail_friend">
+          <p class="name_requ_est">
+            {{ search.UserOneData.FirstName }} {{ search.UserOneData.LastName }}
+          </p>
+          <div class="butt_on_accept">
+            <button
+              class="acc_ept_req"
+              type="button"
+              (click)="acceptRequest(search.UserOneData.Id)"
+            >
+              Accept
+            </button>
+            <button
+              class="dec_line_request"
+              type="button"
+              (click)="cancelRequest(search.UserOneData.Id)"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container></ng-container
+  >
+  <div class="sear_ch_friends">
+    <form
+      [formGroup]="srchForm"
+      (ngSubmit)="onSearchSubmit()"
+      class="serc_ing_friend"
+    >
+      <input
+        type="text"
+        placeholder="search by name"
+        class="search_by_name"
+        formControlName="keyword"
+      />
+
+      <button
+        type="submit"
+        [disabled]="!srchForm.valid"
+        class="find_friend hover"
+      >
+        Find Friend
+      </button>
+    </form>
+    <ng-container
+      *ngIf="
+        srchForm.controls.keyword.invalid &&
+        (srchForm.controls.keyword.touched || srchForm.controls.keyword.dirty)
+      "
+    >
+      <span
+        *ngIf="srchForm.controls.keyword.errors?.required"
+        class="input-error"
+        >required</span
+      >
+    </ng-container>
+  </div>
+</div>
+<div
+  class="friends_request_coming"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll('friendList')"
+>
+  <h2 class="list_friend56">Friends</h2>
+  <ng-container *ngIf="friendsList.length > 0">
+    <ng-container *ngFor="let friend of friendsList; let i = index">
+      <div class="row friends_detail76">
+        <ng-container *ngIf="friend.UserOneData.Id !== userData.Id; else other">
+          <div class="col-sm-12 col-md-4 col-lg-4 friends_show_list">
+            <div class="friends_pic_ture">
+              <img
+                src="{{
+                  friend.UserOneData.ProfilePicture
+                    ? friend.UserOneData.ProfilePicture
+                    : 'assets/images/Group 112.png'
+                }}"
+                alt=""
+                class="friend_request_picture"
+              />
+            </div>
+            <div class="request_detail09">
+              <a class="namefriends">
+                {{ friend.UserOneData.FirstName }}
+                {{ friend.UserOneData.LastName }}
+              </a>
+              <p
+                class="friendtitle hover"
+                (mouseover)="over(i, 'friendList')"
+                (mouseout)="out(i, 'friendList')"
+                (click)="removeFriend(friend.UserOneData.Id, 'friendList')"
+              >
+                {{ friendText[i] }}
+              </p>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #other
+          ><div class="col-sm-12 col-md-4 col-lg-4 friends_show_list">
+            <div class="friends_pic_ture">
+              <img
+                src="{{
+                  friend.UserTwoData.ProfilePicture
+                    ? friend.UserTwoData.ProfilePicture
+                    : 'assets/images/Group 112.png'
+                }}"
+                alt=""
+                class="friend_request_picture"
+              />
+            </div>
+            <div class="request_detail09">
+              <p class="namefriends">
+                {{ friend.UserTwoData.FirstName }}
+                {{ friend.UserTwoData.LastName }}
+              </p>
+              <small
+                class="friendtitle"
+                (mouseover)="over(i, 'friendList')"
+                (mouseout)="out(i, 'friendList')"
+                (click)="removeFriend(friend.UserTwoData.Id, 'friendList')"
+                >{{ friendText[i] }}</small
+              >
+            </div>
+          </div>
+        </ng-template>
+      </div></ng-container
+    ></ng-container
+  >
+</div>

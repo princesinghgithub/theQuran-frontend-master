@@ -1,0 +1,76 @@
+<app-nav-bar></app-nav-bar>
+<section
+  class="container standalone"
+  [ngClass]="{ 'arabic-language': arabicClass }"
+>
+  <div class="container content" *ngIf="checkObjectEmpty(abrogationDetail)">
+    <div class="difference-head-top">
+      <div class="difference-head">
+        <h1>
+          {{ abrogationDetail.AbrogatedSooraId }}.{{
+            arabicClass
+              ? abrogationDetail.Soora.SooraName
+              : abrogationDetail.Soora.ArabicEnglishName
+          }}
+        </h1>
+      </div>
+      <app-translation-dropdown
+        (passTranslationParent)="changeTranslation($event)"
+      ></app-translation-dropdown>
+      <app-share></app-share>
+    </div>
+    <div class="abrogating-heading">
+      <h5>{{ "Abrogated" | translate }}</h5>
+    </div>
+    <div class="upper-section">
+      <p class="upper-section-para">
+        <span class="count-abrogat">{{ abrogationDetail.AbrogatedVerse }}</span>
+        {{ abrogationDetail.Narration.Narration }}
+      </p>
+    </div>
+    <div class="sub-block abrogating-verse">
+      <div class="block-title">
+        <h3 class="">
+          <img src="assets/images/issue_abrogation.svg" />{{
+            "Abrogating" | translate
+          }}
+        </h3>
+      </div>
+      <div class="block-body">
+        <div class="abrogate-sura">
+          <ng-container *ngIf="abrogatingVerses.length > 0">
+            <ng-container *ngFor="let abrogatingVerse of abrogatingVerses">
+              <h4>
+                {{ abrogatingVerse.AbrogatingVerse.AbrogatingSooraId }}.
+                {{
+                  arabicClass
+                    ? abrogatingVerse.AbrogatingVerse.Soora.SooraName
+                    : abrogatingVerse.AbrogatingVerse.Soora.ArabicEnglishName
+                }}
+              </h4>
+              <div>
+                <p class="upper-section-para">
+                  <span class="count-abrogat">{{
+                    abrogatingVerse.AbrogatingVerse.AbrogatingVerse
+                  }}</span>
+                  {{ abrogatingVerse.AbrogatingVerse.Narration.Narration }}
+                </p>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="abrogatingOthers.length > 0">
+            <div class="q-tags">
+              <span class="tag-abr" *ngFor="let other of abrogatingOthers">{{
+                other
+              }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <app-contributor-section
+      [arabicClass]="arabicClass"
+      [authorList]="authorList"
+    ></app-contributor-section>
+  </div>
+</section>

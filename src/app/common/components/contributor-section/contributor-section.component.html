@@ -1,0 +1,79 @@
+<ng-container *ngIf="checkObjectEmpty(selectedAuthor)">
+  <div class="sub-block">
+    <div class="block-title">
+      <h3 class="block-title">
+        <img src="assets/images/notes.svg" />
+        {{ "Comments" | translate }}
+      </h3>
+    </div>
+    <div class="block-body">
+      <p
+        class="upper-section-para inner-comment"
+        [innerHTML]="safeHTML(selectedAuthor.Comment.Comment)"
+      ></p>
+    </div>
+  </div>
+  <div class="sub-block" *ngIf="selectedAuthor.Reference?.Description">
+    <div class="block-title">
+      <h3 class="block-title">
+        <img src="assets/images/references_or.svg" />{{
+          "References" | translate
+        }}
+      </h3>
+    </div>
+    <div class="block-body">
+      <p
+        class="upper-section-para"
+        [innerHTML]="safeHTML(selectedAuthor.Reference.Description)"
+      ></p>
+    </div>
+  </div>
+  <div class="sub-block">
+    <div class="block-title">
+      <h3>
+        <img src="assets/images/contributor.svg" />
+        Author
+        <!-- {{
+          "texts.contributor" | translate
+        }} -->
+      </h3>
+    </div>
+    <div class="block-body issue-author">
+      <div>
+        <figure class="img-placeholder icon-48">
+          <img src="{{ selectedAuthor.ProfilePicture }}" />
+        </figure>
+        <p class="upper-section-para hover" (click)="authorDetailPage()">
+          {{ selectedAuthor.FirstName }}
+        </p>
+      </div>
+      <div class="btn-group" dropdown *ngIf="authorList.length > 1">
+        <button
+          id="button-basic"
+          dropdownToggle
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic"
+        >
+          {{ "change" | translate }} <span class="caret"></span>
+        </button>
+        <ul
+          id="dropdown-basic"
+          *dropdownMenu
+          class="dropdown-menu"
+          role="menu"
+          aria-labelledby="button-basic"
+        >
+          <li role="menuitem" *ngFor="let author of authorList">
+            <a
+              class="dropdown-item"
+              href="javascript:void(0);"
+              (click)="changeAuthor(author)"
+              >{{ author.FirstName }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-container>

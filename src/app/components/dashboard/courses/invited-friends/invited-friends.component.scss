@@ -1,0 +1,129 @@
+.invite {
+  &-header {
+    background-color: white;
+    margin: 20px 0;
+    &-con {
+      position: relative;
+      width: 66%;
+      margin: auto;
+      h2 {
+        font-weight: 700;
+        text-align: center;
+        margin: 0;
+      }
+      img {
+        position: absolute;
+        left: 0;
+        bottom: 5px;
+      }
+    }
+  }
+  &_body {
+    background-color: rgb(244, 244, 244);
+    margin: 20px 0;
+    padding: 50px 0 150px 0;
+    &-con {
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      .images_lesson_head {
+        width: 100%;
+      }
+      .selected_numbres {
+        text-align: center;
+      }
+      .inform_link {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 16px;
+      }
+      .copy_link_quran {
+        display: flex;
+        justify-content: center;
+        margin: 25px;
+        align-items: center;
+        gap: 15px;
+        .copy_link {
+          border: 1px solid #d4d4d4;
+          border-radius: 5px;
+          padding: 5px 45px;
+          font-size: 18px;
+          max-width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: #767676;
+          cursor: pointer;
+        }
+      }
+      .search_friends {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        .serach_listed_friend {
+          border: 1px solid #d4d4d4;
+          border-radius: 5px;
+          padding: 5px 45px;
+          font-size: 18px;
+          max-width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: #767676;
+        }
+      }
+      .friend_list {
+        min-height: 150px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        .frie46_li98_f34 {
+          width: 100%;
+          box-shadow: none;
+          margin: 0;
+          .use36_im32_ico2 {
+            a {
+              display: flex;
+              align-items: center;
+            }
+          }
+          .add23_fr34_li2 {
+            .add32_bu23_tton2 {
+              height: auto !important;
+              padding: 8px 20px;
+              a {
+                padding: 0;
+                span {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+        &-item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          .invite_course {
+            background-color: #4bc077;
+            border: none !important;
+            height: 50px !important;
+            border-radius: 5px;
+          }
+        }
+        .no_friends {
+          font-size: 16px;
+          color: brown;
+          text-transform: capitalize;
+        }
+      }
+
+      .hint_onbottom {
+        text-align: center;
+        margin: 10px 0;
+      }
+    }
+  }
+}

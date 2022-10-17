@@ -1,0 +1,40 @@
+<app-nav-bar></app-nav-bar>
+<app-dashboard-bar></app-dashboard-bar>
+
+<div class="settings_page container flex">
+  <div class="side_tabs-container">
+    <app-side-settings></app-side-settings>
+  </div>
+
+  <div class="right_side-container">
+    <div class="right_side">
+      <div class="right_side-title">Change Profile Picture</div>
+    </div>
+    <div class="profile-picture">
+      <img
+        src="{{ allUserData.ProfilePicture || 'assets/images/Group 112.png' }}"
+        alt=""
+        width="72px"
+        height="72px"
+        class="account dp_72"
+      />
+    </div>
+    <form
+      (ngSubmit)="uploadMedia(profilePicture)"
+      class="edit_profile flex column"
+    >
+      <div class="input_container">
+        <label>Select a file for your picture</label>
+        <input
+          (change)="setImage($event.target.files)"
+          name="files"
+          type="file"
+          class="file"
+        />
+      </div>
+      <div class="btn_container">
+        <button type="submit" class="start_pan_red45">Update My Picture</button>
+      </div>
+    </form>
+  </div>
+</div>

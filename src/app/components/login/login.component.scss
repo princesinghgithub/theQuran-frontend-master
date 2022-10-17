@@ -1,0 +1,32 @@
+.extra-btn-container {
+  margin-top: 10px;
+  gap: 10px;
+}
+.input-card {
+  margin-bottom: 0;
+}
+
+.card-top {
+  margin-bottom: 10px;
+  .card-top-profile {
+    gap: 15px;
+    .profile-border {
+      border: 1px solid #979797;
+      border-radius: 50%;
+      padding: 1px;
+    }
+    .card-profile-name {
+      font-size: 18px;
+    }
+  }
+  .card-input {
+    input {
+      border: none !important;
+    }
+  }
+}
+.card-extend {
+  .text-end {
+    margin: 20px;
+  }
+}

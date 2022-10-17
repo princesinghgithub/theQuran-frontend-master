@@ -1,0 +1,147 @@
+.page_for_readplan {
+  .body_of_my_lesson {
+    .side_plan_share {
+      margin-top: 30px;
+      .right_side_share {
+        .right_side-more {
+          img {
+            width: 25px;
+          }
+          .more_dropdown {
+            position: absolute;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 8px 18px 0 rgb(0 0 0 / 11%);
+            color: #444;
+            width: 150px;
+            right: 36px;
+            bottom: 0;
+            transition: 0.4 ease-in;
+            .dropdown_text {
+              padding: 12px;
+              &:hover {
+                background-color: #f5f5f5;
+              }
+            }
+          }
+        }
+      }
+    }
+    .course {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      &_image-container {
+        margin: auto;
+      }
+      &_title-container {
+        h3 {
+          font-size: 18px;
+          color: #444;
+          padding-top: 10px;
+          margin: 0;
+          text-align: center;
+        }
+      }
+      &_duration-container {
+        margin: 10px;
+        border: 1px solid #f4f4f4;
+        height: 80px;
+        width: 100%;
+        display: flex;
+        overflow: auto;
+        .day {
+          flex-shrink: 0;
+          width: fit-content;
+          padding: 0 20px;
+          border: 1px solid #f4f4f4;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          &-container {
+            .day-number {
+              text-align: center;
+              font-size: 18px;
+              margin: 3.2px 0 8px 0;
+            }
+            .day-date {
+              color: rgb(97, 97, 97);
+              padding: 0px 5px;
+              font-size: 11px;
+              text-align: center;
+              margin: 3.2px 0 8px 0;
+            }
+          }
+        }
+      }
+      &_plan-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 15px;
+        @media screen and (max-width: 600px) {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .main-container {
+          &-day {
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+          &-lessons {
+            margin-bottom: 10px;
+            width: fit-content;
+            // display: grid;
+            // grid-template-columns: auto auto auto auto;
+            // gap: 50px;
+          }
+          &-lesson {
+            display: flex;
+            margin: 10px;
+            gap: 5px;
+            align-items: center;
+            .outer {
+              width: 14px;
+              height: 14px;
+              border-radius: 50%;
+              border: 1px solid black;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .inner {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                border: 1px solid black;
+              }
+            }
+            .lesson-name {
+              font-size: 13px;
+            }
+          }
+        }
+        .btn-container {
+          .start_pan_red45 {
+            padding: 7px 20px;
+            border-radius: 3px;
+            a {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.complete {
+  a {
+    color: #acacac !important;
+  }
+  .outer {
+    border-color: #acacac !important;
+  }
+  .inner {
+    border-color: #acacac !important;
+    background-color: #acacac;
+  }
+}

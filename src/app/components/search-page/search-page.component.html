@@ -1,0 +1,293 @@
+<app-nav-bar></app-nav-bar>
+<div class="search-results container">
+  <h2 class="search-title">Search Result's for : {{ query }}</h2>
+  <div class="results-container flex">
+    <div class="result-tabs">
+      <div class="fixed-tabs">
+        <div *ngFor="let tab of tabs" class="tab">
+          <a
+            [ngClass]="type === tab.type ? 'tab-selected' : ''"
+            (click)="changeSearchTab(tab.type)"
+            class="tab-link"
+            >{{ tab.name }}</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      [ngClass]="languageId == 1 ? 'language-arabic' : ''"
+      class="current-results"
+    >
+      <ng-container *ngIf="type === 'read'">
+        <div class="language-select">
+          <app-translation-dropdown
+            (passTranslationParent)="changeTranslation($event)"
+          ></app-translation-dropdown>
+        </div>
+        <div class="narration-container" *ngFor="let search of searchData">
+          <div class="flex justify-between align-center">
+            <h4 (click)="openSideIssuesNav(search)" class="narration-info">
+              <a class="narration-link" href="javascript:void(0)"
+                >{{
+                  languageId == 2
+                    ? search.Soora.ArabicEnglishName
+                    : search.Soora.SooraName
+                }}
+                {{ search.Soora.SooraId }}:{{ search.Verse }}</a
+              >
+            </h4>
+            <div>
+              <ng-container
+                *ngIf="
+                  search.VerseBackground ||
+                  search.AbrogatedVerses.length > 0 ||
+                  search.RepetitionsSooraverses.length > 0 ||
+                  search.Errors.length > 0 ||
+                  search.Readings.length > 0
+                "
+              >
+                <ul>
+                  <li>
+                    <figure
+                      (click)="openSideIssuesNav(search)"
+                      class="issues-indicator"
+                      [ngClass]="
+                        (search.AbrogatedVerses.length > 0 &&
+                          search.RepetitionsSooraverses.length > 0 &&
+                          search.Errors.length > 0) ||
+                        (search.RepetitionsSooraverses.length > 0 &&
+                          search.RepetitionsSooraverses.length > 0 &&
+                          search.Readings.length > 0) ||
+                        (search.AbrogatedVerses.length > 0 &&
+                          search.Errors.length > 0 &&
+                          search.Readings.length > 0)
+                          ? 'three-issues'
+                          : ''
+                      "
+                    >
+                      <span
+                        *ngIf="search.AbrogatedVerses.length > 0"
+                        class="issue-dot-abr"
+                      ></span>
+                      <span
+                        *ngIf="search.RepetitionsSooraverses.length > 0"
+                        class="issue-dot-repetition"
+                      ></span>
+                      <span
+                        *ngIf="search.Errors.length > 0"
+                        class="issue-dot-differences"
+                      ></span>
+                      <span
+                        *ngIf="search.Readings.length > 0"
+                        class="issue-dot-different-readings"
+                      ></span>
+                    </figure>
+                  </li>
+                  <li>
+                    <img
+                      *ngIf="search.VerseBackground"
+                      src="assets/images/sura_history_22.svg"
+                      class="sura-info"
+                    />
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
+          </div>
+
+          <p class="narration">{{ search.Narration }}</p>
+        </div>
+        <app-verse-abbrogated-side-nav
+          (closeSideNavEvent)="closeSideIssuesNav($event)"
+          *ngIf="showSideIssuesNav"
+          [verseNarrationData]="verseAbbrogatedData"
+        ></app-verse-abbrogated-side-nav>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'topics'">
+        <div class="topics-container" *ngFor="let search of searchData">
+          <h4 class="topics-info">
+            <a class="topics-link" href="javascript:void(0)">{{
+              search.TopicNames[0].Name
+            }}</a>
+          </h4>
+          <div class="topic-body flex align-center">
+            <div class="topic-img-container flex align-center">
+              <img
+                [src]="search.TopicImageUrl"
+                alt="search.TopicNames[0].Name"
+              />
+            </div>
+
+            <p
+              class="topic-comment"
+              [innerHTML]="
+                safeHTML(search.TopicComments[0].Comment.split('</p>')[0])
+              "
+            ></p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'article'">
+        <div class="article-container" *ngFor="let search of searchData">
+          <h4 class="article-info">
+            <a class="article-link" href="javascript:void(0)">{{
+              search.ArticleNames[0].Name
+            }}</a>
+          </h4>
+          <div class="article-body flex align-center">
+            <div class="article-img-container flex align-center">
+              <img
+                [src]="search.ArticleImageUrl"
+                alt="search.ArticleNames[0].Name"
+              />
+            </div>
+
+            <p
+              class="article-comment"
+              [innerHTML]="
+                safeHTML(search.ArticleComments[0].Comment.split('</p>')[0])
+              "
+            ></p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'course'">
+        <div class="course-container" *ngFor="let search of searchData">
+          <h4 class="course-info">
+            <a class="course-link" href="javascript:void(0)">{{
+              search.CourseTitle
+            }}</a>
+          </h4>
+          <div class="course-body flex align-center">
+            <div class="course-img-container flex align-center">
+              <img [src]="search.CourseImage" alt="search.CourseTitle" />
+            </div>
+
+            <p
+              class="course-comment"
+              [innerHTML]="safeHTML(search.CourseDescription.split('</p>')[0])"
+            ></p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'users'">
+        <ng-container *ngIf="searchData.length > 0; else login">
+          <ng-container *ngFor="let search of searchData; let i = index">
+            <div class="frie46_li98_f34">
+              <div class="use36_im32_ico2">
+                <a href="javascript:void(0);"
+                  ><img
+                    class="profile_small"
+                    src="{{
+                      search.ProfilePicture
+                        ? search.ProfilePicture
+                        : 'assets/images/profile.png'
+                    }}"
+                    alt=""
+                  />
+                  <span class="user435_nma56">
+                    {{ search.FirstName }} {{ search.LastName }}</span
+                  ></a
+                >
+              </div>
+              <div class="add23_fr34_li2">
+                <button type="button" class="add32_bu23_tton2">
+                  <a href="javascript:void(0);"
+                    ><img
+                      *ngIf="search.Id !== userData.Id"
+                      src="assets/images/outline_person_add_alt_white_24dp.png"
+                      alt=""
+                    />
+                    <span
+                      *ngIf="
+                        search.Receiver.length === 0 &&
+                        search.Sender.length === 0 &&
+                        search.UserOneData.length === 0 &&
+                        search.UserTwoData.length === 0 &&
+                        search.Id !== userData.Id
+                      "
+                      (click)="sendRequest(search.Id)"
+                      >Add friend</span
+                    >
+                    <span
+                      *ngIf="
+                        search.Receiver.length === 0 &&
+                        search.Sender.length === 0 &&
+                        search.UserOneData.length === 0 &&
+                        search.UserTwoData.length === 0 &&
+                        search.Id === userData.Id
+                      "
+                      >You</span
+                    >
+                    <span
+                      *ngIf="
+                        search.Receiver.length === 0 &&
+                        search.Sender.length > 0 &&
+                        search.UserOneData.length === 0 &&
+                        search.UserTwoData.length === 0
+                      "
+                      ><span
+                        class="ng-binding"
+                        (click)="acceptRequest(search.Id)"
+                        >Accept</span
+                      ><br />
+                      <span
+                        class="red ng-binding"
+                        (click)="cancelRequest(search.Id)"
+                        >Decline</span
+                      ></span
+                    >
+                    <span
+                      *ngIf="
+                        search.Receiver.length > 0 &&
+                        search.Sender.length === 0 &&
+                        search.UserOneData.length === 0 &&
+                        search.UserTwoData.length === 0
+                      "
+                      (click)="cancelRequest(search.Id)"
+                      >Cancel Request</span
+                    >
+                    <span
+                      *ngIf="
+                        search.Receiver.length === 0 &&
+                        search.Sender.length === 0 &&
+                        (search.UserOneData.length > 0 ||
+                          search.UserTwoData.length > 0)
+                      "
+                      (click)="removeFriend(search.Id, 'search')"
+                      >Remove Friend</span
+                    ></a
+                  >
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #login>
+          <div class="flexi-agn-cnt text-center justify-center full-height">
+            <div>
+              <span class="bold65_text98"
+                >Please login to search the users</span
+              >
+              <button [routerLink]="['/login']" class="btn-green">Login</button>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="itemCount" class="search_pagination">
+    <pagination
+      [totalItems]="itemCount"
+      [(ngModel)]="currentPage"
+      [maxSize]="maxSize"
+      [itemsPerPage]="25"
+      (pageChanged)="pageChanged($event)"
+    ></pagination>
+  </div>
+</div>

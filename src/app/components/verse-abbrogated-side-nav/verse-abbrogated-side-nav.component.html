@@ -1,0 +1,1153 @@
+<!-- <ngx-spinner type = "ball-fussion" color = "#FF8065" bdColor = "rgba(0, 0, 0, 0)" ></ngx-spinner> -->
+<section class="issues-wrapper">
+  <ng-template
+    *ngIf="arabicTranslation; then arabicMainHead; else englishMainHead"
+  >
+  </ng-template>
+  <ng-template #arabicMainHead>
+    <div class="issues-wrapper-header" dir="rtl">
+      <header>
+        <h3>
+          {{
+            verseNarrationData.Soora.SooraId.toString()
+              .concat(".")
+              .toString()
+              .concat(verseNarrationData.Soora.SooraName)
+          }}
+        </h3>
+        <ul class="left-sidebar-action">
+          <li>
+            <button title="See note">
+              <img src="assets/images/notes.svg" />
+            </button>
+          </li>
+          <li>
+            <!-- <button title="Share">
+              <img src="assets/images/share_24.svg" />
+            </button> -->
+            <app-share></app-share>
+          </li>
+          <li>
+            <button title="Close" (click)="closeSideIssuesNav()">
+              <img src="assets/images/close.svg" />
+            </button>
+          </li>
+        </ul>
+      </header>
+      <div class="title-sura">
+        <div class="sura">
+          <span class="sura-number">{{ verseNarrationData.Verse }}</span>
+          <p class="verse-right-side">{{ verseNarrationData.Narration }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #englishMainHead>
+    <div class="issues-wrapper-header">
+      <header>
+        <h3>
+          {{
+            verseNarrationData.Soora.SooraId.toString()
+              .concat(".")
+              .toString()
+              .concat(verseNarrationData.Soora.ArabicEnglishName)
+          }}
+        </h3>
+        <ul class="left-sidebar-action">
+          <li>
+            <button title="See note">
+              <img src="assets/images/notes.svg" />
+            </button>
+          </li>
+          <li>
+            <!-- <button title="Share">
+              <img src="assets/images/share_24.svg" />
+            </button> -->
+            <app-share [customStyle]="customStyle"></app-share>
+          </li>
+          <li>
+            <button title="Close" (click)="closeSideIssuesNav()">
+              <img src="assets/images/close.svg" />
+            </button>
+          </li>
+        </ul>
+      </header>
+      <div class="title-sura">
+        <div class="sura">
+          <span class="sura-number">{{ verseNarrationData.Verse }}</span>
+          <p>{{ verseNarrationData.Narration }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <tabset>
+    <tab
+      heading="Abbrogated"
+      *ngIf="verseNarrationData.AbrogatedVerses.length > 0"
+      (selectTab)="getVerseAbbrogatedDetails(verseNarrationData)"
+    >
+      <ng-template
+        *ngIf="arabicTranslation; then arabicAbbrogated; else englishAbbrogated"
+      >
+      </ng-template>
+      <ng-template #arabicAbbrogated>
+        <div class="issues-content" dir="rtl">
+          <ng-container *ngIf="abbrogatedDetails.Abrogations">
+            <ng-container>
+              <div class="sub-block abrogating-verse">
+                <div class="block-title">
+                  <h4 class="">
+                    <img src="assets/images/issue_abrogation.svg" />ناسخة
+                  </h4>
+                </div>
+                <div
+                  class="block-body"
+                  *ngFor="let abbrogatedData of abbrogatedDetails.Abrogations"
+                >
+                  <ng-container
+                    *ngIf="abbrogatedData.AbrogationOthers.length > 0"
+                  >
+                    <div class="q-tags">
+                      <span
+                        class="tag-abr"
+                        *ngFor="
+                          let abbrogatingOthers of abbrogatedData.AbrogationOthers
+                        "
+                        >{{ abbrogatingOthers.Name }}</span
+                      >
+                      <!-- <span class="tag-abr">Option 2</span>
+                                                    <span class="tag-abr">Option 3</span> -->
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="abbrogatedData.AbrogatingVerse != null">
+                    <div class="issue-sura">
+                      <h4>
+                        {{
+                          abbrogatedData.AbrogatingVerse.Soora.SooraId.toString()
+                            .concat(".")
+                            .toString()
+                            .concat(
+                              abbrogatedData.AbrogatingVerse.Soora.SooraName
+                            )
+                        }}
+                      </h4>
+                      <div class="sura">
+                        <span class="sura-number">{{
+                          abbrogatedData.AbrogatingVerse.Narration.Verse
+                        }}</span>
+                        <p class="verse-right-side">
+                          {{
+                            abbrogatedData.AbrogatingVerse.Narration.Narration
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <ng-container>
+                <ng-container
+                  *ngIf="abbrogatedDetails.Abrogations[0].Authors.length > 0"
+                >
+                  <div class="sub-block">
+                    <div class="block-title">
+                      <h3 class="block-title">
+                        <img src="assets/images/notes.svg" />تعليقات
+                      </h3>
+                    </div>
+                    <div
+                      class="block-body"
+                      [innerHTML]="
+                        safeHTML(
+                          abbrogatedDetails.Abrogations[0].Authors[0].Comment
+                            .Comment
+                        )
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="sub-block"
+                    *ngIf="
+                      abbrogatedDetails.Abrogations[0].Authors[0].Reference
+                        .Description != ''
+                    "
+                  >
+                    <div class="block-title">
+                      <h3 class="block-title">
+                        <img src="assets/images/references_or.svg" />المراجع
+                      </h3>
+                    </div>
+                    <div
+                      [innerHTML]="
+                        safeHTML(
+                          abbrogatedDetails.Abrogations[0].Authors[0].Reference
+                            .Description
+                        )
+                      "
+                    ></div>
+                  </div>
+                  <div class="sub-block">
+                    <div class="block-title">
+                      <h3><img src="assets/images/contributor.svg" />مساهم</h3>
+                    </div>
+                    <div class="block-body issue-author">
+                      <a
+                        href="javascript:void(0)"
+                        (click)="
+                          authorDetailPage(
+                            abbrogatedDetails.Abrogations[0].Authors[0].Id
+                          )
+                        "
+                      >
+                        <figure
+                          class="img-placeholder icon-48"
+                          *ngIf="
+                            abbrogatedDetails.Abrogations[0].Authors[0]
+                              .ProfilePicture
+                          "
+                        >
+                          <img
+                            src="{{
+                              abbrogatedDetails.Abrogations[0].Authors[0]
+                                .ProfilePicture
+                            }}"
+                          />
+                        </figure>
+                        <p>
+                          {{
+                            abbrogatedDetails.Abrogations[0].Authors[0]
+                              .FirstName
+                          }}
+                        </p>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        *ngIf="abbrogatedDetails.Abrogations[0].Authors > 1"
+                        >يتغيرون</a
+                      >
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-template>
+      <ng-template #englishAbbrogated>
+        <div class="issues-content">
+          <ng-container *ngIf="abbrogatedDetails.Abrogations">
+            <ng-container>
+              <div class="sub-block abrogating-verse">
+                <div class="block-title">
+                  <h4 class="">
+                    <img src="assets/images/issue_abrogation.svg" />ABROGATING
+                    SURA
+                  </h4>
+                </div>
+                <div
+                  class="block-body"
+                  *ngFor="let abbrogatedData of abbrogatedDetails.Abrogations"
+                >
+                  <ng-container
+                    *ngIf="abbrogatedData.AbrogationOthers.length > 0"
+                  >
+                    <div class="q-tags">
+                      <span
+                        class="tag-abr"
+                        *ngFor="
+                          let abbrogatingOthers of abbrogatedData.AbrogationOthers
+                        "
+                        >{{ abbrogatingOthers.Name }}</span
+                      >
+                      <!-- <span class="tag-abr">Option 2</span>
+                                                    <span class="tag-abr">Option 3</span> -->
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="abbrogatedData.AbrogatingVerse != null">
+                    <div class="issue-sura">
+                      <h4>
+                        {{
+                          abbrogatedData.AbrogatingVerse.Soora.SooraId.toString()
+                            .concat(".")
+                            .toString()
+                            .concat(
+                              abbrogatedData.AbrogatingVerse.Soora
+                                .ArabicEnglishName
+                            )
+                        }}
+                      </h4>
+                      <div class="sura">
+                        <span class="sura-number">{{
+                          abbrogatedData.AbrogatingVerse.Narration.Verse
+                        }}</span>
+                        <p class="">
+                          {{
+                            abbrogatedData.AbrogatingVerse.Narration.Narration
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <ng-container>
+                <ng-container
+                  *ngIf="abbrogatedDetails.Abrogations[0].Authors.length > 0"
+                >
+                  <div class="sub-block">
+                    <div class="block-title">
+                      <h3 class="block-title">
+                        <img src="assets/images/notes.svg" />COMMENTS
+                      </h3>
+                    </div>
+                    <div
+                      class="block-body"
+                      [innerHTML]="
+                        safeHTML(
+                          abbrogatedDetails.Abrogations[0].Authors[0].Comment
+                            .Comment
+                        )
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="sub-block"
+                    *ngIf="
+                      abbrogatedDetails.Abrogations[0].Authors[0].Reference
+                        .Description != ''
+                    "
+                  >
+                    <div class="block-title">
+                      <h3 class="block-title">
+                        <img src="assets/images/references_or.svg" />references
+                      </h3>
+                    </div>
+                    <div
+                      [innerHTML]="
+                        safeHTML(
+                          abbrogatedDetails.Abrogations[0].Authors[0].Reference
+                            .Description
+                        )
+                      "
+                    ></div>
+                  </div>
+                  <div class="sub-block">
+                    <div class="block-title">
+                      <h3>
+                        <img src="assets/images/contributor.svg" />contributor
+                      </h3>
+                    </div>
+                    <div class="block-body issue-author">
+                      <a
+                        href="javascript:void(0)"
+                        (click)="
+                          authorDetailPage(
+                            abbrogatedDetails.Abrogations[0].Authors[0].Id
+                          )
+                        "
+                      >
+                        <figure
+                          class="img-placeholder icon-48"
+                          *ngIf="
+                            abbrogatedDetails.Abrogations[0].Authors[0]
+                              .ProfilePicture
+                          "
+                        >
+                          <img
+                            src="{{
+                              abbrogatedDetails.Abrogations[0].Authors[0]
+                                .ProfilePicture
+                            }}"
+                          />
+                        </figure>
+                        <p>
+                          {{
+                            abbrogatedDetails.Abrogations[0].Authors[0]
+                              .FirstName
+                          }}
+                        </p>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        *ngIf="abbrogatedDetails.Abrogations[0].Authors > 1"
+                        >CHANGE</a
+                      >
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-template>
+    </tab>
+
+    <tab
+      heading="Repeated"
+      *ngIf="verseNarrationData.RepetitionsSooraverses.length > 0"
+      (selectTab)="getVerseRepetitionDetails(verseNarrationData)"
+    >
+      <ng-template
+        *ngIf="arabicTranslation; then arabicRepeated; else englishRepeated"
+      >
+      </ng-template>
+      <ng-template #arabicRepeated>
+        <div class="issues-content" dir="rtl">
+          <div class="sub-block reparting-verse">
+            <div class="block-title">
+              <h3 class="">
+                <img src="assets/images/issue_repetitions.svg" />تكرار
+              </h3>
+            </div>
+            <div class="repeating-wrapper">
+              <h4>
+                <p class="chap-sura" *ngIf="repeatitionDetails.mainVerse">
+                  <span>{{ repeatitionDetails.mainVerse.SooraId }}.</span
+                  >{{ verseNarrationData.Soora.SooraName }}
+                  <span class="sura-number">{{
+                    repeatitionDetails.mainVerse.SooraId
+                  }}</span>
+                </p>
+                يتكرر في:
+              </h4>
+            </div>
+            <div
+              class="block-body"
+              *ngFor="let repeatiotionData of repeatitionDetails.repetitionData"
+            >
+              <div class="ct">
+                <p>
+                  <span>الفئة: </span
+                  >{{
+                    repeatiotionData.RepetitionsRepetitionType
+                      .RepetitionCategories[0].RepetitionCategory
+                  }}
+                </p>
+                <p>
+                  <span>اكتب: </span
+                  >{{
+                    repeatiotionData.RepetitionsRepetitionType
+                      .RepetitionTypes[0].RepetitionType
+                  }}
+                </p>
+              </div>
+              <div
+                class="issue-sura"
+                *ngFor="
+                  let verseRepeated of repeatiotionData.RepetitionsSooraverses
+                "
+              >
+                <h4>
+                  {{
+                    verseRepeated.SooraId + ". " + verseRepeated.Soora.SooraName
+                  }}
+                </h4>
+                <div class="sura">
+                  <!-- {{verseRepeated.Verse}} -->
+                  <span class="sura-number">{{
+                    verseRepeated.Narration.Verse
+                  }}</span>
+                  <p class="verse-right-side">
+                    {{ verseRepeated.Narration.Narration }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-container
+            *ngFor="
+              let repeatitionDataAuthor of repeatitionDetails.repetitionData
+            "
+          >
+            <ng-container *ngIf="repeatitionDataAuthor.Authors.length > 0">
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="assets/images/notes.svg" />تعليقات
+                  </h3>
+                </div>
+                <div
+                  class="block-body"
+                  [innerHTML]="
+                    safeHTML(repeatitionDataAuthor.Authors[0].Comment.Comment)
+                  "
+                ></div>
+              </div>
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="images/references_or.svg" />المراجع
+                  </h3>
+                </div>
+                <div
+                  class="block-body"
+                  [innerHtml]="
+                    safeHTML(
+                      repeatitionDataAuthor.Authors[0].Reference.Description
+                    )
+                  "
+                ></div>
+              </div>
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3><img src="images/contributor.svg" />مساهم</h3>
+                </div>
+                <div class="block-body issue-author">
+                  <div>
+                    <a
+                      href="javascript:void(0)"
+                      (click)="
+                        authorDetailPage(repeatitionDataAuthor.Authors[0].Id)
+                      "
+                    >
+                      <figure
+                        class="img-placeholder icon-48"
+                        *ngIf="repeatitionDataAuthor.Authors[0].ProfilePicture"
+                      >
+                        <img
+                          src="{{
+                            repeatitionDataAuthor.Authors[0].ProfilePicture
+                          }}"
+                        />
+                      </figure>
+                      <p>{{ repeatitionDataAuthor.Authors[0].FirstName }}</p>
+                    </a>
+                  </div>
+                  <a
+                    href="Javascript:void(0)"
+                    *ngIf="repeatitionDataAuthor.Authors[0].length > 1"
+                    >يتغيرون</a
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-template>
+      <ng-template #englishRepeated>
+        <div class="issues-content">
+          <div class="sub-block reparting-verse">
+            <div class="block-title">
+              <h3 class="">
+                <img src="assets/images/issue_repetitions.svg" />REPETITIONS
+              </h3>
+            </div>
+            <div class="repeating-wrapper">
+              <h4>
+                <p class="chap-sura" *ngIf="repeatitionDetails.mainVerse">
+                  <span>{{ repeatitionDetails.mainVerse.SooraId }}.</span
+                  >{{ verseNarrationData.Soora.ArabicEnglishName }}
+                  <span class="sura-number">{{
+                    repeatitionDetails.mainVerse.SooraId
+                  }}</span>
+                </p>
+                is repeated in:
+              </h4>
+            </div>
+            <div
+              class="block-body"
+              *ngFor="let repeatiotionData of repeatitionDetails.repetitionData"
+            >
+              <div class="ct">
+                <p>
+                  <span>Category: </span
+                  >{{
+                    repeatiotionData.RepetitionsRepetitionType
+                      .RepetitionCategories[0].RepetitionCategory
+                  }}
+                </p>
+                <p>
+                  <span>Type: </span
+                  >{{
+                    repeatiotionData.RepetitionsRepetitionType
+                      .RepetitionTypes[0].RepetitionType
+                  }}
+                </p>
+              </div>
+              <div
+                class="issue-sura"
+                *ngFor="
+                  let verseRepeated of repeatiotionData.RepetitionsSooraverses
+                "
+              >
+                <h4>
+                  {{
+                    verseRepeated.SooraId +
+                      ". " +
+                      verseRepeated.Soora.ArabicEnglishName
+                  }}
+                </h4>
+                <div class="sura">
+                  <!-- {{verseRepeated.Verse}} -->
+                  <span class="sura-number">{{
+                    verseRepeated.Narration.Verse
+                  }}</span>
+                  <p class="">{{ verseRepeated.Narration.Narration }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-container
+            *ngFor="
+              let repeatitionDataAuthor of repeatitionDetails.repetitionData
+            "
+          >
+            <ng-container *ngIf="repeatitionDataAuthor.Authors.length > 0">
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="assets/images/notes.svg" />COMMENTS
+                  </h3>
+                </div>
+                <div
+                  class="block-body"
+                  [innerHTML]="
+                    safeHTML(repeatitionDataAuthor.Authors[0].Comment.Comment)
+                  "
+                ></div>
+              </div>
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="images/references_or.svg" />references
+                  </h3>
+                </div>
+                <div
+                  class="block-body"
+                  [innerHtml]="
+                    safeHTML(
+                      repeatitionDataAuthor.Authors[0].Reference.Description
+                    )
+                  "
+                ></div>
+              </div>
+              <div class="sub-block">
+                <div class="block-title">
+                  <h3><img src="images/contributor.svg" />contributor</h3>
+                </div>
+                <div class="block-body issue-author">
+                  <div>
+                    <a
+                      href="javascript:void(0)"
+                      (click)="
+                        authorDetailPage(repeatitionDataAuthor.Authors[0].Id)
+                      "
+                    >
+                      <figure
+                        class="img-placeholder icon-48"
+                        *ngIf="repeatitionDataAuthor.Authors[0].ProfilePicture"
+                      >
+                        <img
+                          src="{{
+                            repeatitionDataAuthor.Authors[0].ProfilePicture
+                          }}"
+                        />
+                      </figure>
+                      <p>{{ repeatitionDataAuthor.Authors[0].FirstName }}</p>
+                    </a>
+                  </div>
+                  <a
+                    href="Javascript:void(0)"
+                    *ngIf="repeatitionDataAuthor.Authors[0].length > 1"
+                    >CHANGE</a
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-template>
+    </tab>
+
+    <tab
+      heading="Differences"
+      *ngIf="verseNarrationData.Errors.length > 0"
+      (selectTab)="getVerseDifferencesDetails(verseNarrationData)"
+    >
+      <ng-template
+        *ngIf="
+          arabicTranslation;
+          then arabcDifferences;
+          else englishDifferences
+        "
+      >
+      </ng-template>
+      <ng-template #arabcDifferences>
+        <div class="issues-content" dir="rtl">
+          <div class="sub-block differences-verse">
+            <div class="block-title">
+              <h3 class=""><img src="assets/images/errors.svg" />إختلافات</h3>
+            </div>
+            <div class="block-body">
+              <ng-container *ngIf="diffErrorsDetails.ErrorsErrorTypes">
+                <div class="q-tags">
+                  <span
+                    class="tag-abr"
+                    *ngFor="let errorData of diffErrorsDetails.ErrorsErrorTypes"
+                    >{{ errorData.ErrorTypes[0].ErrorType }}</span
+                  >
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="sub-block" *ngIf="diffErrorsDetails?.Authors">
+            <div class="block-title">
+              <h3 class="block-title">
+                <img src="assets/images/notes.svg" />تعليقات
+              </h3>
+            </div>
+            <div
+              class="block-body"
+              [innerHTML]="
+                safeHTML(diffErrorsDetails?.Authors[0]?.Comment?.Comment)
+              "
+            ></div>
+          </div>
+          <div class="sub-block" *ngIf="diffErrorsDetails?.Authors">
+            <ng-container
+              *ngIf="
+                diffErrorsDetails?.Authors[0]?.Reference?.Description != ''
+              "
+            >
+              <div class="block-title">
+                <h3 class="block-title">
+                  <img src="assets/images/references_or.svg" />المراجع
+                </h3>
+              </div>
+
+              <div
+                [innerHTML]="
+                  safeHTML(
+                    diffErrorsDetails?.Authors[0]?.Reference?.Description
+                  )
+                "
+              ></div>
+            </ng-container>
+          </div>
+          <div class="sub-block" *ngIf="diffErrorsDetails.Authors">
+            <div class="block-title">
+              <h3><img src="assets/images/contributor.svg" />مساهم</h3>
+            </div>
+            <div class="block-body issue-author">
+              <div>
+                <a
+                  href="javascript:void(0)"
+                  (click)="authorDetailPage(diffErrorsDetails.Authors[0].Id)"
+                >
+                  <figure
+                    *ngIf="diffErrorsDetails.Authors[0].ProfilePicture"
+                    class="img-placeholder icon-48"
+                  >
+                    <img
+                      src="{{ diffErrorsDetails.Authors[0].ProfilePicture }}"
+                    />
+                  </figure>
+                  <p>{{ diffErrorsDetails.Authors[0].FirstName }}</p>
+                </a>
+              </div>
+              <a href="#" *ngIf="diffErrorsDetails.Authors.length > 1"
+                >يتغيرون</a
+              >
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #englishDifferences>
+        <div class="issues-content">
+          <div class="sub-block differences-verse">
+            <div class="block-title">
+              <h3 class="">
+                <img src="assets/images/errors.svg" />differences
+              </h3>
+            </div>
+            <div class="block-body">
+              <ng-container *ngIf="diffErrorsDetails.ErrorsErrorTypes">
+                <div class="q-tags">
+                  <span
+                    class="tag-abr"
+                    *ngFor="let errorData of diffErrorsDetails.ErrorsErrorTypes"
+                    >{{ errorData.ErrorTypes[0].ErrorType }}</span
+                  >
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="sub-block" *ngIf="diffErrorsDetails?.Authors">
+            <div class="block-title">
+              <h3 class="block-title">
+                <img src="assets/images/notes.svg" />COMMENTS
+              </h3>
+            </div>
+            <div
+              class="block-body"
+              [innerHTML]="
+                safeHTML(diffErrorsDetails?.Authors[0]?.Comment?.Comment)
+              "
+            ></div>
+          </div>
+          <div class="sub-block" *ngIf="diffErrorsDetails?.Authors">
+            <ng-container
+              *ngIf="
+                diffErrorsDetails?.Authors[0]?.Reference?.Description != ''
+              "
+            >
+              <div class="block-title">
+                <h3 class="block-title">
+                  <img src="assets/images/references_or.svg" />references
+                </h3>
+              </div>
+
+              <div
+                [innerHTML]="
+                  safeHTML(
+                    diffReadingDetails.DifferentReadings[0].Authors[0].Reference
+                      .Description
+                  )
+                "
+              ></div>
+            </ng-container>
+          </div>
+          <div class="sub-block" *ngIf="diffErrorsDetails.Authors">
+            <div class="block-title">
+              <h3><img src="assets/images/contributor.svg" />contributor</h3>
+            </div>
+            <div class="block-body issue-author">
+              <div>
+                <a
+                  href="javascript:void(0)"
+                  (click)="authorDetailPage(diffErrorsDetails.Authors[0].Id)"
+                >
+                  <figure
+                    *ngIf="diffErrorsDetails.Authors[0].ProfilePicture"
+                    class="img-placeholder icon-48"
+                  >
+                    <img
+                      src="{{ diffErrorsDetails.Authors[0].ProfilePicture }}"
+                    />
+                  </figure>
+                  <p>{{ diffErrorsDetails.Authors[0].FirstName }}</p>
+                </a>
+              </div>
+              <a href="#" *ngIf="diffErrorsDetails.Authors.length > 1"
+                >CHANGE</a
+              >
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </tab>
+
+    <tab
+      heading="Different Readings"
+      *ngIf="verseNarrationData.Readings.length > 0"
+      (selectTab)="getVerseDiffReadingDetails(verseNarrationData)"
+    >
+      <ng-template
+        *ngIf="arabicTranslation; then arabicReading; else englishReading"
+      >
+      </ng-template>
+      <ng-template #arabicReading>
+        <div class="issues-content" dir="rtl">
+          <div class="sub-block different-reading-verse">
+            <div class="heading-title">
+              <p>
+                <span class="count">{{
+                  diffReadingDetails?.mainNarration?.Verse
+                }}</span>
+                {{ diffReadingDetails?.mainNarration?.Narration }}
+              </p>
+            </div>
+            <div class="block-title">
+              <h3 class="">
+                <img src="assets/images/issue_different_readings.svg" />قراءات
+                مختلفة
+              </h3>
+            </div>
+            <div class="item">
+              <div class="title-row">
+                <div class="col">
+                  {{ diffReadingDetails?.Translation?.Translation }}
+                </div>
+                <div class="col">
+                  {{ diffReadingDetails.Soora?.SooraName }}
+                  {{ diffReadingDetails.Verse }}
+                </div>
+              </div>
+              <div class="desc">
+                {{ diffReadingDetails?.Narration?.Narration }}
+              </div>
+              <div class="round-box">{{ diffReadingDetails?.Reading }}</div>
+            </div>
+            <!-- Item -->
+            <div
+              class="item"
+              *ngFor="let reading of diffReadingDetails.DifferentReadings"
+            >
+              <div class="title-row">
+                <div class="col">
+                  {{ reading?.ReadingCompare?.Translation?.Translation }}
+                </div>
+                <div class="col">
+                  {{ reading?.ReadingCompare?.Soora?.SooraName }}
+                  {{ reading?.ReadingCompare?.Verse }}
+                </div>
+              </div>
+              <div class="desc">
+                {{ reading?.ReadingCompare?.Narration.Narration }}
+              </div>
+              <div class="round-box">
+                {{ reading?.ReadingCompare?.Reading }}
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="diffReadingDetails.DifferentReadings">
+            <div
+              class="sub-block"
+              *ngIf="diffReadingDetails.DifferentReadings[0].Authors.length > 0"
+            >
+              <div class="block-title">
+                <h3 class="block-title">
+                  <img src="assets/images/notes.svg" />تعليقات
+                </h3>
+              </div>
+              <div
+                class="block-body"
+                [innerHtml]="
+                  safeHTML(
+                    diffReadingDetails.DifferentReadings[0].Authors[0].Comment
+                      .Comment
+                  )
+                "
+              ></div>
+            </div>
+            <div
+              class="sub-block"
+              *ngIf="diffReadingDetails.DifferentReadings[0].Authors.length > 0"
+            >
+              <ng-container
+                *ngIf="
+                  diffReadingDetails.DifferentReadings[0].Authors[0].Reference
+                    .Description != ''
+                "
+              >
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="assets/images/references_or.svg" />المراجع
+                  </h3>
+                </div>
+
+                <div
+                  [innerHTML]="
+                    safeHTML(
+                      diffReadingDetails.DifferentReadings[0].Authors[0]
+                        .Reference.Description
+                    )
+                  "
+                ></div>
+              </ng-container>
+            </div>
+            <div class="sub-block">
+              <div class="block-title">
+                <h3><img src="assets/images/contributor.svg" />مساهم</h3>
+              </div>
+              <div class="block-body issue-author">
+                <div>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="
+                      authorDetailPage(
+                        diffReadingDetails.DifferentReadings[0].Authors[0].Id
+                      )
+                    "
+                  >
+                    <figure
+                      *ngIf="
+                        diffReadingDetails.DifferentReadings[0].Authors[0]
+                          .ProfilePicture
+                      "
+                      class="img-placeholder icon-48"
+                    >
+                      <img
+                        src="{{
+                          diffReadingDetails.DifferentReadings[0].Authors[0]
+                            .ProfilePicture
+                        }}"
+                      />
+                    </figure>
+                    <p>
+                      {{
+                        diffReadingDetails.DifferentReadings[0].Authors[0]
+                          .FirstName
+                      }}
+                    </p>
+                  </a>
+                </div>
+                <a
+                  href="javascript:void(0)"
+                  *ngIf="
+                    diffReadingDetails?.DifferentReadings[0]?.Authors.length > 1
+                  "
+                  >يتغيرون</a
+                >
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+      <ng-template #englishReading>
+        <div class="issues-content">
+          <div class="sub-block different-reading-verse">
+            <div class="heading-title">
+              <p>
+                <span class="count">{{
+                  diffReadingDetails?.mainNarration?.Verse
+                }}</span>
+                {{ diffReadingDetails?.mainNarration?.Narration }}
+              </p>
+            </div>
+            <div class="block-title">
+              <h3 class="">
+                <img
+                  src="assets/images/issue_different_readings.svg"
+                />DIFFERENT READING
+              </h3>
+            </div>
+            <div class="item">
+              <div class="title-row">
+                <div class="col">
+                  {{ diffReadingDetails?.Translation?.Translation }}
+                </div>
+                <div class="col">
+                  {{ diffReadingDetails.Soora?.ArabicEnglishName }}
+                  {{ diffReadingDetails.Verse }}
+                </div>
+              </div>
+              <div class="desc">
+                {{ diffReadingDetails?.Narration?.Narration }}
+              </div>
+              <div class="round-box">{{ diffReadingDetails?.Reading }}</div>
+            </div>
+            <!-- Item -->
+            <div
+              class="item"
+              *ngFor="let reading of diffReadingDetails.DifferentReadings"
+            >
+              <div class="title-row">
+                <div class="col">
+                  {{ reading?.ReadingCompare?.Translation?.Translation }}
+                </div>
+                <div class="col">
+                  {{ reading?.ReadingCompare?.Soora?.ArabicEnglishName }}
+                  {{ reading?.ReadingCompare?.Verse }}
+                </div>
+              </div>
+              <div class="desc">
+                {{ reading?.ReadingCompare?.Narration.Narration }}
+              </div>
+              <div class="round-box">
+                {{ reading?.ReadingCompare?.Reading }}
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="diffReadingDetails.DifferentReadings">
+            <div
+              class="sub-block"
+              *ngIf="diffReadingDetails.DifferentReadings[0].Authors.length > 0"
+            >
+              <div class="block-title">
+                <h3 class="block-title">
+                  <img src="assets/images/notes.svg" />COMMENTS
+                </h3>
+              </div>
+              <div
+                class="block-body"
+                [innerHtml]="
+                  safeHTML(
+                    diffReadingDetails.DifferentReadings[0].Authors[0].Comment
+                      .Comment
+                  )
+                "
+              ></div>
+            </div>
+            <div
+              class="sub-block"
+              *ngIf="diffReadingDetails.DifferentReadings[0].Authors.length > 0"
+            >
+              <ng-container
+                *ngIf="
+                  diffReadingDetails.DifferentReadings[0].Authors[0].Reference
+                    .Description != ''
+                "
+              >
+                <div class="block-title">
+                  <h3 class="block-title">
+                    <img src="assets/images/references_or.svg" />references
+                  </h3>
+                </div>
+                <div
+                  [innerHTML]="
+                    safeHTML(
+                      diffReadingDetails.DifferentReadings[0].Authors[0]
+                        .Reference.Description
+                    )
+                  "
+                ></div>
+              </ng-container>
+            </div>
+            <div class="sub-block">
+              <div class="block-title">
+                <h3><img src="assets/images/contributor.svg" />contributor</h3>
+              </div>
+              <div class="block-body issue-author">
+                <div>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="
+                      authorDetailPage(
+                        diffReadingDetails.DifferentReadings[0].Authors[0].Id
+                      )
+                    "
+                  >
+                    <figure
+                      *ngIf="
+                        diffReadingDetails.DifferentReadings[0].Authors[0]
+                          .ProfilePicture
+                      "
+                      class="img-placeholder icon-48"
+                    >
+                      <img
+                        src="{{
+                          diffReadingDetails.DifferentReadings[0].Authors[0]
+                            .ProfilePicture
+                        }}"
+                      />
+                    </figure>
+
+                    <p>
+                      {{
+                        diffReadingDetails.DifferentReadings[0].Authors[0]
+                          .FirstName
+                      }}
+                    </p>
+                  </a>
+                </div>
+                <a
+                  href="javascript:void(0)"
+                  *ngIf="
+                    diffReadingDetails?.DifferentReadings[0]?.Authors.length > 1
+                  "
+                  >CHANGE</a
+                >
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </tab>
+  </tabset>
+</section>

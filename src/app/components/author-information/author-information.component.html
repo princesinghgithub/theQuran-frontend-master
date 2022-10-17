@@ -1,0 +1,69 @@
+<app-nav-bar></app-nav-bar>
+<section class="page-container">
+  <section class="web-sec">
+    <div class="container">
+      <div class="row">
+        <div
+          class="
+            col-xs-12
+            col-sm-12
+            col-md-8
+            col-lg-6
+            col-md-offset-2
+            col-lg-offset-3
+          "
+        >
+          <ng-template
+            *ngIf="
+              arabicTranslation;
+              then arabicAuthorDetail;
+              else englishAuthorDetail
+            "
+          >
+          </ng-template>
+          <ng-template #arabicAuthorDetail>
+            <div class="container-author" dir="rtl">
+              <!-- <div class="container-body"> -->
+              <div class="header">
+                <img
+                  dir="rtl"
+                  *ngIf="authorData?.ProfilePicture"
+                  src="{{ authorData?.ProfilePicture }}"
+                  alt="pic"
+                  id="author-img"
+                />
+                <h3 class="header-title" dir="rtl">
+                  {{ authorData?.FirstName }}
+                </h3>
+              </div>
+              <p
+                id="read-content"
+                [innerHTML]="safeHTML(authorData?.Description)"
+              ></p>
+              <!-- </div> -->
+            </div>
+          </ng-template>
+          <ng-template #englishAuthorDetail>
+            <div class="container-author">
+              <!-- <div class="container-body"> -->
+              <div class="header">
+                <img
+                  *ngIf="authorData?.ProfilePicture"
+                  src="{{ authorData?.ProfilePicture }}"
+                  alt="pic"
+                  id="author-img"
+                />
+                <h3 class="header-title">{{ authorData?.FirstName }}</h3>
+              </div>
+              <p
+                id="read-content"
+                [innerHTML]="safeHTML(authorData?.Description)"
+              ></p>
+              <!-- </div> -->
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
